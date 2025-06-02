@@ -7,7 +7,7 @@ public class Conexion {
 
     private Connection connection=null;
 
-    public Connection getConnection() {
+    public Connection getConexion() {
         final String URL="jdbc:mysql://localhost:3306/gestion_pagos";
         final String USER="root";
         final String PASSWORD="";
@@ -30,6 +30,7 @@ public class Conexion {
             try {
                 connection.close();
                 System.out.println("Conexión cerrada exitosamente.");
+                connection=null;
             } catch (Exception e) {
                 System.out.println("Error al cerrar la conexión a la BD: "+e);
             }

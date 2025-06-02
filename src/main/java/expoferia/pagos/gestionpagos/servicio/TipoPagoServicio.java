@@ -8,29 +8,49 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class TipoPagoServicio implements GenericInterface<TipoPago> {
+public class TipoPagoServicio implements ITipoPagoServicio{
 
     Conexion conexion=new Conexion();
 
     @Override
-    public ArrayList<TipoPago> listar() {
+    public ArrayList<TipoPago> listar(String categoria, Boolean estado) {
 
         ArrayList<TipoPago> lista=new ArrayList<>();
 
-        String sql="SELECT * FROM tipo_pago ORDER BY estado DESC, id";
-        try (Connection con=conexion.getConnection();
-             PreparedStatement ps= con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()){
+        String sql="SELECT * FROM tipo_pago WHERE 1=1";
+
+        if (categoria!=null && !categoria.isEmpty()) { sql+=" AND categoria = ?";}
+
+        if (estado!=null) {sql+=" AND estado = ?";}
+
+        sql+=" ORDER BY estado DESC, id";
+
+        try (Connection con=conexion.getConexion();
+             PreparedStatement ps= con.prepareStatement(sql))
+             {
+
+            if (categoria!=null && !categoria.isEmpty()) {
+                ps.setString(1, categoria);
+            }
+
+            if (estado!=null) {
+                ps.setBoolean(2, estado);
+            }
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+
                 TipoPago nuevoTPago=new TipoPago(
                         rs.getInt("id"),
                         rs.getString("concepto"),
                         rs.getString("categoria"),
                         rs.getDouble("costo"),
                         rs.getBoolean("estado"));
+
                 lista.add(nuevoTPago);
             }
+            rs.close();
+            conexion.closeConnection();
             return lista;
         } catch (Exception e) {
             System.out.println("Error al listar TipoPagos: "+e);
@@ -39,15 +59,10 @@ public class TipoPagoServicio implements GenericInterface<TipoPago> {
     }
 
     @Override
-    public ArrayList<TipoPago> filtrar() {
-
-    }
-
-    @Override
     public boolean agregar(TipoPago tipoPago) {
         String sql="INSERT INTO tipo_pago(concepto, categoria, costo) " +
         " VALUES(?, ?, ?)";
-        try (Connection con=conexion.getConnection();
+        try (Connection con=conexion.getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
 
                 ps.setString(1, tipoPago.getConcepto());
@@ -55,11 +70,12 @@ public class TipoPagoServicio implements GenericInterface<TipoPago> {
                 ps.setDouble(3, tipoPago.getCosto());
                 int filasAfectadas=ps.executeUpdate();
 
-            return filasAfectadas>0;
+                return filasAfectadas>0;
         } catch (Exception e) {
             System.out.println("Error al agregar TipoPago: "+e);
             return false;
         }
+
     }
 
     @Override
@@ -67,7 +83,7 @@ public class TipoPagoServicio implements GenericInterface<TipoPago> {
         var sql="UPDATE tipo_pago SET concepto=?, categoria=?, costo=?"+
                 " WHERE id=?";
 
-        try (Connection con=conexion.getConnection();
+        try (Connection con=conexion.getConexion();
              PreparedStatement ps= con.prepareStatement(sql)) {
 
             ps.setString(1, tipoPago.getConcepto());
@@ -86,7 +102,7 @@ public class TipoPagoServicio implements GenericInterface<TipoPago> {
     public boolean eliminar(int id, boolean estado) {
         String sql="UPDATE tipo_pago SET estado = ? WHERE id = ?";
 
-        try (Connection con= conexion.getConnection();
+        try (Connection con= conexion.getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
 
             ps.setBoolean(1, estado);
@@ -101,12 +117,21 @@ public class TipoPagoServicio implements GenericInterface<TipoPago> {
     }
 
     public static void main(String[] args) {
+
         TipoPagoServicio tps=new TipoPagoServicio();
-        System.out.println("ola");
-        ArrayList<TipoPago> list=tps.listar();
+        ArrayList<TipoPago> list=tps.listar("Mensualidad", null);
+
         for (TipoPago tipoPago:list) {
             System.out.println(tipoPago);
         }
+
+        boolean exito=tps.agregar(list.getFirst());
+        if (exito) {
+            System.out.println("Exito");
+        } else {
+            System.out.println("Fracaso");
+        }
     }
+
 }
 

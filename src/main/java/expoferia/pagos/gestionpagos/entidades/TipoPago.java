@@ -50,6 +50,10 @@ public class TipoPago {
         this.costo = costo;
     }
 
+    public boolean getEstado() { return estado; }
+
+    public void setEstado(boolean estado) { this.estado = estado; }
+
     @Override
     public String toString() {
         return "tipo_pagos{" +

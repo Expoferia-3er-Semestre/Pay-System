@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 
 public class Conexion {
 
-    private Connection connection=null;
+    private static Connection connection=null;
 
-    public Connection getConexion() {
+    public static Connection getConexion() {
         final String URL="jdbc:mysql://localhost:3306/gestion_pagos";
         final String USER="root";
         final String PASSWORD="";
@@ -25,7 +25,7 @@ public class Conexion {
         return connection;
     }
 
-    public Connection closeConnection() {
+    public static Connection closeConnection() {
         if (connection!=null) {
             try {
                 connection.close();

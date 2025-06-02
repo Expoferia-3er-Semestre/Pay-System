@@ -2,15 +2,15 @@ package expoferia.pagos.gestionpagos.entidades;
 
 public class TipoPago {
 
-    private int id;
+    private Integer id;
     private String concepto;
     private String categoria;
-    private double costo;
+    private Double costo;
     private boolean estado;
 
     public TipoPago() {}
 
-    public TipoPago(int id, String concepto, String categoria, double costo, boolean estado) {
+    public TipoPago(Integer id, String concepto, String categoria, Double costo, boolean estado) {
         this.id = id;
         this.concepto = concepto;
         this.categoria = categoria;
@@ -18,11 +18,11 @@ public class TipoPago {
         this.estado = estado;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,11 +42,11 @@ public class TipoPago {
         this.categoria = categoria;
     }
 
-    public double getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 

@@ -1,4 +1,4 @@
-package expoferia.pagos.gestionpagos.servicio;
+package expoferia.pagos.gestionpagos.dao;
 
 import static expoferia.pagos.gestionpagos.conexion.Conexion.closeConnection;
 import static expoferia.pagos.gestionpagos.conexion.Conexion.getConexion;
@@ -7,10 +7,11 @@ import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TipoPagoServicio implements ITipoPagoServicio {
+public class TipoPagoDAO implements ITipoPagoDAO {
 
     @Override
     public ArrayList<TipoPago> listar(String categoria, Boolean estado) {
@@ -56,6 +57,27 @@ public class TipoPagoServicio implements ITipoPagoServicio {
     }
 
     @Override
+    public Integer buscarPorId(int id) {
+        String sql="SELECT FROM tipopago WHERE id=?";
+
+        try (Connection con=getConexion();
+        PreparedStatement ps=con.prepareStatement(sql)){
+            ps.setInt(1, id);
+
+            try (ResultSet rs=ps.executeQuery()){
+                System.out.println("Si existe el tipo de pago.");
+                return rs.getInt("id");
+            } catch (SQLException e) {
+                System.out.println("Error al encontrar tipo de pago: "+e);
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al encontrar tipo de pago: "+e);
+            return null;
+        }
+    }
+
+    @Override
     public boolean agregar(TipoPago tipoPago) {
         String sql="INSERT INTO tipo_pago(concepto, categoria, costo) " +
         " VALUES(?, ?, ?)";
@@ -82,7 +104,7 @@ public class TipoPagoServicio implements ITipoPagoServicio {
         boolean hayComa=false;
         List<Object> valores=new ArrayList<>();
 
-        if (tipoPago.getConcepto()!=null && !tipoPago.getConcepto().isEmpty()) {
+        if (tipoPago.getConcepto()!=null) {
             sql.append("concepto=?");
             hayComa=true;
             valores.add(tipoPago.getConcepto());
@@ -95,11 +117,10 @@ public class TipoPagoServicio implements ITipoPagoServicio {
             hayComa=true;
         }
 
-        if (tipoPago.getCosto()!=null && tipoPago.getCosto()>0) {
+        if (tipoPago.getCosto()!=null) {
             if (hayComa) sql.append(", ");
             sql.append("costo=?");
             valores.add(tipoPago.getCosto());
-            hayComa=true;
         }
 
         sql.append(" WHERE id=?");
@@ -126,20 +147,38 @@ public class TipoPagoServicio implements ITipoPagoServicio {
         }
     }
 
-    @Override //Tras crear todas las entidades, implementar la eliminación si no tiene ningún pago vinculado
-    public boolean eliminar(int id, boolean estado) {
-        String sql="UPDATE tipo_pago SET estado = ? WHERE id = ?";
+    @Override
+    public boolean desactivar(int id) {
+        String sql="UPDATE tipo_pago SET estado=false WHERE id = ?";
 
         try (Connection con=getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
 
-            ps.setBoolean(1, estado);
-            ps.setInt(2, id);
+            ps.setInt(1, id);
             int filasAfectadas= ps.executeUpdate();
+            closeConnection();
             return filasAfectadas>0;
 
         } catch (Exception e) {
             System.out.println("Error al desactivar TipoPago: "+e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean activar(int id) {
+        String sql="UPDATE tipo_pago SET estado=true WHERE id = ?";
+
+        try (Connection con=getConexion();
+             PreparedStatement ps=con.prepareStatement(sql)){
+
+            ps.setInt(1, id);
+            int filasAfectadas= ps.executeUpdate();
+            closeConnection();
+            return filasAfectadas>0;
+
+        } catch (Exception e) {
+            System.out.println("Error al activar TipoPago: "+e);
             return false;
         }
     }

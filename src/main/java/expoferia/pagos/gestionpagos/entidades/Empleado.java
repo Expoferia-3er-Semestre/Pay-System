@@ -3,7 +3,7 @@ package expoferia.pagos.gestionpagos.entidades;
 import java.sql.Date;
 
 public class Empleado {
-    private int id;
+    private Integer id;
     private String cedula;
     private String nombre1;
     private String nombre2;
@@ -13,11 +13,21 @@ public class Empleado {
     private String correo;
     private Date fechaN;
     private String direccion;
+    private Boolean estado;
+    private String contrasena;
+    private Boolean rol;
 
     // Constructor
-    public Empleado(int id, String cedula, String nombre1, String nombre2,
-                    String apellido1, String apellido2, String telefono,
-                    String correo, Date fechaN, String direccion) {
+
+
+    public Empleado() {
+    }
+
+    public Empleado(Integer id, String cedula, String nombre1,
+                    String nombre2, String apellido1, String apellido2,
+                    String telefono, String correo, Date fechaN,
+                    String direccion, Boolean estado, String contrasena,
+                    Boolean rol) {
         this.id = id;
         this.cedula = cedula;
         this.nombre1 = nombre1;
@@ -28,10 +38,13 @@ public class Empleado {
         this.correo = correo;
         this.fechaN = fechaN;
         this.direccion = direccion;
+        this.estado = estado;
+        this.contrasena = contrasena;
+        this.rol = rol;
     }
 
     // Getters y Setters
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public String getCedula() { return cedula; }
@@ -60,4 +73,44 @@ public class Empleado {
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Boolean getRol() {
+        return rol;
+    }
+    public void setRol(Boolean rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "id=" + id +
+                ", cedula='" + cedula + '\'' +
+                ", nombre1='" + nombre1 + '\'' +
+                ", nombre2='" + nombre2 + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", correo='" + correo + '\'' +
+                ", fechaN=" + fechaN +
+                ", direccion='" + direccion + '\'' +
+                ", estado=" + estado +
+                ", contrasena='" + contrasena + '\'' +
+                ", rol=" + rol +
+                '}';
+    }
 }

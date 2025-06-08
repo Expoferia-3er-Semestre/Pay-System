@@ -289,14 +289,21 @@ public class frmlogin extends javax.swing.JDialog {
     public void login() {
         EmpleadoDAO em=new EmpleadoDAO();
         if (!validar()) {
-             String contrasenaH=em.buscarContrasena(txtcorreo.getText());
+             Empleado empleado =em.buscarContrasena(txtcorreo.getText());
         
-        if (Password.verificarContrasena(txtpassword.getText(), contrasenaH)) {
+        if (Password.verificarContrasena(txtpassword.getText(), empleado.getContrasena())) {
+
             JOptionPane.showMessageDialog(this, "Sesión iniciada");
             this.dispose();
-            Escritorio escritorio=new Escritorio();
-            escritorio.setVisible(true);
-            escritorio.setLocationRelativeTo(null);
+            // Si es true lo mandará a admin
+            if (empleado.getRol()) {
+                HomeAdmin escritorio=new HomeAdmin(empleado);
+                escritorio.setVisible(true);
+                escritorio.setLocationRelativeTo(null);
+            } else {
+
+            }
+
         }else JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
         }
              

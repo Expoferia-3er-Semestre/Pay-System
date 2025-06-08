@@ -257,25 +257,40 @@ public class EmpleadoDAO implements IEmpleadoDAO{
     }
 
     @Override
-    public String buscarContrasena(String correo) {
+    public Empleado buscarContrasena(String correo) {
         
         if (correo!=null) {
-            String sql="SELECT contrasena FROM empleado WHERE correo=?";
+
+            String sql="SELECT * FROM empleado WHERE correo=?";
 
             try (Connection con=getConexion();
             PreparedStatement ps=con.prepareStatement(sql)) {
                 ps.setString(1, correo);
                 try (ResultSet rs=ps.executeQuery()){
-                    if (rs.next()) {  // Verifica si hay resultados antes de extraer la contraseña
-                        String contrasenaH=rs.getString("contrasena");
+                    if (rs.next()) {  // Verifica si hay resultados antes de extraer los datos del empleado
+
+                        Empleado empleado=new Empleado(
+                                rs.getInt("id"),
+                                rs.getString("cedula"),
+                                rs.getString("nombre1"),
+                                rs.getString("nombre2"),
+                                rs.getString("apellido1"),
+                                rs.getString("apellido2"),
+                                rs.getString("telefono"),
+                                rs.getString("correo"),
+                                rs.getDate("fechaN"),
+                                rs.getString("direccion"),
+                                rs.getBoolean("estado"),
+                                rs.getString("contrasena"),
+                                rs.getBoolean("rol"));
                         closeConnection();
-                        return contrasenaH;
+                        return empleado;
                     }
                 } catch (Exception e) {
                     System.out.println("Error al encontrar el empleado: "+e.getMessage());
                 }
             }   catch (Exception e) {
-                System.out.println("Error al obtener contraseña: " + e.getMessage());
+                System.out.println("Error al obtener datos del empleado: " + e.getMessage());
                 }
         }
         return null;

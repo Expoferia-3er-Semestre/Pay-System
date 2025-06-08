@@ -256,4 +256,22 @@ public class EmpleadoDAO implements IEmpleadoDAO{
 
     }
 
+    @Override
+    public String buscarContrasena(String correo) {
+        String sql="SELECT contrasena FROM empleado WHERE correo=?";
+
+        try (Connection con=getConexion();
+        PreparedStatement ps=con.prepareStatement(sql)) {
+            ps.setString(1, correo);
+            try (ResultSet rs=ps.executeQuery()){
+                if (rs.next()) {  // Verifica si hay resultados antes de extraer la contraseña
+                    return rs.getString("contrasena");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener contraseña: " + e.getMessage());
+        }
+        return null;
+    }
+
 }

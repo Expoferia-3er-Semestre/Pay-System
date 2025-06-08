@@ -18,7 +18,16 @@ public class Password {
                     +e.getMessage());
             return false;
         }
-
     }
 
+    public static void main(String[] args) {
+        String contrasenaH=hashContrasena("admin123");
+        if (verificarContrasena("admin123", contrasenaH)) {
+            System.out.println("sesión iniciada");
+        } else {
+            System.out.println("error");
+        }
+        
+    }
+    
 }

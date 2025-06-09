@@ -44,7 +44,14 @@ public class HomeAdmin extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        panelCambiante = new javax.swing.JPanel();
+        panelPago = new javax.swing.JPanel();
+        panelTipoPago = new javax.swing.JPanel();
+        panelEstudiante = new javax.swing.JPanel();
+        panelRepresentante = new javax.swing.JPanel();
+        panelEmpleado = new javax.swing.JPanel();
+        panelAdmin = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +77,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -163,7 +170,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,18 +192,111 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
+        panelCambiante.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 757, Short.MAX_VALUE)
+        panelPago.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelPagoLayout = new javax.swing.GroupLayout(panelPago);
+        panelPago.setLayout(panelPagoLayout);
+        panelPagoLayout.setHorizontalGroup(
+            panelPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+        panelPagoLayout.setVerticalGroup(
+            panelPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
         );
+
+        panelCambiante.add(panelPago, "card1");
+
+        panelTipoPago.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelTipoPagoLayout = new javax.swing.GroupLayout(panelTipoPago);
+        panelTipoPago.setLayout(panelTipoPagoLayout);
+        panelTipoPagoLayout.setHorizontalGroup(
+            panelTipoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelTipoPagoLayout.setVerticalGroup(
+            panelTipoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(panelTipoPago, "card2");
+
+        panelEstudiante.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelEstudianteLayout = new javax.swing.GroupLayout(panelEstudiante);
+        panelEstudiante.setLayout(panelEstudianteLayout);
+        panelEstudianteLayout.setHorizontalGroup(
+            panelEstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelEstudianteLayout.setVerticalGroup(
+            panelEstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(panelEstudiante, "card3");
+
+        panelRepresentante.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelRepresentanteLayout = new javax.swing.GroupLayout(panelRepresentante);
+        panelRepresentante.setLayout(panelRepresentanteLayout);
+        panelRepresentanteLayout.setHorizontalGroup(
+            panelRepresentanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelRepresentanteLayout.setVerticalGroup(
+            panelRepresentanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(panelRepresentante, "card4");
+
+        panelEmpleado.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelEmpleadoLayout = new javax.swing.GroupLayout(panelEmpleado);
+        panelEmpleado.setLayout(panelEmpleadoLayout);
+        panelEmpleadoLayout.setHorizontalGroup(
+            panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelEmpleadoLayout.setVerticalGroup(
+            panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(panelEmpleado, "card5");
+
+        panelAdmin.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelAdminLayout = new javax.swing.GroupLayout(panelAdmin);
+        panelAdmin.setLayout(panelAdminLayout);
+        panelAdminLayout.setHorizontalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelAdminLayout.setVerticalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(panelAdmin, "card6");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        panelCambiante.add(jPanel10, "card7");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -205,8 +305,8 @@ public class HomeAdmin extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelCambiante, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -215,7 +315,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
@@ -306,8 +406,15 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel panelAdmin;
+    private javax.swing.JPanel panelCambiante;
+    private javax.swing.JPanel panelEmpleado;
+    private javax.swing.JPanel panelEstudiante;
+    private javax.swing.JPanel panelPago;
+    private javax.swing.JPanel panelRepresentante;
+    private javax.swing.JPanel panelTipoPago;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package expoferia.pagos.gestionpagos.gui;
 
 import expoferia.pagos.gestionpagos.entidades.Empleado;
+import java.awt.CardLayout;
 
 /**
  *
@@ -12,9 +13,7 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
  */
 public class HomeAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Escritorio
-     */
+    private CardLayout card;
     private Empleado empleado;
 
     public HomeAdmin() {
@@ -37,13 +36,13 @@ public class HomeAdmin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        pagoButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        tipoPagoButton = new javax.swing.JButton();
+        estudianteButton = new javax.swing.JButton();
+        represanteButton = new javax.swing.JButton();
+        empleadoButton = new javax.swing.JButton();
+        administradorButton = new javax.swing.JButton();
         panelCambiante = new javax.swing.JPanel();
         panelPago = new javax.swing.JPanel();
         panelTipoPago = new javax.swing.JPanel();
@@ -96,63 +95,63 @@ public class HomeAdmin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(107, 219, 141));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dollar-symbol (1).png"))); // NOI18N
-        jButton1.setText("Registrar Pagos");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        pagoButton.setBackground(new java.awt.Color(107, 219, 141));
+        pagoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dollar-symbol (1).png"))); // NOI18N
+        pagoButton.setText("Registrar Pagos");
+        pagoButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        pagoButton.setBorderPainted(false);
+        pagoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                pagoButtonActionPerformed(evt);
             }
         });
 
         jButton2.setBackground(new java.awt.Color(231, 231, 231));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
         jButton2.setText("Consultar Pagos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+
+        tipoPagoButton.setBackground(new java.awt.Color(231, 231, 231));
+        tipoPagoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tag.png"))); // NOI18N
+        tipoPagoButton.setText("Tipos de Pagos");
+        tipoPagoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                tipoPagoButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(231, 231, 231));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tag.png"))); // NOI18N
-        jButton3.setText("Tipos de Pagos");
-
-        jButton4.setBackground(new java.awt.Color(231, 231, 231));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiante.png"))); // NOI18N
-        jButton4.setText("Estudiantes");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        estudianteButton.setBackground(new java.awt.Color(231, 231, 231));
+        estudianteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiante.png"))); // NOI18N
+        estudianteButton.setText("Estudiantes");
+        estudianteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                estudianteButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(231, 231, 231));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/representantes.png"))); // NOI18N
-        jButton5.setText("Representantes");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        represanteButton.setBackground(new java.awt.Color(231, 231, 231));
+        represanteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/representantes.png"))); // NOI18N
+        represanteButton.setText("Representantes");
+        represanteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                represanteButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(231, 231, 231));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados.png"))); // NOI18N
-        jButton6.setText("Empleados");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        empleadoButton.setBackground(new java.awt.Color(231, 231, 231));
+        empleadoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados.png"))); // NOI18N
+        empleadoButton.setText("Empleados");
+        empleadoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                empleadoButtonActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(231, 231, 231));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/admin.png"))); // NOI18N
-        jButton7.setText("Administrador");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        administradorButton.setBackground(new java.awt.Color(231, 231, 231));
+        administradorButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/admin.png"))); // NOI18N
+        administradorButton.setText("Administrador");
+        administradorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                administradorButtonActionPerformed(evt);
             }
         });
 
@@ -164,38 +163,38 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tipoPagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(estudianteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(represanteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(empleadoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(administradorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tipoPagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(estudianteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(empleadoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
         panelCambiante.setLayout(new java.awt.CardLayout());
 
-        panelPago.setBackground(new java.awt.Color(255, 255, 255));
+        panelPago.setBackground(new java.awt.Color(153, 153, 255));
 
         javax.swing.GroupLayout panelPagoLayout = new javax.swing.GroupLayout(panelPago);
         panelPago.setLayout(panelPagoLayout);
@@ -205,12 +204,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelPagoLayout.setVerticalGroup(
             panelPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelPago, "card1");
 
-        panelTipoPago.setBackground(new java.awt.Color(255, 255, 255));
+        panelTipoPago.setBackground(new java.awt.Color(102, 255, 255));
 
         javax.swing.GroupLayout panelTipoPagoLayout = new javax.swing.GroupLayout(panelTipoPago);
         panelTipoPago.setLayout(panelTipoPagoLayout);
@@ -220,12 +219,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelTipoPagoLayout.setVerticalGroup(
             panelTipoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelTipoPago, "card2");
 
-        panelEstudiante.setBackground(new java.awt.Color(255, 255, 255));
+        panelEstudiante.setBackground(new java.awt.Color(255, 102, 102));
 
         javax.swing.GroupLayout panelEstudianteLayout = new javax.swing.GroupLayout(panelEstudiante);
         panelEstudiante.setLayout(panelEstudianteLayout);
@@ -235,12 +234,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelEstudianteLayout.setVerticalGroup(
             panelEstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelEstudiante, "card3");
 
-        panelRepresentante.setBackground(new java.awt.Color(255, 255, 255));
+        panelRepresentante.setBackground(new java.awt.Color(51, 255, 102));
 
         javax.swing.GroupLayout panelRepresentanteLayout = new javax.swing.GroupLayout(panelRepresentante);
         panelRepresentante.setLayout(panelRepresentanteLayout);
@@ -250,12 +249,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelRepresentanteLayout.setVerticalGroup(
             panelRepresentanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelRepresentante, "card4");
 
-        panelEmpleado.setBackground(new java.awt.Color(255, 255, 255));
+        panelEmpleado.setBackground(new java.awt.Color(204, 0, 204));
 
         javax.swing.GroupLayout panelEmpleadoLayout = new javax.swing.GroupLayout(panelEmpleado);
         panelEmpleado.setLayout(panelEmpleadoLayout);
@@ -265,12 +264,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelEmpleadoLayout.setVerticalGroup(
             panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelEmpleado, "card5");
 
-        panelAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        panelAdmin.setBackground(new java.awt.Color(0, 51, 153));
 
         javax.swing.GroupLayout panelAdminLayout = new javax.swing.GroupLayout(panelAdmin);
         panelAdmin.setLayout(panelAdminLayout);
@@ -280,7 +279,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(panelAdmin, "card6");
@@ -293,7 +292,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelCambiante.add(jPanel10, "card7");
@@ -334,29 +333,35 @@ public class HomeAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void pagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card1");
+    }//GEN-LAST:event_pagoButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void represanteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_represanteButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card2");
+    }//GEN-LAST:event_represanteButtonActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card3");
+    }//GEN-LAST:event_empleadoButtonActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void administradorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administradorButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card4");
+    }//GEN-LAST:event_administradorButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void estudianteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card6");
+    }//GEN-LAST:event_estudianteButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed
+        card=(CardLayout)this.panelCambiante.getLayout();
+        card.show(panelCambiante, "card5");
+    }//GEN-LAST:event_tipoPagoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,13 +400,10 @@ public class HomeAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton administradorButton;
+    private javax.swing.JButton empleadoButton;
+    private javax.swing.JButton estudianteButton;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
@@ -409,6 +411,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton pagoButton;
     private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelCambiante;
     private javax.swing.JPanel panelEmpleado;
@@ -416,5 +419,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel panelPago;
     private javax.swing.JPanel panelRepresentante;
     private javax.swing.JPanel panelTipoPago;
+    private javax.swing.JButton represanteButton;
+    private javax.swing.JButton tipoPagoButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,12 +14,9 @@ import javax.swing.JOptionPane;
  * @author PC
  */
 public class frmlogin extends javax.swing.JDialog {
-    
+    private int intentos=0;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmlogin.class.getName());
 
-    /**
-     * Creates new form frmlogin
-     */
     public frmlogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -43,13 +40,13 @@ public class frmlogin extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtcorreo = new javax.swing.JTextField();
-        txtpassword = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         warningCorreo = new javax.swing.JLabel();
         warningContrasena = new javax.swing.JLabel();
+        txtpassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -136,6 +133,12 @@ public class frmlogin extends javax.swing.JDialog {
         warningContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/warning_5735886.png"))); // NOI18N
         warningContrasena.setVisible(false);
 
+        txtpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,15 +153,18 @@ public class frmlogin extends javax.swing.JDialog {
                                 .addGap(42, 42, 42)
                                 .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtcorreo)
-                                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(cancelarButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtpassword)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(warningCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
@@ -169,7 +175,7 @@ public class frmlogin extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(jLabel8)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(102, 102, 102))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,9 +191,9 @@ public class frmlogin extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(warningContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(warningContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,6 +230,10 @@ public class frmlogin extends javax.swing.JDialog {
         // TODO add your handling code here:
         login();
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,11 +280,14 @@ public class frmlogin extends javax.swing.JDialog {
             error=true;
         } else warningCorreo.setVisible(false);
         
-        if (txtpassword.getText().isBlank()) {
+        char[] charPassword=txtpassword.getPassword();
+        String password=new String(charPassword);
+        java.util.Arrays.fill(charPassword, ' ');
+        if (password.isBlank()) {
             warningContrasena.setVisible(true);
             error=true;
         } else warningContrasena.setVisible(false);
-        
+        password=null;
         return error;
         
     }
@@ -290,21 +303,27 @@ public class frmlogin extends javax.swing.JDialog {
         EmpleadoDAO em=new EmpleadoDAO();
         if (!validar()) {
              Empleado empleado =em.buscarContrasena(txtcorreo.getText());
-        
-        if (Password.verificarContrasena(txtpassword.getText(), empleado.getContrasena())) {
-
+             
+        char[] charPassword=txtpassword.getPassword();
+        String password=new String(charPassword);
+        java.util.Arrays.fill(charPassword, ' ');
+        if (Password.verificarContrasena(password, empleado.getContrasena())) {
+            password=null;
             JOptionPane.showMessageDialog(this, "Sesión iniciada");
             this.dispose();
             // Si es true lo mandará a admin
             if (empleado.getRol()) {
-                HomeAdmin escritorio=new HomeAdmin(empleado);
+                HomeAdmin escritorio=new HomeAdmin();
                 escritorio.setVisible(true);
                 escritorio.setLocationRelativeTo(null);
             } else {
 
             }
 
-        }else JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
+        }else {
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
+            intentos+=1;
+        }
         }
              
     }
@@ -323,7 +342,7 @@ public class frmlogin extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField txtcorreo;
-    private javax.swing.JTextField txtpassword;
+    private javax.swing.JPasswordField txtpassword;
     private javax.swing.JLabel warningContrasena;
     private javax.swing.JLabel warningCorreo;
     // End of variables declaration//GEN-END:variables

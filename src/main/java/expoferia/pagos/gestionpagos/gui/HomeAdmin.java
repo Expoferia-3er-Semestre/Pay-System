@@ -340,27 +340,27 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void represanteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_represanteButtonActionPerformed
         card=(CardLayout)this.panelCambiante.getLayout();
-        card.show(panelCambiante, "card2");
+        card.show(panelCambiante, "card4");
     }//GEN-LAST:event_represanteButtonActionPerformed
 
     private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
         card=(CardLayout)this.panelCambiante.getLayout();
-        card.show(panelCambiante, "card3");
+        card.show(panelCambiante, "card5");
     }//GEN-LAST:event_empleadoButtonActionPerformed
 
     private void administradorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administradorButtonActionPerformed
         card=(CardLayout)this.panelCambiante.getLayout();
-        card.show(panelCambiante, "card4");
+        card.show(panelCambiante, "card6");
     }//GEN-LAST:event_administradorButtonActionPerformed
 
     private void estudianteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteButtonActionPerformed
         card=(CardLayout)this.panelCambiante.getLayout();
-        card.show(panelCambiante, "card6");
+        card.show(panelCambiante, "card3");
     }//GEN-LAST:event_estudianteButtonActionPerformed
 
     private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed
         card=(CardLayout)this.panelCambiante.getLayout();
-        card.show(panelCambiante, "card5");
+        card.show(panelCambiante, "card2");
     }//GEN-LAST:event_tipoPagoButtonActionPerformed
 
     /**

@@ -17,4 +17,6 @@ public interface IEmpleadoDAO extends IGenericInterface<Empleado>{
     boolean desactivar(int id);
 
     boolean activar(int id);
-}
+
+    Empleado buscarContrasena(String correo);
+    }

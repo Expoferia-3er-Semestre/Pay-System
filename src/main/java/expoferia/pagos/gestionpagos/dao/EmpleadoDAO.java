@@ -16,25 +16,10 @@ public class EmpleadoDAO implements IEmpleadoDAO{
     @Override
     public ArrayList<Empleado> lista(Integer id, String nombre) {
         ArrayList<Empleado> lista=new ArrayList<>();
-        StringBuilder sql=new StringBuilder("SELECT * FROM empleado WHERE 1=1");
-
-        if (id!=null && id>-1) {
-            sql.append(" AND id = ?");
-        }
-        if (nombre!=null && !nombre.isEmpty()) {
-            sql.append(" AND nombre1 = ?");
-        }
-        sql.append(" ORDER BY nombre1 DESC, id");
+        String sql="SELECT * FROM empleado";
 
         try (Connection con=getConexion();
-             PreparedStatement ps=con.prepareStatement(sql.toString())) {
-
-            if (id!=null && id>-1) {
-                ps.setInt(1, id);
-            }
-            if (nombre!=null && !nombre.isEmpty()) {
-                ps.setString(2, nombre);
-            }
+             PreparedStatement ps=con.prepareStatement(sql)) {
 
             try (ResultSet rs=ps.executeQuery()){
                 while (rs.next()) {

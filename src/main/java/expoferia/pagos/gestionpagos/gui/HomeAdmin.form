@@ -58,7 +58,7 @@
                   <Component id="panelSuperior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="panelCambiante" max="32767" attributes="0"/>
+                      <Component id="panelCambiante" pref="0" max="32767" attributes="0"/>
                       <Component id="panelLateral" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>

@@ -205,7 +205,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(panelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
@@ -255,10 +255,10 @@ public class HomeAdmin extends javax.swing.JFrame {
         PanelRepresentante panelRepresentante=new PanelRepresentante(); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelRepresentante, "Representante"); // Agregar con nombre único
         card.show(panelCambiante, "Representante");
-
         // Refrescar la interfaz para evitar glitches
         panelCambiante.revalidate();
         panelCambiante.repaint();
+
     }//GEN-LAST:event_represanteButtonActionPerformed
 
     private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
@@ -363,7 +363,9 @@ public class HomeAdmin extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
+
                 new HomeAdmin().setVisible(true);
             }
         });

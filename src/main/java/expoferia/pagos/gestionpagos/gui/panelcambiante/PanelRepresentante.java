@@ -8,13 +8,33 @@ package expoferia.pagos.gestionpagos.gui.panelcambiante;
  *
  * @author Suglin
  */
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
+import expoferia.pagos.gestionpagos.entidades.Representante;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.CustomTableRenderer;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
+
+import javax.swing.*;
+
 public class PanelRepresentante extends javax.swing.JPanel {
 
+    private Tabla tabla;
+    private RepresentanteDAO rdao;
     /**
      * Creates new form PanelRepresentante
      */
+
     public PanelRepresentante() {
         initComponents();
+        tabla=new Tabla();
+        rdao=new RepresentanteDAO();
+        panelTabla.setLayout(new BorderLayout());
+        JScrollPane scrollPane=new JScrollPane(tabla);
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+        tabla.setDefaultRenderer(Object.class, new CustomTableRenderer());
+        tabla.cargarDatos(rdao.lista(null, null));
     }
 
     /**
@@ -28,11 +48,12 @@ public class PanelRepresentante extends javax.swing.JPanel {
 
         panelRepresentantes = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        registrarButton = new javax.swing.JButton();
+        actualizarButton = new javax.swing.JButton();
+        archivarButton = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        panelTabla = new javax.swing.JPanel();
 
         panelRepresentantes.setBackground(new java.awt.Color(255, 255, 255));
         panelRepresentantes.setMaximumSize(new java.awt.Dimension(787, 445));
@@ -41,34 +62,37 @@ public class PanelRepresentante extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(10, 72, 162));
         jLabel8.setText("Lista de Tipos de Pagos");
 
-        jButton1.setBackground(new java.awt.Color(3, 105, 173));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Nuevo Empleado");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        registrarButton.setBackground(new java.awt.Color(3, 105, 173));
+        registrarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        registrarButton.setForeground(new java.awt.Color(255, 255, 255));
+        registrarButton.setText("Registrar Nuevo Empleado");
 
-        jButton3.setBackground(new java.awt.Color(3, 105, 173));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Actualizar Empleado");
+        actualizarButton.setBackground(new java.awt.Color(3, 105, 173));
+        actualizarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        actualizarButton.setForeground(new java.awt.Color(255, 255, 255));
+        actualizarButton.setText("Actualizar Empleado");
 
-        jButton4.setBackground(new java.awt.Color(255, 51, 51));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Archivar Empleado");
+        archivarButton.setBackground(new java.awt.Color(255, 51, 51));
+        archivarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        archivarButton.setForeground(new java.awt.Color(255, 255, 255));
+        archivarButton.setText("Archivar Empleado");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+
+        panelTabla.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 474, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout panelRepresentantesLayout = new javax.swing.GroupLayout(panelRepresentantes);
         panelRepresentantes.setLayout(panelRepresentantesLayout);
@@ -78,32 +102,34 @@ public class PanelRepresentante extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRepresentantesLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(registrarButton)
                         .addGap(32, 32, 32)
-                        .addComponent(jButton3)
+                        .addComponent(actualizarButton)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton4)
+                        .addComponent(archivarButton)
                         .addGap(43, 43, 43)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1))
                     .addComponent(jLabel8))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelRepresentantesLayout.setVerticalGroup(
             panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRepresentantesLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
+                        .addComponent(registrarButton)
+                        .addComponent(actualizarButton)
+                        .addComponent(archivarButton)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(322, 322, 322))
+                .addGap(18, 18, 18)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -116,7 +142,7 @@ public class PanelRepresentante extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelRepresentantes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -132,12 +158,13 @@ public class PanelRepresentante extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton actualizarButton;
+    private javax.swing.JButton archivarButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel panelRepresentantes;
+    private javax.swing.JPanel panelTabla;
+    private javax.swing.JButton registrarButton;
     // End of variables declaration//GEN-END:variables
 }

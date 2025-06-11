@@ -4,17 +4,29 @@
  */
 package expoferia.pagos.gestionpagos.gui.panelcambiante;
 
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
+
+import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author Suglin
  */
 public class PanelEstudiante extends javax.swing.JPanel {
-
+    Tabla tabla;
     /**
      * Creates new form PanelEstudiante
      */
     public PanelEstudiante() {
         initComponents();
+        tabla=new Tabla("estudiante"); // Nombre de la tabla a acceder
+        panelTabla.setLayout(new BorderLayout());
+        JScrollPane scrollPane=new JScrollPane(tabla);
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+        tabla.setDefaultRenderer(Object.class, new DefaultTable());
     }
 
     /**
@@ -33,6 +45,7 @@ public class PanelEstudiante extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        panelTabla = new javax.swing.JPanel();
 
         panelEstudiantes.setBackground(new java.awt.Color(255, 255, 255));
         panelEstudiantes.setMaximumSize(new java.awt.Dimension(787, 445));
@@ -70,6 +83,19 @@ public class PanelEstudiante extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
+        panelTabla.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 813, Short.MAX_VALUE)
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 326, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelEstudiantesLayout = new javax.swing.GroupLayout(panelEstudiantes);
         panelEstudiantes.setLayout(panelEstudiantesLayout);
         panelEstudiantesLayout.setHorizontalGroup(
@@ -89,12 +115,13 @@ public class PanelEstudiante extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addComponent(jLabel8))
                 .addContainerGap(74, Short.MAX_VALUE))
+            .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelEstudiantesLayout.setVerticalGroup(
             panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEstudiantesLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -103,7 +130,8 @@ public class PanelEstudiante extends javax.swing.JPanel {
                         .addComponent(jButton4)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(322, 322, 322))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -139,5 +167,6 @@ public class PanelEstudiante extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel panelEstudiantes;
+    private javax.swing.JPanel panelTabla;
     // End of variables declaration//GEN-END:variables
 }

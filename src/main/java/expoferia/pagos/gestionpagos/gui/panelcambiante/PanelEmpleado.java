@@ -4,19 +4,32 @@
  */
 package expoferia.pagos.gestionpagos.gui.panelcambiante;
 
+import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
 import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
  * @author Suglin
  */
 public class PanelEmpleado extends javax.swing.JPanel {
+    Tabla tabla;
 
     /**
      * Creates new form PanelEmpleado
      */
     public PanelEmpleado() {
         initComponents();
+        tabla=new Tabla("empleado"); // Nombre de la tabla a acceder
+        panelTabla.setLayout(new BorderLayout());
+        JScrollPane scrollPane=new JScrollPane(tabla);
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+        tabla.setDefaultRenderer(Object.class, new DefaultTable());
     }
 
     /**
@@ -35,6 +48,7 @@ public class PanelEmpleado extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        panelTabla = new javax.swing.JPanel();
 
         setMaximumSize(new java.awt.Dimension(825, 507));
         setPreferredSize(new java.awt.Dimension(0, 0));
@@ -76,6 +90,19 @@ public class PanelEmpleado extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
+        panelTabla.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 316, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelEmpleadoLayout = new javax.swing.GroupLayout(panelEmpleado);
         panelEmpleado.setLayout(panelEmpleadoLayout);
         panelEmpleadoLayout.setHorizontalGroup(
@@ -95,6 +122,7 @@ public class PanelEmpleado extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelEmpleadoLayout.setVerticalGroup(
             panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +137,8 @@ public class PanelEmpleado extends javax.swing.JPanel {
                         .addComponent(jButton4)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(322, 322, 322))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -176,5 +205,6 @@ public static void main(String args[]) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel panelEmpleado;
+    private javax.swing.JPanel panelTabla;
     // End of variables declaration//GEN-END:variables
 }

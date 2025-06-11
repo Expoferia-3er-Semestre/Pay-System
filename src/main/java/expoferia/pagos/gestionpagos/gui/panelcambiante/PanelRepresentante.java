@@ -9,16 +9,15 @@ package expoferia.pagos.gestionpagos.gui.panelcambiante;
  * @author Suglin
  */
 import java.awt.*;
-import java.text.SimpleDateFormat;
-import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
-import expoferia.pagos.gestionpagos.entidades.Representante;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.CustomTableRenderer;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
-
+import java.sql.Connection;
+import java.util.List;
 import javax.swing.*;
 
-public class PanelRepresentante extends javax.swing.JPanel {
+import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
 
+public class PanelRepresentante extends javax.swing.JPanel {
     private Tabla tabla;
     private RepresentanteDAO rdao;
     /**
@@ -26,15 +25,15 @@ public class PanelRepresentante extends javax.swing.JPanel {
      */
 
     public PanelRepresentante() {
+
         initComponents();
-        tabla=new Tabla();
+        tabla=new Tabla("representante");
         rdao=new RepresentanteDAO();
         panelTabla.setLayout(new BorderLayout());
         JScrollPane scrollPane=new JScrollPane(tabla);
         panelTabla.add(scrollPane, BorderLayout.CENTER);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
-        tabla.setDefaultRenderer(Object.class, new CustomTableRenderer());
-        tabla.cargarDatos(rdao.lista(null, null));
+        tabla.setDefaultRenderer(Object.class, new DefaultTable());;
     }
 
     /**

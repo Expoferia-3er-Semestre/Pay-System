@@ -27,117 +27,188 @@ public class PanelRepresentante extends javax.swing.JPanel {
     private void initComponents() {
 
         panelRepresentantes = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        txtListaDeRepresentante = new javax.swing.JLabel();
+        actualizarRepresentante = new javax.swing.JButton();
+        botonRefrescarRepresentante = new javax.swing.JLabel();
+        barraBusquedaRepresentante = new javax.swing.JComboBox<>();
+        barraTituloRepresentante = new javax.swing.JPanel();
+        botonCerrarRepresentante = new javax.swing.JLabel();
+        archivarRepresentante = new javax.swing.JButton();
+        registrarNuevoRepresentante = new javax.swing.JButton();
 
         panelRepresentantes.setBackground(new java.awt.Color(255, 255, 255));
         panelRepresentantes.setMaximumSize(new java.awt.Dimension(787, 445));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel8.setText("Lista de Tipos de Pagos");
+        txtListaDeRepresentante.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtListaDeRepresentante.setForeground(new java.awt.Color(10, 72, 162));
+        txtListaDeRepresentante.setText("LISTA DE REPRESENTANTES");
 
-        jButton1.setBackground(new java.awt.Color(3, 105, 173));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Nuevo Empleado");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        actualizarRepresentante.setBackground(new java.awt.Color(3, 105, 173));
+        actualizarRepresentante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        actualizarRepresentante.setForeground(new java.awt.Color(255, 255, 255));
+        actualizarRepresentante.setText("Actualizar Representante");
+        actualizarRepresentante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                actualizarRepresentanteActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(3, 105, 173));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Actualizar Empleado");
+        botonRefrescarRepresentante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar (2).png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(255, 51, 51));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Archivar Empleado");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        barraBusquedaRepresentante.setMaximumRowCount(2);
+        barraBusquedaRepresentante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Estudiante Asociado ", "Codigo", "Nombre " }));
+        barraBusquedaRepresentante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                barraBusquedaRepresentanteMouseClicked(evt);
+            }
+        });
+        barraBusquedaRepresentante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                barraBusquedaRepresentanteActionPerformed(evt);
+            }
+        });
+        barraBusquedaRepresentante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                barraBusquedaRepresentanteKeyPressed(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+        barraTituloRepresentante.setBackground(new java.awt.Color(204, 204, 204));
+        barraTituloRepresentante.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        javax.swing.GroupLayout barraTituloRepresentanteLayout = new javax.swing.GroupLayout(barraTituloRepresentante);
+        barraTituloRepresentante.setLayout(barraTituloRepresentanteLayout);
+        barraTituloRepresentanteLayout.setHorizontalGroup(
+            barraTituloRepresentanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 302, Short.MAX_VALUE)
+        );
+        barraTituloRepresentanteLayout.setVerticalGroup(
+            barraTituloRepresentanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        botonCerrarRepresentante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
+
+        archivarRepresentante.setBackground(new java.awt.Color(255, 51, 51));
+        archivarRepresentante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        archivarRepresentante.setForeground(new java.awt.Color(255, 255, 255));
+        archivarRepresentante.setText("Archivar Representante");
+        archivarRepresentante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivarRepresentanteActionPerformed(evt);
+            }
+        });
+
+        registrarNuevoRepresentante.setBackground(new java.awt.Color(3, 105, 173));
+        registrarNuevoRepresentante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        registrarNuevoRepresentante.setForeground(new java.awt.Color(255, 255, 255));
+        registrarNuevoRepresentante.setText("Registrar Nuevo Representante");
+        registrarNuevoRepresentante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarNuevoRepresentanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRepresentantesLayout = new javax.swing.GroupLayout(panelRepresentantes);
         panelRepresentantes.setLayout(panelRepresentantesLayout);
         panelRepresentantesLayout.setHorizontalGroup(
             panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRepresentantesLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRepresentantesLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton3)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton4)
-                        .addGap(43, 43, 43)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel8))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addComponent(txtListaDeRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addComponent(barraBusquedaRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonCerrarRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRefrescarRepresentante)
+                        .addGap(48, 48, 48))
+                    .addGroup(panelRepresentantesLayout.createSequentialGroup()
+                        .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(barraTituloRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelRepresentantesLayout.createSequentialGroup()
+                                .addComponent(archivarRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(actualizarRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(registrarNuevoRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelRepresentantesLayout.setVerticalGroup(
             panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRepresentantesLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(322, 322, 322))
+                .addContainerGap()
+                .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtListaDeRepresentante, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRepresentantesLayout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(botonCerrarRepresentante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonRefrescarRepresentante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10))
+                    .addComponent(barraBusquedaRepresentante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(barraTituloRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelRepresentantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(actualizarRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(archivarRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registrarNuevoRepresentante, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(640, 640, 640))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 813, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelRepresentantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(panelRepresentantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void actualizarRepresentanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarRepresentanteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_actualizarRepresentanteActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void barraBusquedaRepresentanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraBusquedaRepresentanteMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_barraBusquedaRepresentanteMouseClicked
+
+    private void barraBusquedaRepresentanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraBusquedaRepresentanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barraBusquedaRepresentanteActionPerformed
+
+    private void barraBusquedaRepresentanteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraBusquedaRepresentanteKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barraBusquedaRepresentanteKeyPressed
+
+    private void archivarRepresentanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivarRepresentanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_archivarRepresentanteActionPerformed
+
+    private void registrarNuevoRepresentanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarNuevoRepresentanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarNuevoRepresentanteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JButton actualizarRepresentante;
+    private javax.swing.JButton archivarRepresentante;
+    private javax.swing.JComboBox<String> barraBusquedaRepresentante;
+    private javax.swing.JPanel barraTituloRepresentante;
+    private javax.swing.JLabel botonCerrarRepresentante;
+    private javax.swing.JLabel botonRefrescarRepresentante;
     private javax.swing.JPanel panelRepresentantes;
+    private javax.swing.JButton registrarNuevoRepresentante;
+    private javax.swing.JLabel txtListaDeRepresentante;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,9 +40,9 @@ public class PanelEstudiante extends javax.swing.JPanel {
 
         panelEstudiantes = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        registrarButton = new javax.swing.JButton();
+        actualizarButton = new javax.swing.JButton();
+        archivarButton = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         panelTabla = new javax.swing.JPanel();
@@ -52,34 +52,29 @@ public class PanelEstudiante extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel8.setText("Lista de Tipos de Pagos");
+        jLabel8.setText("Gestión de Estudiantes");
 
-        jButton1.setBackground(new java.awt.Color(3, 105, 173));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Nuevo Empleado");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registrarButton.setBackground(new java.awt.Color(3, 105, 173));
+        registrarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        registrarButton.setForeground(new java.awt.Color(255, 255, 255));
+        registrarButton.setText("Agregar");
+
+        actualizarButton.setBackground(new java.awt.Color(3, 105, 173));
+        actualizarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        actualizarButton.setForeground(new java.awt.Color(255, 255, 255));
+        actualizarButton.setText("Actualizar");
+        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                actualizarButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(3, 105, 173));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Actualizar Empleado");
-
-        jButton4.setBackground(new java.awt.Color(255, 51, 51));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Archivar Empleado");
+        archivarButton.setBackground(new java.awt.Color(255, 51, 51));
+        archivarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        archivarButton.setForeground(new java.awt.Color(255, 255, 255));
+        archivarButton.setText("Archivar");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
@@ -93,7 +88,7 @@ public class PanelEstudiante extends javax.swing.JPanel {
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 326, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelEstudiantesLayout = new javax.swing.GroupLayout(panelEstudiantes);
@@ -104,33 +99,33 @@ public class PanelEstudiante extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEstudiantesLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(registrarButton)
                         .addGap(32, 32, 32)
-                        .addComponent(jButton3)
+                        .addComponent(actualizarButton)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton4)
+                        .addComponent(archivarButton)
                         .addGap(43, 43, 43)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1))
                     .addComponent(jLabel8))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelEstudiantesLayout.setVerticalGroup(
             panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEstudiantesLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
+                        .addComponent(registrarButton)
+                        .addComponent(actualizarButton)
+                        .addComponent(archivarButton)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -150,23 +145,19 @@ public class PanelEstudiante extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton actualizarButton;
+    private javax.swing.JButton archivarButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel panelEstudiantes;
     private javax.swing.JPanel panelTabla;
+    private javax.swing.JButton registrarButton;
     // End of variables declaration//GEN-END:variables
 }

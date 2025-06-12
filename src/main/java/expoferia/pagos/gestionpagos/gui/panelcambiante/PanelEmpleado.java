@@ -7,6 +7,7 @@ package expoferia.pagos.gestionpagos.gui.panelcambiante;
 import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
 import expoferia.pagos.gestionpagos.gui.HomeAdmin;
 import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
+import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.RegistarEmpleado;
 import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
 
 import javax.swing.*;
@@ -41,52 +42,50 @@ public class PanelEmpleado extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelEmpleado = new javax.swing.JPanel();
+        panelEmpleados = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        registrarButton = new javax.swing.JButton();
+        actualizarButton = new javax.swing.JButton();
+        archivarButton = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         panelTabla = new javax.swing.JPanel();
 
-        setMaximumSize(new java.awt.Dimension(825, 507));
-        setPreferredSize(new java.awt.Dimension(0, 0));
+        setPreferredSize(new java.awt.Dimension(813, 507));
 
-        panelEmpleado.setBackground(new java.awt.Color(255, 255, 255));
-        panelEmpleado.setMaximumSize(new java.awt.Dimension(787, 445));
-        panelEmpleado.setPreferredSize(new java.awt.Dimension(0, 0));
+        panelEmpleados.setBackground(new java.awt.Color(255, 255, 255));
+        panelEmpleados.setMaximumSize(new java.awt.Dimension(787, 445));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel8.setText("Lista de Empleados");
+        jLabel8.setText("Gestión de Empleados");
 
-        jButton1.setBackground(new java.awt.Color(3, 105, 173));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Nuevo Empleado");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registrarButton.setBackground(new java.awt.Color(3, 105, 173));
+        registrarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        registrarButton.setForeground(new java.awt.Color(255, 255, 255));
+        registrarButton.setText("Agregar");
+        registrarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registrarButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(3, 105, 173));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Actualizar Empleado");
+        actualizarButton.setBackground(new java.awt.Color(3, 105, 173));
+        actualizarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        actualizarButton.setForeground(new java.awt.Color(255, 255, 255));
+        actualizarButton.setText("Actualizar");
+        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarButtonActionPerformed(evt);
+            }
+        });
 
-        jButton4.setBackground(new java.awt.Color(255, 51, 51));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Archivar Empleado");
+        archivarButton.setBackground(new java.awt.Color(255, 51, 51));
+        archivarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        archivarButton.setForeground(new java.awt.Color(255, 255, 255));
+        archivarButton.setText("Archivar");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
@@ -96,26 +95,26 @@ public class PanelEmpleado extends javax.swing.JPanel {
         panelTabla.setLayout(panelTablaLayout);
         panelTablaLayout.setHorizontalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 813, Short.MAX_VALUE)
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout panelEmpleadoLayout = new javax.swing.GroupLayout(panelEmpleado);
-        panelEmpleado.setLayout(panelEmpleadoLayout);
-        panelEmpleadoLayout.setHorizontalGroup(
-            panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEmpleadoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelEmpleadosLayout = new javax.swing.GroupLayout(panelEmpleados);
+        panelEmpleados.setLayout(panelEmpleadosLayout);
+        panelEmpleadosLayout.setHorizontalGroup(
+            panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmpleadosLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEmpleadoLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                .addGroup(panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEmpleadosLayout.createSequentialGroup()
+                        .addComponent(registrarButton)
                         .addGap(32, 32, 32)
-                        .addComponent(jButton3)
+                        .addComponent(actualizarButton)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton4)
+                        .addComponent(archivarButton)
                         .addGap(43, 43, 43)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -124,20 +123,20 @@ public class PanelEmpleado extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelEmpleadoLayout.setVerticalGroup(
-            panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmpleadoLayout.createSequentialGroup()
+        panelEmpleadosLayout.setVerticalGroup(
+            panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmpleadosLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
+                .addGroup(panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(registrarButton)
+                        .addComponent(actualizarButton)
+                        .addComponent(archivarButton)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -145,25 +144,28 @@ public class PanelEmpleado extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGap(0, 813, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE))
+                .addComponent(panelEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+                .addComponent(panelEmpleados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
+        RegistarEmpleado registarEmpleado=new RegistarEmpleado();
+        registarEmpleado.setLocationRelativeTo(null);
+        registarEmpleado.setVisible(true);
+
+    }//GEN-LAST:event_registrarButtonActionPerformed
 
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -198,13 +200,13 @@ public static void main(String args[]) {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton actualizarButton;
+    private javax.swing.JButton archivarButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel panelEmpleado;
+    private javax.swing.JPanel panelEmpleados;
     private javax.swing.JPanel panelTabla;
+    private javax.swing.JButton registrarButton;
     // End of variables declaration//GEN-END:variables
 }

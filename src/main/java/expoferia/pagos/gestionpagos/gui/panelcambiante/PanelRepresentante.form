@@ -96,7 +96,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a2" green="48" red="a" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lista de Tipos de Pagos"/>
+            <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Representantes"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="registrarButton">
@@ -110,7 +110,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Registrar Nuevo Empleado"/>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="actualizarButton">
@@ -124,8 +124,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Actualizar Empleado"/>
+            <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actualizarButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="archivarButton">
           <Properties>
@@ -138,7 +141,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Archivar Empleado"/>
+            <Property name="text" type="java.lang.String" value="Archivar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox1">

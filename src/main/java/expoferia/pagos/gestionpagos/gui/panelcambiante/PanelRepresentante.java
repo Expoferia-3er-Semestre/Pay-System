@@ -59,22 +59,27 @@ public class PanelRepresentante extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel8.setText("Lista de Tipos de Pagos");
+        jLabel8.setText("Gestión de Representantes");
 
         registrarButton.setBackground(new java.awt.Color(3, 105, 173));
         registrarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         registrarButton.setForeground(new java.awt.Color(255, 255, 255));
-        registrarButton.setText("Registrar Nuevo Empleado");
+        registrarButton.setText("Agregar");
 
         actualizarButton.setBackground(new java.awt.Color(3, 105, 173));
         actualizarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         actualizarButton.setForeground(new java.awt.Color(255, 255, 255));
-        actualizarButton.setText("Actualizar Empleado");
+        actualizarButton.setText("Actualizar");
+        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarButtonActionPerformed(evt);
+            }
+        });
 
         archivarButton.setBackground(new java.awt.Color(255, 51, 51));
         archivarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         archivarButton.setForeground(new java.awt.Color(255, 255, 255));
-        archivarButton.setText("Archivar Empleado");
+        archivarButton.setText("Archivar");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
 
@@ -154,6 +159,10 @@ public class PanelRepresentante extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

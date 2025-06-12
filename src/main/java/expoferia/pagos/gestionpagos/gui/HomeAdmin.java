@@ -234,9 +234,9 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelPago panelPago = new PanelPago(); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(panelPago, "Pago"); // Agregar con nombre único
-        card.show(panelCambiante, "Pago");
+        RegistroPago registroPago=new RegistroPago(); // Crear el panel solo cuando sea necesario
+        panelCambiante.add(registroPago, "RegistroPago"); // Agregar con nombre único
+        card.show(panelCambiante, "RegistroPago");
 
         // Refrescar la interfaz para evitar glitches
         panelCambiante.revalidate();

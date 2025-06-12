@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import static expoferia.pagos.gestionpagos.conexion.Conexion.getConexion;
 
 public class Tabla extends JTable {
+
     private DefaultTableModel modelo;
     Connection con=getConexion();
 

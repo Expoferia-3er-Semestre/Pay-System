@@ -12,13 +12,14 @@ public class Estudiante {
     private String telefono;
     private Date fechaN;
     private String direccion;
+    private Boolean estado;
 
     // Constructor
     public Estudiante() {}
 
     public Estudiante(int id, String cedulaRep, String nombre1, String nombre2,
                       String apellido1, String apellido2, String telefono,
-                      Date fechaN, String direccion) {
+                      Date fechaN, String direccion, Boolean estado) {
         this.id = id;
         this.cedulaRep = cedulaRep;
         this.nombre1 = nombre1;
@@ -28,6 +29,7 @@ public class Estudiante {
         this.telefono = telefono;
         this.fechaN = fechaN;
         this.direccion = direccion;
+        this.estado = estado;
     }
 
     // Getters y Setters
@@ -57,4 +59,7 @@ public class Estudiante {
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public Boolean getEstado() {return estado; }
+    public void setEstado(Boolean estado) {this.estado = estado; }
 }

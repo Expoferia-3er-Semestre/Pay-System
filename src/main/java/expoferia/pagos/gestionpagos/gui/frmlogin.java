@@ -20,6 +20,7 @@ public class frmlogin extends javax.swing.JDialog {
     public frmlogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

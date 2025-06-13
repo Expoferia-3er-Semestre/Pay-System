@@ -13,11 +13,12 @@ public class Representante {
     private String correo;
     private Date fechaN;
     private String direccion;
+    private Boolean estado;
 
     // Constructor
     public Representante(int id, String cedula, String nombre1, String nombre2,
                          String apellido1, String apellido2, String telefono,
-                         String correo, Date fechaN, String direccion) {
+                         String correo, Date fechaN, String direccion, Boolean estado) {
         this.id = id;
         this.cedula = cedula;
         this.nombre1 = nombre1;
@@ -28,6 +29,7 @@ public class Representante {
         this.correo = correo;
         this.fechaN = fechaN;
         this.direccion = direccion;
+        this.estado = estado;
     }
 
     // Getters y Setters
@@ -60,5 +62,8 @@ public class Representante {
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public Boolean getEstado() {return estado; }
+    public void setEstado(Boolean estado) {this.estado = estado; }
 }
 

@@ -6,7 +6,7 @@ package expoferia.pagos.gestionpagos.gui;
 
 import expoferia.pagos.gestionpagos.entidades.Empleado;
 import java.awt.CardLayout;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.PanelEmpleado;
+
 import expoferia.pagos.gestionpagos.gui.panelcambiante.*;
 
 /**
@@ -225,7 +225,6 @@ public class HomeAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    String panelActual="";
     private void pagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoButtonActionPerformed
         CardLayout card = (CardLayout) panelCambiante.getLayout();
 
@@ -253,7 +252,8 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelRepresentante panelRepresentante=new PanelRepresentante(); // Crear el panel solo cuando sea necesario
+        PanelDefault panelRepresentante= new PanelDefault("Gestión de Representantes",
+                "ID Cedula Nombres Apellidos Detalles Acciones", "representante"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelRepresentante, "Representante"); // Agregar con nombre único
         card.show(panelCambiante, "Representante");
         // Refrescar la interfaz para evitar glitches
@@ -271,7 +271,9 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelEmpleado panelEmpleado=new PanelEmpleado(); // Crear el panel solo cuando sea necesario
+        PanelDefault panelEmpleado= new PanelDefault("Gestión de Empleados",
+                "ID Cedula Nombres Apellidos Detalles Acciones",
+                "empleado"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEmpleado, "Empleado"); // Agregar con nombre único
         card.show(panelCambiante, "Empleado");
 
@@ -307,7 +309,9 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelEstudiante panelEstudiante=new PanelEstudiante(); // Crear el panel solo cuando sea necesario
+        PanelDefault panelEstudiante= new PanelDefault("Gestión de Estudiantes",
+                "ID Cedula Nombres Apellidos Detalles Acciones",
+                "estudiante"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEstudiante, "Estudiante"); // Agregar con nombre único
         card.show(panelCambiante, "Estudiante");
 
@@ -325,7 +329,9 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelTipoPago panelTipoPago=new PanelTipoPago(); // Crear el panel solo cuando sea necesario
+        PanelDefault panelTipoPago= new PanelDefault("Gestión de Tipos de Pagos",
+                "ID Concepto Categoría Costo Estado Acciones",
+                "tipo_pago"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelTipoPago, "TipoPago"); // Agregar con nombre único
         card.show(panelCambiante, "TipoPago");
 

@@ -19,15 +19,12 @@ public class Tabla extends JTable {
     private DefaultTableModel modelo;
     Connection con=getConexion();
 
-    public Tabla(String nombreTabla) {
-        List<String>lista=obtenerNombresColumnas(nombreTabla, con);
+    public Tabla(String nombreTabla, List<String> nombresColumnas) {
         modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(lista.toArray());
-        cargarDatos(nombreTabla, con);
+        modelo.setColumnIdentifiers(nombresColumnas.toArray());
         setModel(modelo);
         setAutoCreateRowSorter(true); // Activar ordenamiento de columnas
     }
-
 
     private void cargarDatos(String nombreTabla, Connection conexion) {
         try (Statement stmt = conexion.createStatement();
@@ -45,21 +42,6 @@ public class Tabla extends JTable {
         }
     }
 
-    public List<String> obtenerNombresColumnas(String nombreTabla, Connection conexion) {
-        List<String> nombresColumnas = new ArrayList<>();
 
-        try {
-            DatabaseMetaData metaData = conexion.getMetaData();
-            ResultSet resultado = metaData.getColumns(null, null, nombreTabla, null);
-
-            while (resultado.next()) {
-                nombresColumnas.add(resultado.getString("COLUMN_NAME"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return nombresColumnas;
-    }
 
 }

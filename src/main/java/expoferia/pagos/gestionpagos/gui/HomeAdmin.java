@@ -10,7 +10,9 @@ import java.awt.CardLayout;
 import java.util.List;
 
 import expoferia.pagos.gestionpagos.entidades.Representante;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.*;
+import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
+import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
+import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 
 /**
  *

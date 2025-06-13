@@ -2,20 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package expoferia.pagos.gestionpagos.gui.panelcambiante;
-
-import expoferia.pagos.gestionpagos.entidades.TipoPago;
-
-import javax.swing.*;
-
-import static expoferia.pagos.gestionpagos.conexion.Conexion.getConexion;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package expoferia.pagos.gestionpagos.gui.modulos;
 
 /**
  *

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package expoferia.pagos.gestionpagos.gui.panelcambiante;
+package expoferia.pagos.gestionpagos.gui.modulos;
 
 /**
  *
@@ -17,8 +17,7 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
+import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -45,6 +44,7 @@ public class PanelDefault extends JPanel {
 
         DefaultTableModel modelo= new DefaultTableModel();
         DefaultTableCellRenderer headerRenderer= new DefaultTableCellRenderer();
+
         if (nombreTabla.equals("representante")){
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
@@ -57,6 +57,7 @@ public class PanelDefault extends JPanel {
                         rep.getNombre1()+" "+rep.getNombre2(),
                         rep.getApellido1()+" "+rep.getApellido2()});
             }
+
         }
 
         if (nombreTabla.equals("empleado")) {
@@ -111,7 +112,7 @@ public class PanelDefault extends JPanel {
         JScrollPane scrollPane=new JScrollPane(tabla);
         panelTabla.add(scrollPane, BorderLayout.CENTER);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
-        tabla.setDefaultRenderer(Object.class, new DefaultTable());
+
     }
 
     /**
@@ -143,6 +144,11 @@ public class PanelDefault extends JPanel {
         registrarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         registrarButton.setForeground(new Color(255, 255, 255));
         registrarButton.setText("Agregar");
+        registrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarButtonActionPerformed(evt);
+            }
+        });
 
         actualizarButton.setBackground(new Color(3, 105, 173));
         actualizarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
@@ -237,6 +243,10 @@ public class PanelDefault extends JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
         // TODO add your handling code here:

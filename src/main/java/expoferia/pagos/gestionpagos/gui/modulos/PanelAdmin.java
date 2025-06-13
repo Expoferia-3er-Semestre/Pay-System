@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package expoferia.pagos.gestionpagos.gui.panelcambiante;
+package expoferia.pagos.gestionpagos.gui.modulos;
 
 /**
  *
@@ -42,7 +42,7 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel10.setText("Lista de Tipos de Pagos");
+        jLabel10.setText("PARA PENSAR");
 
         jButton3.setBackground(new java.awt.Color(3, 105, 173));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

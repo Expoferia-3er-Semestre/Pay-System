@@ -2,21 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package expoferia.pagos.gestionpagos.gui.panelcambiante.componentes;
+package expoferia.pagos.gestionpagos.gui.modulos;
 
 /**
  *
  * @author PC
  */
-public class RegistarEmpleado extends javax.swing.JFrame {
+public class FormularioDefault extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistarEmpleado.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormularioDefault.class.getName());
 
     /**
      * Creates new form RegistarEmpleado
      */
-    public RegistarEmpleado() {
+    public FormularioDefault() {
         initComponents();
+
+        setVisible(true);
+        setLocationRelativeTo(null);
+
+
+
     }
 
     /**
@@ -268,7 +274,7 @@ public class RegistarEmpleado extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RegistarEmpleado().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormularioDefault().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

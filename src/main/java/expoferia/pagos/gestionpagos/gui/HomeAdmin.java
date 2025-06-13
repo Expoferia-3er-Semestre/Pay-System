@@ -4,9 +4,12 @@
  */
 package expoferia.pagos.gestionpagos.gui;
 
+import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
 import expoferia.pagos.gestionpagos.entidades.Empleado;
 import java.awt.CardLayout;
+import java.util.List;
 
+import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.gui.panelcambiante.*;
 
 /**
@@ -252,12 +255,15 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
+        RepresentanteDAO repreDAO=new RepresentanteDAO();
+        List<Representante> listaRepresentantes=repreDAO.lista(null, null);
+
         PanelDefault panelRepresentante= new PanelDefault("Gestión de Representantes",
                 "ID Cedula Nombres Apellidos Detalles Acciones", "representante"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelRepresentante, "Representante"); // Agregar con nombre único
+
         card.show(panelCambiante, "Representante");
-        // Refrescar la interfaz para evitar glitches
-        panelCambiante.revalidate();
+        panelCambiante.revalidate();// Refrescar la interfaz para evitar glitches
         panelCambiante.repaint();
 
     }//GEN-LAST:event_represanteButtonActionPerformed
@@ -272,7 +278,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         }
 
         PanelDefault panelEmpleado= new PanelDefault("Gestión de Empleados",
-                "ID Cedula Nombres Apellidos Detalles Acciones",
+                "ID Cedula Nombres Apellidos Rol Detalles Acciones",
                 "empleado"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEmpleado, "Empleado"); // Agregar con nombre único
         card.show(panelCambiante, "Empleado");

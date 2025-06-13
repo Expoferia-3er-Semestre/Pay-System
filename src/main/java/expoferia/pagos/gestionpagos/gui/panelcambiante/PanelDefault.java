@@ -9,11 +9,20 @@ package expoferia.pagos.gestionpagos.gui.panelcambiante;
  * @author Suglin
  */
 
+import expoferia.pagos.gestionpagos.dao.EmpleadoDAO;
+import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
 import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
+import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
+import expoferia.pagos.gestionpagos.entidades.Empleado;
+import expoferia.pagos.gestionpagos.entidades.Estudiante;
+import expoferia.pagos.gestionpagos.entidades.Representante;
+import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
 import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,20 +30,83 @@ import java.util.List;
 
 public class PanelDefault extends JPanel {
     private Tabla tabla;
-    private RepresentanteDAO rdao;
     /**
      * Creates new form PanelRepresentante
      */
 
-    public PanelDefault(String titulo, String nombresColumnas, String nombreTabla) {
+    public PanelDefault(String titulo,
+                        String nombresColumnas,
+                        String nombreTabla) {
 
         initComponents();
         jLabel8.setText(titulo);
         List<String> listaColumnas = new ArrayList<>();
         listaColumnas.addAll(Arrays.asList(nombresColumnas.split(" ")));
 
-        tabla=new Tabla(nombreTabla, listaColumnas);
-        rdao=new RepresentanteDAO();
+        DefaultTableModel modelo= new DefaultTableModel();
+        DefaultTableCellRenderer headerRenderer= new DefaultTableCellRenderer();
+        if (nombreTabla.equals("representante")){
+
+            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+            RepresentanteDAO rdao=new RepresentanteDAO();
+            List<Representante> listaRepresentantes=rdao.lista(null, null);
+            for (Representante rep : listaRepresentantes) {
+                modelo.addRow(new Object[] {
+                        rep.getId(),
+                        rep.getCedula(),
+                        rep.getNombre1()+" "+rep.getNombre2(),
+                        rep.getApellido1()+" "+rep.getApellido2()});
+            }
+        }
+
+        if (nombreTabla.equals("empleado")) {
+
+            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+            EmpleadoDAO edao=new EmpleadoDAO();
+            List<Empleado> listaEmpleados=edao.lista(null, null);
+            for (Empleado emp : listaEmpleados) {
+                modelo.addRow(new Object[] {
+                        emp.getId(),
+                        emp.getCedula(),
+                        emp.getNombre1()+" "+emp.getNombre2(),
+                        emp.getApellido1()+" "+emp.getApellido2(),
+                        emp.getRol() ? "Admin" : "Cajero"});
+            }
+
+        }
+
+        if (nombreTabla.equals("estudiante")) {
+
+            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+            EstudianteDAO esdao=new EstudianteDAO();
+            List<Estudiante> listaEstudiantes=esdao.lista(null, null);
+            for (Estudiante est : listaEstudiantes) {
+                modelo.addRow(new Object[] {
+                        est.getId(),
+                        est.getCedulaRep(),
+                        est.getNombre1()+" "+est.getNombre2(),
+                        est.getApellido1()+" "+est.getApellido2(),
+                });
+            }
+
+        }
+
+        if (nombreTabla.equals("tipo_pago")) {
+            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+            TipoPagoDAO tpDao=new TipoPagoDAO();
+            List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
+            for (TipoPago tp : listaTiposPagos) {
+                modelo.addRow(new Object[] {
+                        tp.getId(),
+                        tp.getConcepto(),
+                        tp.getCategoria(),
+                        tp.getCosto()
+                });
+            }
+        }
+        tabla=new Tabla();
+        tabla.setModel(modelo);
+
         panelTabla.setLayout(new BorderLayout());
         JScrollPane scrollPane=new JScrollPane(tabla);
         panelTabla.add(scrollPane, BorderLayout.CENTER);

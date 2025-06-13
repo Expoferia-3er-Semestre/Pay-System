@@ -4,44 +4,21 @@
  */
 package expoferia.pagos.gestionpagos.gui.panelcambiante.componentes;
 
-import expoferia.pagos.gestionpagos.entidades.Representante;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.util.List;
-import java.sql.*;
-import java.util.ArrayList;
-
-import static expoferia.pagos.gestionpagos.conexion.Conexion.getConexion;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 
 public class Tabla extends JTable {
 
-    private DefaultTableModel modelo;
-    Connection con=getConexion();
+    public Tabla() {
+        // Configurar el renderizador de encabezado
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        headerRenderer.setForeground(Color.BLACK);
 
-    public Tabla(String nombreTabla, List<String> nombresColumnas) {
-        modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(nombresColumnas.toArray());
-        setModel(modelo);
+        // Aplicarlo al encabezado de la tabla
+        getTableHeader().setDefaultRenderer(headerRenderer);
         setAutoCreateRowSorter(true); // Activar ordenamiento de columnas
     }
-
-    private void cargarDatos(String nombreTabla, Connection conexion) {
-        try (Statement stmt = conexion.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM " + nombreTabla)) {
-
-            while (rs.next()) {
-                Object[] fila = new Object[modelo.getColumnCount()];
-                for (int i = 0; i < modelo.getColumnCount(); i++) {
-                    fila[i] = rs.getObject(i + 1); // Obtener valores dinámicamente
-                }
-                modelo.addRow(fila);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 }

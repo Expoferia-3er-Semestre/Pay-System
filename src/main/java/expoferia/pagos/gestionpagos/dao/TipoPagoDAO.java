@@ -52,6 +52,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
 
         } catch (Exception e) {
             System.out.println("Error al listar TipoPagos: "+e);
+            closeConnection();
             return null;
         }
     }
@@ -65,14 +66,18 @@ public class TipoPagoDAO implements ITipoPagoDAO {
             ps.setInt(1, id);
 
             try (ResultSet rs=ps.executeQuery()){
+
                 System.out.println("Si existe el tipo de pago.");
                 return rs.getInt("id");
+
             } catch (SQLException e) {
                 System.out.println("Error al encontrar tipo de pago: "+e);
+                closeConnection();
                 return null;
             }
         } catch (SQLException e) {
             System.out.println("Error al encontrar tipo de pago: "+e);
+            closeConnection();
             return null;
         }
     }
@@ -93,6 +98,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
                 return filasAfectadas>0;
         } catch (Exception e) {
             System.out.println("Error al agregar TipoPago: "+e);
+            closeConnection();
             return false;
         }
 
@@ -143,6 +149,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
             return filasAfectadas>0;
         } catch (Exception e) {
             System.out.println("Error al modificar el tipo de pago: "+e);
+            closeConnection();
             return false;
         }
     }
@@ -161,6 +168,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
 
         } catch (Exception e) {
             System.out.println("Error al desactivar TipoPago: "+e);
+            closeConnection();
             return false;
         }
     }
@@ -179,6 +187,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
 
         } catch (Exception e) {
             System.out.println("Error al activar TipoPago: "+e);
+            closeConnection();
             return false;
         }
     }

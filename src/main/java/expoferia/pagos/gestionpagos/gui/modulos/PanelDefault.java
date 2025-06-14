@@ -23,29 +23,29 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 public class PanelDefault extends JPanel {
     private Tabla tabla;
+    private String Titulo;
     /**
      * Creates new form PanelRepresentante
      */
 
-    public PanelDefault(String titulo,
-                        String nombresColumnas,
-                        String nombreTabla) {
+    public PanelDefault(String nombresColumnas,
+                        String nombreModulo) {
+        Titulo=nombreModulo;
 
         initComponents();
-        jLabel8.setText(titulo);
+        jLabel8.setText("Gestión de "+ Titulo);
         List<String> listaColumnas = new ArrayList<>();
         listaColumnas.addAll(Arrays.asList(nombresColumnas.split(" ")));
 
         DefaultTableModel modelo= new DefaultTableModel();
         DefaultTableCellRenderer headerRenderer= new DefaultTableCellRenderer();
 
-        if (nombreTabla.equals("representante")){
+        if (nombreModulo.equals("Representantes")){
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             RepresentanteDAO rdao=new RepresentanteDAO();
@@ -60,7 +60,7 @@ public class PanelDefault extends JPanel {
 
         }
 
-        if (nombreTabla.equals("empleado")) {
+        if (nombreModulo.equals("Empleados")) {
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             EmpleadoDAO edao=new EmpleadoDAO();
@@ -76,7 +76,7 @@ public class PanelDefault extends JPanel {
 
         }
 
-        if (nombreTabla.equals("estudiante")) {
+        if (nombreModulo.equals("Estudiantes")) {
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             EstudianteDAO esdao=new EstudianteDAO();
@@ -92,7 +92,7 @@ public class PanelDefault extends JPanel {
 
         }
 
-        if (nombreTabla.equals("tipo_pago")) {
+        if (nombreModulo.equals("Tipos de Pagos")) {
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             TipoPagoDAO tpDao=new TipoPagoDAO();
             List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
@@ -246,12 +246,26 @@ public class PanelDefault extends JPanel {
 
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
+        List<String> listaComponentes= componentsList(Titulo);
+        FormularioEntidad formularioEntidad=new FormularioEntidad(Titulo, listaComponentes);
     }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_actualizarButtonActionPerformed
 
+    private List<String> componentsList(String modulo) {
+        Map<String, List<String>> camposPorTipo = new HashMap<>();
+        camposPorTipo.put("Representantes", Arrays.asList(
+                "Nombres", "Apellidos", "Cedula", "Teléfono", "Dirección", "Fecha de Nacimiento", "Correo"));
+        camposPorTipo.put("Empleados", Arrays.asList(
+                "Nombres", "Apellidos", "Cedula", "Teléfono", "Correo","Dirección", "Fecha de Nacimiento", "Contraseña", "Confirmar contraseña", "Rol"));
+        camposPorTipo.put("Estudiantes", Arrays.asList(
+                "Nombres", "Apellidos", "Cedula Representante", "Teléfono", "Fecha de Nacimiento", "Dirección"));
+        camposPorTipo.put("Tipos de Pagos", Arrays.asList(
+                "Concepto", "Categoría", "Costo"));
+        return camposPorTipo.get(modulo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton actualizarButton;

@@ -10,6 +10,9 @@ public class DefaultTable extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                                                    boolean hasFocus, int row, int column) {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        if (!isSelected) {
+            cell.setForeground(Color.BLACK);
+        }
         if (isSelected) {
             cell.setBackground(new Color(70, 130, 180)); // Color de selección
             cell.setForeground(Color.WHITE);

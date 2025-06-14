@@ -257,11 +257,7 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        RepresentanteDAO repreDAO=new RepresentanteDAO();
-        List<Representante> listaRepresentantes=repreDAO.lista(null, null);
-
-        PanelDefault panelRepresentante= new PanelDefault("Gestión de Representantes",
-                "ID Cedula Nombres Apellidos Detalles Acciones", "representante"); // Crear el panel solo cuando sea necesario
+        PanelDefault panelRepresentante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones", "Representantes"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelRepresentante, "Representante"); // Agregar con nombre único
 
         card.show(panelCambiante, "Representante");
@@ -279,9 +275,8 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelEmpleado= new PanelDefault("Gestión de Empleados",
-                "ID Cedula Nombres Apellidos Rol Detalles Acciones",
-                "empleado"); // Crear el panel solo cuando sea necesario
+        PanelDefault panelEmpleado= new PanelDefault("ID Cedula Nombres Apellidos Rol Detalles Acciones",
+                "Empleados"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEmpleado, "Empleado"); // Agregar con nombre único
         card.show(panelCambiante, "Empleado");
 
@@ -317,9 +312,8 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelEstudiante= new PanelDefault("Gestión de Estudiantes",
-                "ID Cedula Nombres Apellidos Detalles Acciones",
-                "estudiante"); // Crear el panel solo cuando sea necesario
+        PanelDefault panelEstudiante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+                "Estudiantes"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEstudiante, "Estudiante"); // Agregar con nombre único
         card.show(panelCambiante, "Estudiante");
 
@@ -337,9 +331,8 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelTipoPago= new PanelDefault("Gestión de Tipos de Pagos",
-                "ID Concepto Categoría Costo Estado Acciones",
-                "tipo_pago"); // Crear el panel solo cuando sea necesario
+        PanelDefault panelTipoPago= new PanelDefault("ID Concepto Categoría Costo Estado Acciones",
+                "Tipos de Pagos"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelTipoPago, "TipoPago"); // Agregar con nombre único
         card.show(panelCambiante, "TipoPago");
 

@@ -55,6 +55,7 @@ public class EstudianteDAO {
 
         } catch (Exception e) {
             System.out.println("Error al listar estudiantes: " + e);
+            closeConnection();
             return null;
         }
     }
@@ -74,6 +75,7 @@ public class EstudianteDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error al buscar estudiante: " + e);
+            closeConnection();
             return null;
         }
     }
@@ -100,6 +102,7 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (Exception e) {
             System.out.println("Error al agregar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -182,6 +185,7 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al modificar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -197,6 +201,7 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al desactivar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -212,6 +217,7 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al activar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }

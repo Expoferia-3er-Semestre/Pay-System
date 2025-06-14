@@ -46,6 +46,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
 
         } catch (Exception e) {
             System.out.println("Error al listar empleados: "+e);
+            closeConnection();
             return null;
         }
     }
@@ -65,6 +66,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
             }
         } catch (SQLException e) {
             System.out.println("Error al buscar empleado: "+e);
+            closeConnection();
             return null;
         }
     }
@@ -98,6 +100,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
             return filasAfectadas>0;
         } catch (Exception e) {
             System.out.println("Error al agregar un empleado: "+e);
+            closeConnection();
             return false;
         }
     }
@@ -203,6 +206,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al modificar Empleado: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -219,6 +223,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
             return filasAfectadas>0;
         } catch (SQLException e) {
             System.out.println("Error al desactivar empleado: "+e);
+            closeConnection();
             return false;
         }
 
@@ -236,6 +241,7 @@ public class EmpleadoDAO implements IEmpleadoDAO{
             return filasAfectadas>0;
         } catch (SQLException e) {
             System.out.println("Error al activar empleado: "+e);
+            closeConnection();
             return false;
         }
 
@@ -273,9 +279,11 @@ public class EmpleadoDAO implements IEmpleadoDAO{
                     }
                 } catch (Exception e) {
                     System.out.println("Error al encontrar el empleado: "+e.getMessage());
+                    closeConnection();
                 }
             }   catch (Exception e) {
                 System.out.println("Error al obtener datos del empleado: " + e.getMessage());
+                closeConnection();
                 }
         }
         return null;

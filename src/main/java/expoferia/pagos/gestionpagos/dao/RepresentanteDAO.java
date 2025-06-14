@@ -75,6 +75,7 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error al buscar representante: " + e);
+            closeConnection();
             return null;
         }
     }
@@ -102,6 +103,7 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return filas > 0;
         } catch (Exception e) {
             System.out.println("Error al agregar representante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -191,6 +193,7 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return filas > 0;
         } catch (SQLException e) {
             System.out.println("Error al modificar representante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -206,6 +209,7 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return filas > 0;
         } catch (SQLException e) {
             System.out.println("Error al desactivar representante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -221,6 +225,7 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return filas > 0;
         } catch (SQLException e) {
             System.out.println("Error al activar representante: " + e);
+            closeConnection();
             return false;
         }
     }

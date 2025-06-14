@@ -15,7 +15,9 @@ public class Representante {
     private String direccion;
     private Boolean estado;
 
-    // Constructor
+    // Constructores
+    public Representante() {}
+
     public Representante(int id, String cedula, String nombre1, String nombre2,
                          String apellido1, String apellido2, String telefono,
                          String correo, Date fechaN, String direccion, Boolean estado) {

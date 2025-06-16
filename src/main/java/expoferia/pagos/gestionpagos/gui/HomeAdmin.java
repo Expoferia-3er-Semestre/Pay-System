@@ -4,12 +4,7 @@
  */
 package expoferia.pagos.gestionpagos.gui;
 
-import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
-import expoferia.pagos.gestionpagos.entidades.Empleado;
-import java.awt.CardLayout;
-import java.util.List;
-
-import expoferia.pagos.gestionpagos.entidades.Representante;
+import java.awt.*;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
@@ -20,14 +15,13 @@ import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
  */
 public class HomeAdmin extends javax.swing.JFrame {
 
-    private CardLayout card;
-    private Empleado empleado;
+    public static CardLayout card;
 
     public HomeAdmin() {
         initComponents();
         setLocationRelativeTo(null);
+        card= (CardLayout) panelCambiante.getLayout();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +36,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        panelLateral = new javax.swing.JPanel();
+        panelLateral = new expoferia.pagos.gestionpagos.gui.PanelRound();
         pagoButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         tipoPagoButton = new javax.swing.JButton();
@@ -50,14 +44,13 @@ public class HomeAdmin extends javax.swing.JFrame {
         represanteButton = new javax.swing.JButton();
         empleadoButton = new javax.swing.JButton();
         administradorButton = new javax.swing.JButton();
-        panelCambiante = new javax.swing.JPanel();
+        panelCambiante = new expoferia.pagos.gestionpagos.gui.PanelRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelPrincipal.setBackground(new java.awt.Color(204, 204, 204));
+        panelPrincipal.setBackground(new java.awt.Color(220, 217, 217));
 
         panelSuperior.setBackground(new java.awt.Color(255, 255, 255));
-        panelSuperior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(10, 72, 162));
@@ -76,7 +69,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -94,11 +87,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
 
         panelLateral.setBackground(new java.awt.Color(255, 255, 255));
+        panelLateral.setRoundBottomRight(30);
+        panelLateral.setRoundTopRight(30);
 
         pagoButton.setBackground(new java.awt.Color(107, 219, 141));
         pagoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dollar-symbol (1).png"))); // NOI18N
         pagoButton.setText("Registrar Pagos");
-        pagoButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pagoButton.setBorderPainted(false);
         pagoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,37 +155,42 @@ public class HomeAdmin extends javax.swing.JFrame {
             panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLateralLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tipoPagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(estudianteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(represanteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(empleadoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(administradorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(estudianteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(empleadoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tipoPagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         panelLateralLayout.setVerticalGroup(
             panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLateralLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(30, 30, 30)
                 .addComponent(pagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tipoPagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(estudianteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(empleadoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(estudianteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
+        panelCambiante.setRoundBottomLeft(30);
+        panelCambiante.setRoundBottomRight(30);
+        panelCambiante.setRoundTopLeft(30);
+        panelCambiante.setRoundTopRight(30);
         panelCambiante.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
@@ -202,7 +201,7 @@ public class HomeAdmin extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addComponent(panelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelCambiante, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelCambiante, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -211,8 +210,8 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(panelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(panelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
 
@@ -234,7 +233,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         CardLayout card = (CardLayout) panelCambiante.getLayout();
 
         // Verificar si el panel ya existe antes de crearlo
-        if (panelCambiante.getComponentCount() > 0) {           
+        if (panelCambiante.getComponentCount() > 0) {
             panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
             System.gc();
         }
@@ -248,6 +247,44 @@ public class HomeAdmin extends javax.swing.JFrame {
         panelCambiante.repaint();
     }//GEN-LAST:event_pagoButtonActionPerformed
 
+    private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed
+        CardLayout card = (CardLayout) panelCambiante.getLayout();
+
+        // Verificar si el panel ya existe antes de crearlo
+        if (panelCambiante.getComponentCount() > 0) {
+            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
+            System.gc();
+        }
+
+        PanelDefault panelTipoPago= new PanelDefault("ID Concepto Categoría Costo Estado Acciones",
+            "Tipos de Pagos"); // Crear el panel solo cuando sea necesario
+        panelCambiante.add(panelTipoPago, "Tipos de Pagos"); // Agregar con nombre único
+        card.show(panelCambiante, "Tipos de Pagos");
+
+        // Refrescar la interfaz para evitar glitches
+        panelCambiante.revalidate();
+        panelCambiante.repaint();
+    }//GEN-LAST:event_tipoPagoButtonActionPerformed
+
+    private void estudianteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteButtonActionPerformed
+        CardLayout card = (CardLayout) panelCambiante.getLayout();
+
+        // Verificar si el panel ya existe antes de crearlo
+        if (panelCambiante.getComponentCount() > 0) {
+            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
+            System.gc();
+        }
+
+        PanelDefault panelEstudiante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+                "Estudiantes"); // Crear el panel solo cuando sea necesario
+        panelCambiante.add(panelEstudiante, "Estudiantes"); // Agregar con nombre único
+        card.show(panelCambiante, "Estudiantes");
+
+        // Refrescar la interfaz para evitar glitches
+        panelCambiante.revalidate();
+        panelCambiante.repaint();
+    }//GEN-LAST:event_estudianteButtonActionPerformed
+
     private void represanteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_represanteButtonActionPerformed
         CardLayout card = (CardLayout) panelCambiante.getLayout();
 
@@ -257,13 +294,13 @@ public class HomeAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelRepresentante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones", "Representantes"); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(panelRepresentante, "Representante"); // Agregar con nombre único
+        PanelDefault panelRepresentante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+                "Representantes"); // Crear el panel solo cuando sea necesario
+        panelCambiante.add(panelRepresentante, "Representantes"); // Agregar con nombre único
 
-        card.show(panelCambiante, "Representante");
+        card.show(panelCambiante, "Representantes");
         panelCambiante.revalidate();// Refrescar la interfaz para evitar glitches
         panelCambiante.repaint();
-
     }//GEN-LAST:event_represanteButtonActionPerformed
 
     private void empleadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoButtonActionPerformed
@@ -276,9 +313,9 @@ public class HomeAdmin extends javax.swing.JFrame {
         }
 
         PanelDefault panelEmpleado= new PanelDefault("ID Cedula Nombres Apellidos Rol Detalles Acciones",
-                "Empleados"); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(panelEmpleado, "Empleado"); // Agregar con nombre único
-        card.show(panelCambiante, "Empleado");
+            "Empleados"); // Crear el panel solo cuando sea necesario
+        panelCambiante.add(panelEmpleado, "Empleados"); // Agregar con nombre único
+        card.show(panelCambiante, "Empleados");
 
         // Refrescar la interfaz para evitar glitches
         panelCambiante.revalidate();
@@ -303,43 +340,6 @@ public class HomeAdmin extends javax.swing.JFrame {
         panelCambiante.repaint();
     }//GEN-LAST:event_administradorButtonActionPerformed
 
-    private void estudianteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteButtonActionPerformed
-       CardLayout card = (CardLayout) panelCambiante.getLayout();
-
-        // Verificar si el panel ya existe antes de crearlo
-        if (panelCambiante.getComponentCount() > 0) {
-            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
-            System.gc();
-        }
-
-        PanelDefault panelEstudiante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
-                "Estudiantes"); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(panelEstudiante, "Estudiante"); // Agregar con nombre único
-        card.show(panelCambiante, "Estudiante");
-
-        // Refrescar la interfaz para evitar glitches
-        panelCambiante.revalidate();
-        panelCambiante.repaint();
-    }//GEN-LAST:event_estudianteButtonActionPerformed
-
-    private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed
-        CardLayout card = (CardLayout) panelCambiante.getLayout();
-
-        // Verificar si el panel ya existe antes de crearlo
-        if (panelCambiante.getComponentCount() > 0) {
-            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
-            System.gc();
-        }
-
-        PanelDefault panelTipoPago= new PanelDefault("ID Concepto Categoría Costo Estado Acciones",
-                "Tipos de Pagos"); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(panelTipoPago, "TipoPago"); // Agregar con nombre único
-        card.show(panelCambiante, "TipoPago");
-
-        // Refrescar la interfaz para evitar glitches
-        panelCambiante.revalidate();
-        panelCambiante.repaint();
-    }//GEN-LAST:event_tipoPagoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,8 +388,8 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton pagoButton;
-    private javax.swing.JPanel panelCambiante;
-    private javax.swing.JPanel panelLateral;
+    public static expoferia.pagos.gestionpagos.gui.PanelRound panelCambiante;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelLateral;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JButton represanteButton;

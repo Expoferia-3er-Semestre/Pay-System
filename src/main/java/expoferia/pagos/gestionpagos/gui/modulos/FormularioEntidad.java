@@ -13,9 +13,13 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
+import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.PanelRound;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -26,24 +30,30 @@ import java.util.Map;
  *
  * @author PC
  */
-public class FormularioEntidad extends JFrame {
+public class FormularioEntidad extends JPanel {
     String modulo;
     Map<String, JComponent> listaComponentes=new HashMap<>();
 
         public FormularioEntidad(String tipo, List<String> campos) {
-            setTitle("Registrar " + tipo);
             modulo=tipo;
             initComponents(campos);
+            setSize(810, 600);
             // ... más inicialización según el tipo
-            setSize(820, 415);
-            setUndecorated(true);
             setVisible(true);
-            setLocation(375, 210);
             //setAlwaysOnTop(true); // Para que se superponga siempre al frente
 
         }
 
     private void initComponents(List<String> campos) {
+        PanelRound panelContenedor = new PanelRound(); // 🔥 Panel blanco que contiene todo
+        panelContenedor.setBackground(new java.awt.Color(255, 255, 255));
+        panelContenedor.setRoundBottomLeft(30);
+        panelContenedor.setRoundBottomRight(30);
+        panelContenedor.setRoundTopLeft(30);
+        panelContenedor.setRoundTopRight(30);
+        panelContenedor.setLayout(new java.awt.BorderLayout());
+        panelContenedor.setPreferredSize(new Dimension(810, 400));
+
         JPanel panelComponentes = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         panelComponentes.setBackground(Color.WHITE);
@@ -53,17 +63,27 @@ public class FormularioEntidad extends JFrame {
         gbc.weightx = 1.0; // Permitir que los elementos crezcan
         gbc.anchor = GridBagConstraints.CENTER; // Alineación a la izquierda
 
-        JPanel panelTitulo = new JPanel();
-        panelTitulo.setBackground(Color.WHITE);
-        panelTitulo.setLayout(new FlowLayout(FlowLayout.LEFT));
+        PanelRound panelTitulo = new PanelRound();
+        panelTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        panelTitulo.setRoundTopLeft(30);
+        panelTitulo.setRoundTopRight(30);
+        panelTitulo.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT));
+
+        JLabel btnRetroceder = new JLabel();
+        btnRetroceder.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRetroceder.setIcon(new ImageIcon(getClass().getResource("/imagenes/retroceder.png")));
 
         int fila = 1;
         JLabel titulo = new JLabel("Registrar " + modulo);
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 18)); // 🔥 Asegurar negrita y tamaño
         titulo.setForeground(new Color(10, 72, 162)); // 🔥 Color azul
-        titulo.setHorizontalAlignment(SwingConstants.LEFT);// 🔥 Asegurar alineación izquierda
+        titulo.setHorizontalAlignment(SwingConstants.LEFT); // 🔥 Asegurar alineación izquierda
+        panelTitulo.add(new JLabel("   "));
+        panelTitulo.add(btnRetroceder);
+        panelTitulo.add(new JLabel("  "));
         panelTitulo.add(titulo);
-        add(panelTitulo, BorderLayout.NORTH);
+
+        panelContenedor.add(panelTitulo, BorderLayout.NORTH); // 🔥 Agregar título
 
         for (int i = 0; i < campos.size(); i += 2) { // 🔥 Procesar dos campos por fila
             // 🔹 Primera columna (Label arriba)
@@ -90,22 +110,67 @@ public class FormularioEntidad extends JFrame {
             fila += 2; // 🔥 Avanzar dos filas para la siguiente pareja de componentes
         }
 
-        add(panelComponentes);
+        panelContenedor.add(panelComponentes, BorderLayout.CENTER); // 🔥 Agregar componentes
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.setBackground(Color.WHITE);
+        PanelRound panelBotones = new PanelRound();
+        panelBotones.setBackground(new java.awt.Color(255, 255, 255));
+        panelBotones.setRoundBottomLeft(30);
+        panelBotones.setRoundBottomRight(30);
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JButton btnLimpiar = new JButton("Limpiar");
         JButton btnGuardar = new JButton("Guardar");
+        btnLimpiar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnGuardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // 🔥 Agregar eventos a los botones
         btnLimpiar.addActionListener(e -> limpiarCampos());
         btnGuardar.addActionListener(e -> guardarDatos());
+        btnRetroceder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("hola");
+                PanelDefault panelDefault;
+                if (modulo.equals("Empleados")) {
+                    panelDefault=new PanelDefault("ID Cedula Nombres Apellidos Rol Detalles Acciones",
+                            "Empleados");
+                    HomeAdmin.panelCambiante.add(panelDefault, "Empleados");
+                    HomeAdmin.card.show(HomeAdmin.panelCambiante, modulo);
+                    HomeAdmin.panelCambiante.revalidate();
+                    HomeAdmin.panelCambiante.repaint();
+                } else if (modulo.equals("Tipos de Pagos")) {
+                    panelDefault= new PanelDefault("ID Concepto Categoría Costo Estado Acciones",
+                            "Tipos de Pagos");
+                    HomeAdmin.panelCambiante.add(panelDefault, "Tipos de Pagos");
+                    HomeAdmin.card.show(HomeAdmin.panelCambiante, modulo);
+                    HomeAdmin.panelCambiante.revalidate();
+                    HomeAdmin.panelCambiante.repaint();
+                } else if (modulo.equals("Estudiantes")) {
+                    panelDefault= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+                            "Estudiantes");
+                    HomeAdmin.panelCambiante.add(panelDefault, "Estudiantes");
+                    HomeAdmin.card.show(HomeAdmin.panelCambiante, modulo);
+                    HomeAdmin.panelCambiante.revalidate();
+                    HomeAdmin.panelCambiante.repaint();
+                } else if (modulo.equals("Representantes")) {
+                    panelDefault= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+                            "Representantes");
+                    HomeAdmin.panelCambiante.add(panelDefault, "Representantes");
+                    HomeAdmin.card.show(HomeAdmin.panelCambiante, modulo);
+                    HomeAdmin.panelCambiante.revalidate();
+                    HomeAdmin.panelCambiante.repaint();
+                }
+
+            }
+        });
 
         panelBotones.add(btnLimpiar);
         panelBotones.add(btnGuardar);
-        add(panelBotones, BorderLayout.SOUTH);
+        panelContenedor.add(panelBotones, BorderLayout.SOUTH); // 🔥 Agregar botones
+
+        add(panelContenedor); // 🔥 Agregar el contenedor principal
     }
+
 
     // Método para devolver el componente correcto según el tipo de campo
     private JComponent getInputComponent(String campo) {

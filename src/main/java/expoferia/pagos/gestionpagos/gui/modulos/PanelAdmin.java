@@ -4,12 +4,14 @@
  */
 package expoferia.pagos.gestionpagos.gui.modulos;
 
+import java.awt.*;
 /**
  *
  * @author Suglin
  */
 public class PanelAdmin extends javax.swing.JPanel {
-
+    private Color backgroundColor;
+    private int cornerRadius = 15;
     /**
      * Creates new form PanelAdmin
      */
@@ -26,7 +28,7 @@ public class PanelAdmin extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelAdmin = new javax.swing.JPanel();
+        panelAdmin = new expoferia.pagos.gestionpagos.gui.PanelRound();
         jLabel10 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -39,10 +41,14 @@ public class PanelAdmin extends javax.swing.JPanel {
 
         panelAdmin.setBackground(new java.awt.Color(255, 255, 255));
         panelAdmin.setMaximumSize(new java.awt.Dimension(787, 445));
+        panelAdmin.setRoundTopLeft(30);
+        panelAdmin.setRoundTopRight(30);
+        panelAdmin.setRoundBottomRight(30);
+        panelAdmin.setRoundBottomLeft(30);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(10, 72, 162));
-        jLabel10.setText("PARA PENSAR");
+        jLabel10.setText("Lista de Tipos de Pagos");
 
         jButton3.setBackground(new java.awt.Color(3, 105, 173));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -80,6 +86,7 @@ public class PanelAdmin extends javax.swing.JPanel {
             .addGroup(panelAdminLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
                     .addGroup(panelAdminLayout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(32, 32, 32)
@@ -88,38 +95,34 @@ public class PanelAdmin extends javax.swing.JPanel {
                         .addComponent(jButton5)
                         .addGap(43, 43, 43)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1))))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdminLayout.createSequentialGroup()
+            .addGroup(panelAdminLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
-                        .addComponent(jButton5)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(322, 322, 322))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGap(0, 739, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+            .addGap(0, 89, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -135,18 +138,13 @@ public class PanelAdmin extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel panelAdmin;
-    private javax.swing.JPanel panelEstudiantes;
-    private javax.swing.JPanel panelEstudiantes1;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelAdmin;
     // End of variables declaration//GEN-END:variables
+
 }

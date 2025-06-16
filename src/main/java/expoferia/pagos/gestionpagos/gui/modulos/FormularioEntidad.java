@@ -22,6 +22,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// AGREGADO
+import java.text.Normalizer; // AGREGADO
+//import java.time.LocalDate;
+//import java.time.format.DateTimeFormatter;
+//import java.time.Period;
+//import java.util.Set;
+//import java.util.stream.Collectors;
+// AGREGADO
+
 /**
  *
  * @author PC
@@ -43,11 +52,17 @@ public class FormularioEntidad extends JFrame {
 
         }
 
-        // CODIGO DE PRUEBQA AGREGADO
+        // CODIGO DE PRUEBQA AGREGADO - INICIO
 
     public boolean validarFormulario() {
         for (Map.Entry<String, JComponent> entry : listaComponentes.entrySet()) {
-            String campo = entry.getKey().toLowerCase();
+            String campoOriginal = entry.getKey();
+
+            // Normaliza eliminando tildes, espacios y pone todo en minúsculas
+            String campoNormalizado = Normalizer.normalize(campoOriginal, Normalizer.Form.NFD)
+                    .replaceAll("[\\p{InCombiningDiacriticalMarks}\\s+]", "")
+                    .toLowerCase();
+
             JComponent componente = entry.getValue();
             String valor = "";
 
@@ -64,37 +79,77 @@ public class FormularioEntidad extends JFrame {
             }
 
             if (valor.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "El campo \"" + entry.getKey() + "\" no puede estar vacío.");
+                JOptionPane.showMessageDialog(this, "El campo \"" + campoOriginal + "\" no puede estar vacío.");
                 return false;
             }
 
-            if (campo.contains("cedula") && !valor.matches("\\d+")) {
+            if (campoNormalizado.contains("cedula") && !valor.matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "La cédula debe contener solo números.");
                 return false;
             }
 
-            if (campo.replaceAll("\\s+", "").toLowerCase().contains("telefono") &&
-                    !valor.matches("\\d{11}")) {
-                JOptionPane.showMessageDialog(this, "El número de teléfono debe tener exactamente 11 dígitos.");
-                return false;
+            if (campoNormalizado.contains("telefono")) {
+                String valorNumerico = valor.replaceAll("\\D", "");
+                System.out.println("🧪 Teléfono → Original: '" + valor + "' | Limpio: '" + valorNumerico +
+                        "' | Coincide con 11 dígitos: " + valorNumerico.matches("\\d{11}"));
+
+                if (!valorNumerico.matches("\\d{11}")) {
+                    JOptionPane.showMessageDialog(this, "El número de teléfono debe tener exactamente 11 dígitos.");
+                    return false;
+                }
             }
 
-            if (campo.contains("correo") &&
-                    !valor.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.(com|ve|org)$")) {
-                JOptionPane.showMessageDialog(this, "El correo debe terminar en .com, .ve o .org.");
-                return false;
+            if (campoNormalizado.contains("correo")) {
+                System.out.println("🧪 Correo → Valor: '" + valor + "' | ¿Válido? " +
+                        valor.matches("^[\\p{L}0-9._%+-]+@(gmail|hotmail|outlook|yahoo)\\.com$"));
+
+                if (!valor.matches("^[\\p{L}0-9._%+-]+@(gmail|hotmail|outlook|yahoo)\\.com$")) {
+                    JOptionPane.showMessageDialog(this, "Solo se permiten correos de Gmail, Hotmail, Outlook o Yahoo terminados en .com.");
+                    return false;
+                }
             }
 
-            if (campo.contains("fecha") && !valor.matches("\\d{4}/\\d{2}/\\d{2}")) {
+            if (campoNormalizado.contains("fecha") &&
+                    !valor.matches("\\d{4}/\\d{2}/\\d{2}")) {
                 JOptionPane.showMessageDialog(this, "La fecha debe tener el formato yyyy/MM/dd.");
                 return false;
             }
+
+            System.out.println("⏳ Campo original: " + campoOriginal + " → Valor: " + valor);
+            System.out.println("🔎 Campo normalizado: " + campoNormalizado);
+        }
+
+        // 🔐 Validación de coincidencia entre contraseña y confirmación
+        String contrasena = null;
+        String confirmar = null;
+
+        for (Map.Entry<String, JComponent> entry : listaComponentes.entrySet()) {
+            String nombre = Normalizer.normalize(entry.getKey(), Normalizer.Form.NFD)
+                    .replaceAll("[\\p{InCombiningDiacriticalMarks}\\s+]", "")
+                    .toLowerCase();
+
+            if (nombre.contains("contrasena") && !nombre.contains("confirmar")) {
+                if (entry.getValue() instanceof JPasswordField) {
+                    contrasena = new String(((JPasswordField) entry.getValue()).getPassword()).trim();
+                }
+            }
+
+            if (nombre.contains("confirmarcontrasena")) {
+                if (entry.getValue() instanceof JPasswordField) {
+                    confirmar = new String(((JPasswordField) entry.getValue()).getPassword()).trim();
+                }
+            }
+        }
+
+        if (contrasena != null && confirmar != null && !contrasena.equals(confirmar)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+            return false;
         }
 
         return true;
     }
 
-    // CODIGO DE PRUEBA AGREGADO
+    // CODIGO DE PRUEBA AGREGADO - FIN
 
 
     private void initComponents(List<String> campos) {
@@ -240,7 +295,14 @@ public class FormularioEntidad extends JFrame {
 
     // Enviar los valores a su DAO agregar respectivo
     public boolean añadirRegistro(Map<String, String> listaValores) {
-        boolean valor = false;
+
+            //codigo agreado
+        if (listaValores == null || listaValores.isEmpty()) {
+            System.out.println("⚠️ Los datos llegaron vacíos o inválidos.");
+            return false;
+        } //codigo agregado
+
+            boolean valor = false;
 
         if (modulo.equals("Tipos de Pagos")) {
             TipoPagoDAO tpdao = new TipoPagoDAO();
@@ -418,11 +480,17 @@ public class FormularioEntidad extends JFrame {
     }
 
     // Método para guardar los datos
-
     private void guardarDatos() {
         if (validarFormulario()) {
             Map<String, String> datos = obtenerValores();
-            añadirRegistro(datos);
+            boolean guardado = añadirRegistro(datos);
+
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "¡Los datos se guardaron exitosamente!");
+                limpiarCampos(); // Si tienes este método, para reiniciar el formulario
+            } else {
+                JOptionPane.showMessageDialog(this, "Hubo un problema al guardar los datos.");
+            }
         }
     }
 

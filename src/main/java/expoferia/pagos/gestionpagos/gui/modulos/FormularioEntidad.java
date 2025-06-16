@@ -53,7 +53,7 @@ public class FormularioEntidad extends JPanel {
 
         }
 
-        // CODIGO DE PRUEBQA AGREGADO - INICIO
+        // CODIGO DE PRUEBA AGREGADO - INICIO
 
     public boolean validarFormulario() {
         for (Map.Entry<String, JComponent> entry : listaComponentes.entrySet()) {

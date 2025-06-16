@@ -44,6 +44,60 @@ public class FormularioEntidad extends JPanel {
 
         }
 
+        // CODIGO DE PRUEBQA AGREGADO
+
+    public boolean validarFormulario() {
+        for (Map.Entry<String, JComponent> entry : listaComponentes.entrySet()) {
+            String campo = entry.getKey().toLowerCase();
+            JComponent componente = entry.getValue();
+            String valor = "";
+
+            if (componente instanceof JTextField) {
+                valor = ((JTextField) componente).getText().trim();
+            } else if (componente instanceof JPasswordField) {
+                valor = new String(((JPasswordField) componente).getPassword()).trim();
+            } else if (componente instanceof JComboBox) {
+                Object seleccionado = ((JComboBox<?>) componente).getSelectedItem();
+                valor = (seleccionado != null) ? seleccionado.toString().trim() : "";
+            } else if (componente instanceof JDateChooser) {
+                java.util.Date fecha = ((JDateChooser) componente).getDate();
+                valor = (fecha != null) ? new SimpleDateFormat("yyyy/MM/dd").format(fecha) : "";
+            }
+
+            if (valor.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El campo \"" + entry.getKey() + "\" no puede estar vacío.");
+                return false;
+            }
+
+            if (campo.contains("cedula") && !valor.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "La cédula debe contener solo números.");
+                return false;
+            }
+
+            if (campo.replaceAll("\\s+", "").toLowerCase().contains("telefono") &&
+                    !valor.matches("\\d{11}")) {
+                JOptionPane.showMessageDialog(this, "El número de teléfono debe tener exactamente 11 dígitos.");
+                return false;
+            }
+
+            if (campo.contains("correo") &&
+                    !valor.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.(com|ve|org)$")) {
+                JOptionPane.showMessageDialog(this, "El correo debe terminar en .com, .ve o .org.");
+                return false;
+            }
+
+            if (campo.contains("fecha") && !valor.matches("\\d{4}/\\d{2}/\\d{2}")) {
+                JOptionPane.showMessageDialog(this, "La fecha debe tener el formato yyyy/MM/dd.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // CODIGO DE PRUEBA AGREGADO
+
+
     private void initComponents(List<String> campos) {
         PanelRound panelContenedor = new PanelRound(); // 🔥 Panel blanco que contiene todo
         panelContenedor.setBackground(new java.awt.Color(255, 255, 255));
@@ -343,6 +397,7 @@ public class FormularioEntidad extends JPanel {
                         break;
                     case "Correo":
                         representante.setCorreo(value);
+                        break;
                     case "Teléfono":
                         representante.setTelefono(value);
                         break;
@@ -428,9 +483,17 @@ public class FormularioEntidad extends JPanel {
     }
 
     // Método para guardar los datos
+
     private void guardarDatos() {
-        Map<String, String> datos = obtenerValores();
-        añadirRegistro(datos);
+        if (validarFormulario()) {
+            Map<String, String> datos = obtenerValores();
+            añadirRegistro(datos);
+        }
     }
+
+    //private void guardarDatos() {
+        //Map<String, String> datos = obtenerValores();
+        //añadirRegistro(datos);
+    //} (este era el codigo original)
 
 }

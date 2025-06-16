@@ -17,12 +17,16 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
+import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.PanelRound;
 import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -43,7 +47,6 @@ public class PanelDefault extends JPanel {
         listaColumnas.addAll(Arrays.asList(nombresColumnas.split(" ")));
 
         DefaultTableModel modelo= new DefaultTableModel();
-        DefaultTableCellRenderer headerRenderer= new DefaultTableCellRenderer();
 
         if (nombreModulo.equals("Representantes")){
 
@@ -124,17 +127,20 @@ public class PanelDefault extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRepresentantes = new JPanel();
+        panelDefault = new PanelRound();
         jLabel8 = new JLabel();
         registrarButton = new JButton();
         actualizarButton = new JButton();
         archivarButton = new JButton();
         jComboBox1 = new JComboBox<>();
         jLabel1 = new JLabel();
-        panelTabla = new JPanel();
+        panelTabla = new PanelRound();
 
-        panelRepresentantes.setBackground(new Color(255, 255, 255));
-        panelRepresentantes.setMaximumSize(new Dimension(787, 445));
+        panelDefault.setBackground(new Color(255, 255, 255));
+        panelDefault.setRoundBottomLeft(30);
+        panelDefault.setRoundBottomRight(30);
+        panelDefault.setRoundTopLeft(30);
+        panelDefault.setRoundTopRight(30);
 
         jLabel8.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new Color(10, 72, 162));
@@ -144,8 +150,8 @@ public class PanelDefault extends JPanel {
         registrarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         registrarButton.setForeground(new Color(255, 255, 255));
         registrarButton.setText("Agregar");
-        registrarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        registrarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 registrarButtonActionPerformed(evt);
             }
         });
@@ -154,8 +160,8 @@ public class PanelDefault extends JPanel {
         actualizarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         actualizarButton.setForeground(new Color(255, 255, 255));
         actualizarButton.setText("Actualizar");
-        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        actualizarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 actualizarButtonActionPerformed(evt);
             }
         });
@@ -170,6 +176,10 @@ public class PanelDefault extends JPanel {
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
         panelTabla.setBackground(new Color(255, 255, 255));
+        panelTabla.setRoundBottomLeft(30);
+        panelTabla.setRoundBottomRight(30);
+        panelTabla.setRoundTopLeft(30);
+        panelTabla.setRoundTopRight(30);
 
         GroupLayout panelTablaLayout = new GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
@@ -182,8 +192,8 @@ public class PanelDefault extends JPanel {
             .addGap(0, 474, Short.MAX_VALUE)
         );
 
-        GroupLayout panelRepresentantesLayout = new GroupLayout(panelRepresentantes);
-        panelRepresentantes.setLayout(panelRepresentantesLayout);
+        GroupLayout panelRepresentantesLayout = new GroupLayout(panelDefault);
+        panelDefault.setLayout(panelRepresentantesLayout);
         panelRepresentantesLayout.setHorizontalGroup(
             panelRepresentantesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(panelRepresentantesLayout.createSequentialGroup()
@@ -226,13 +236,13 @@ public class PanelDefault extends JPanel {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 813, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDefault, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 581, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDefault, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,8 +256,17 @@ public class PanelDefault extends JPanel {
 
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
+        CardLayout card = HomeAdmin.card;
+        PanelRound panelCambiante = HomeAdmin.panelCambiante;
+
         List<String> listaComponentes= componentsList(Titulo);
         FormularioEntidad formularioEntidad=new FormularioEntidad(Titulo, listaComponentes);
+
+        panelCambiante.add(formularioEntidad, Titulo);
+        card.show(panelCambiante, Titulo);
+        panelCambiante.revalidate();
+        panelCambiante.repaint();
+
     }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
@@ -273,8 +292,8 @@ public class PanelDefault extends JPanel {
     private JComboBox<String> jComboBox1;
     private JLabel jLabel1;
     private JLabel jLabel8;
-    private JPanel panelRepresentantes;
-    private JPanel panelTabla;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelDefault;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelTabla;
     private JButton registrarButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,7 +28,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
         metodoPagos = new javax.swing.ButtonGroup();
         abonoPago = new javax.swing.ButtonGroup();
-        registrar = new javax.swing.JPanel();
+        registrar = new expoferia.pagos.gestionpagos.gui.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -74,6 +74,10 @@ public class RegistroPago extends javax.swing.JPanel {
 
         registrar.setBackground(new java.awt.Color(255, 255, 255));
         registrar.setPreferredSize(new java.awt.Dimension(0, 0));
+        registrar.setRoundTopLeft(30);
+        registrar.setRoundTopRight(30);
+        registrar.setRoundBottomRight(30);
+        registrar.setRoundBottomLeft(30);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(10, 72, 162));
@@ -629,7 +633,7 @@ public class RegistroPago extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.ButtonGroup metodoPagos;
     private javax.swing.JPanel recibo;
-    private javax.swing.JPanel registrar;
+    private expoferia.pagos.gestionpagos.gui.PanelRound registrar;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMonto;

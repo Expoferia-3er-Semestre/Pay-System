@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel2" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="botonVolverRE" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtregistrodeEmpleadoRE" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="312" max="-2" attributes="0"/>
+                      <Component id="botonGuardarRE" min="-2" pref="87" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtPrimerNombreRE" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfieldPrimerNombreRE" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="textfieldSegundoNombreRE" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="txtSegundoNombreRE" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfieldPrimerApellidoRE" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="txtPrimerApellidoRE" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfieldSegundoApellidoRE" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="txtSegundoApellidoRE" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="txtDireccionRE" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtTelefonoRE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textfieldTelefonoRE" max="32767" attributes="0"/>
+                                      <Component id="txtCorreoRE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCedula" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textfieldCedulaRE" max="32767" attributes="0"/>
+                                      <Component id="textfieldCorreoRE" min="-2" pref="130" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtClaveRE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtConfirmarClaveRE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textfieldClaveRE" max="32767" attributes="0"/>
+                                      <Component id="textfieldConfirmarClaveRE" min="-2" pref="130" max="-2" attributes="0"/>
+                                      <Component id="txtCargoaCumplirRE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comboBoxCargoaCumplirRE" min="-2" pref="130" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="botonBorrarRE" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="textfieldDireccionRE" min="-2" pref="367" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="95" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtregistrodeEmpleadoRE" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="botonVolverRE" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="txtCargoaCumplirRE" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="comboBoxCargoaCumplirRE" min="-2" pref="22" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtPrimerNombreRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtClaveRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="textfieldPrimerNombreRE" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfieldCedulaRE" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="textfieldClaveRE" min="-2" pref="22" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtSegundoNombreRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCorreoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtConfirmarClaveRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="textfieldSegundoNombreRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfieldCorreoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfieldConfirmarClaveRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtTelefonoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPrimerApellidoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="textfieldPrimerApellidoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfieldTelefonoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="botonBorrarRE" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtSegundoApellidoRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDireccionRE" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="textfieldDireccionRE" min="-2" pref="132" max="-2" attributes="0"/>
+                  <Component id="textfieldSegundoApellidoRE" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="botonGuardarRE" min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder roundedCorners="true">
+              <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
+            </LineBorder>
+          </Border>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[2, 10]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="327" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Component class="javax.swing.JLabel" name="botonVolverRE">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/volver-flecha.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtregistrodeEmpleadoRE">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="a2" green="48" red="a" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="REGISTRO DE EMPLEADOS"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="botonBorrarRE">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/borrar.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtClaveRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clave"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldClaveRE">
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldPrimerNombreRE">
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtPrimerNombreRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Primer nombre"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtCedula">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cedula"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldCedulaRE">
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtCorreoRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Correo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldCorreoRE">
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtSegundoNombreRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Segundo Nombre"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldSegundoNombreRE">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfieldSegundoNombreREActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtPrimerApellidoRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Primer Apellido"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtSegundoApellidoRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Segundo Apellido"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldPrimerApellidoRE">
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldSegundoApellidoRE">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfieldSegundoApellidoREActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboBoxCargoaCumplirRE">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Elige un cargo"/>
+            <StringItem index="1" value="Administrador"/>
+            <StringItem index="2" value="Cajero"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtCargoaCumplirRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargo a Cumplir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldTelefonoRE">
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtTelefonoRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telefono"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtConfirmarClaveRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Confirmar clave"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldConfirmarClaveRE">
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtDireccionRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfieldDireccionRE">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="&lt;Not Set&gt;"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfieldDireccionREActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonGuardarRE">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ad" green="69" red="3" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Guardar"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

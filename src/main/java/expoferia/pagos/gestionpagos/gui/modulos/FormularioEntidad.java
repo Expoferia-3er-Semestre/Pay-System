@@ -418,9 +418,6 @@ public class FormularioEntidad extends JPanel {
                         estudiante.setApellido1(apellidos[0]);
                         estudiante.setApellido2(apellidos[1]);
                         break;
-                    case "Teléfono":
-                        estudiante.setTelefono(value);
-                        break;
                     case "Fecha de Nacimiento":
                         estudiante.setFechaN(Date.valueOf(value));
                         break;
@@ -456,9 +453,6 @@ public class FormularioEntidad extends JPanel {
                         String[] apellidos=value.split(" ");
                         representante.setApellido1(apellidos[0]);
                         representante.setApellido2(apellidos[1]);
-                        break;
-                    case "Correo":
-                        representante.setCorreo(value);
                         break;
                     case "Teléfono":
                         representante.setTelefono(value);

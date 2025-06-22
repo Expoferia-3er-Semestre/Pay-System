@@ -37,17 +37,16 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Representante r = new Representante(
-                        rs.getInt("id"),
-                        rs.getString("cedula"),
-                        rs.getString("nombre1"),
-                        rs.getString("nombre2"),
-                        rs.getString("apellido1"),
-                        rs.getString("apellido2"),
-                        rs.getString("telefono"),
-                        rs.getString("correo"),
-                        rs.getDate("fechaN"),
-                        rs.getString("direccion"),
-                        rs.getBoolean("estado")
+                            rs.getInt("id"),
+                            rs.getString("cedula"),
+                            rs.getString("nombre1"),
+                            rs.getString("nombre2"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getString("telefono"),
+                            rs.getDate("fechaN"),
+                            rs.getString("direccion"),
+                            rs.getBoolean("estado")
                     );
                     lista.add(r);
                 }
@@ -82,8 +81,8 @@ public class RepresentanteDAO implements IRepresentanteDAO {
 
     @Override
     public boolean agregar(Representante r) {
-        String sql = "INSERT INTO representante(cedula, nombre1, nombre2, apellido1, apellido2, telefono, correo, fechaN, direccion, estado) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO representante(cedula, nombre1, nombre2, apellido1, apellido2, telefono, fechaN, direccion, estado) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -93,10 +92,9 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             ps.setString(4, r.getApellido1());
             ps.setString(5, r.getApellido2());
             ps.setString(6, r.getTelefono());
-            ps.setString(7, r.getCorreo());
-            ps.setDate(8, r.getFechaN());
-            ps.setString(9, r.getDireccion());
-            ps.setBoolean(10, r.getEstado());
+            ps.setDate(7, r.getFechaN());
+            ps.setString(8, r.getDireccion());
+            ps.setBoolean(9, r.getEstado());
 
             int filas = ps.executeUpdate();
             closeConnection();
@@ -147,12 +145,6 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             if (hayComa) sql.append(", ");
             sql.append("telefono=?");
             valores.add(r.getTelefono());
-            hayComa = true;
-        }
-        if (r.getCorreo() != null) {
-            if (hayComa) sql.append(", ");
-            sql.append("correo=?");
-            valores.add(r.getCorreo());
             hayComa = true;
         }
         if (r.getFechaN() != null) {
@@ -229,5 +221,5 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return false;
         }
     }
-
 }
+

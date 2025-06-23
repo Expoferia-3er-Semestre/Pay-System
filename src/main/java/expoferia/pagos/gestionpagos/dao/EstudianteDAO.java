@@ -60,14 +60,32 @@ public class EstudianteDAO {
         }
     }
 
-    public Integer buscarPorId(int id) {
-        String sql = "SELECT id FROM estudiante WHERE id=?";
+    public Estudiante buscarPorId(int id) {
+        String sql = "SELECT * FROM estudiante WHERE id=?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next() ? rs.getInt("id") : null;
+                if (rs.next()) {
+                    Estudiante estudiante = new Estudiante(
+                            rs.getInt("id"),
+                            rs.getString("cedulaRep"),
+                            rs.getString("nombre1"),
+                            rs.getString("nombre2"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getDate("fechaN"),
+                            rs.getString("direccion"),
+                            rs.getBoolean("estado"),
+                            rs.getString("grado"),
+                            rs.getString("nivel_academico")
+                    );
+                    closeConnection();
+                    return estudiante;
+                }
+                closeConnection();
+                return null;
             }
 
         } catch (SQLException e) {
@@ -93,7 +111,7 @@ public class EstudianteDAO {
             ps.setString(7, estudiante.getDireccion());
             ps.setBoolean(8, estudiante.getEstado());
             ps.setString(9, estudiante.getGrado());
-            ps.setString(10, estudiante.getNivelAcademico());
+            ps.setString(10, estudiante.getNivel_academico());
 
             int filasAfectadas = ps.executeUpdate();
             closeConnection();
@@ -146,9 +164,9 @@ public class EstudianteDAO {
             if (hayComa) sql.append(", ");
             sql.append("grado=?"); valores.add(estudiante.getGrado()); hayComa = true;
         }
-        if (estudiante.getNivelAcademico() != null) {
+        if (estudiante.getNivel_academico() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("nivel_academico=?"); valores.add(estudiante.getNivelAcademico());
+            sql.append("nivel_academico=?"); valores.add(estudiante.getNivel_academico());
         }
 
         if (valores.isEmpty()) {

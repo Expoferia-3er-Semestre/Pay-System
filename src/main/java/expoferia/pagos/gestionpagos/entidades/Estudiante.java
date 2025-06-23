@@ -13,15 +13,15 @@ public class Estudiante {
     private String direccion;
     private Boolean estado;
     private String grado;
-    private String nivelAcademico;
+    private String nivel_academico;
 
-    // Constructor vacío
+    // Constructor
     public Estudiante() {}
 
-    // Constructor completo
     public Estudiante(int id, String cedulaRep, String nombre1, String nombre2,
-                      String apellido1, String apellido2, Date fechaN,
-                      String direccion, Boolean estado, String grado, String nivelAcademico) {
+                      String apellido1, String apellido2,
+                      Date fechaN, String direccion, Boolean estado,
+                      String grado, String nivel_academico) {
         this.id = id;
         this.cedulaRep = cedulaRep;
         this.nombre1 = nombre1;
@@ -32,7 +32,7 @@ public class Estudiante {
         this.direccion = direccion;
         this.estado = estado;
         this.grado = grado;
-        this.nivelAcademico = nivelAcademico;
+        this.nivel_academico = nivel_academico;
     }
 
     // Getters y Setters
@@ -60,12 +60,12 @@ public class Estudiante {
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public Boolean getEstado() { return estado; }
-    public void setEstado(Boolean estado) { this.estado = estado; }
+    public Boolean getEstado() {return estado; }
+    public void setEstado(Boolean estado) {this.estado = estado; }
 
-    public String getGrado() { return grado; }
-    public void setGrado(String grado) { this.grado = grado; }
+    public String getGrado() {return grado; }
+    public void setGrado(String grado) {this.grado = grado; }
 
-    public String getNivelAcademico() { return nivelAcademico; }
-    public void setNivelAcademico(String nivelAcademico) { this.nivelAcademico = nivelAcademico; }
+    public String getNivel_academico() {return nivel_academico; }
+    public void setNivel_academico(String nivel_academico) {this.nivel_academico = nivel_academico; }
 }

@@ -19,20 +19,25 @@ import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import expoferia.pagos.gestionpagos.gui.HomeAdmin;
 import expoferia.pagos.gestionpagos.gui.PanelRound;
+import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEstudianteRepresentante;
+//import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
+import expoferia.pagos.gestionpagos.gui.formularios.RegistroEstudianteRepresentante;
 import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 
 public class PanelDefault extends JPanel {
     private Tabla tabla;
-    private String Titulo;
+    public static String Titulo;
+    private Integer id=null;
     /**
      * Creates new form PanelRepresentante
      */
@@ -110,6 +115,22 @@ public class PanelDefault extends JPanel {
         }
         tabla=new Tabla();
         tabla.setModel(modelo);
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = tabla.rowAtPoint(e.getPoint());
+
+                if (fila >= 0) {
+                    // Asumiendo que la columna 0 contiene el ID
+                    id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+                    System.out.println("ID seleccionado: " + id);
+
+                    // Puedes buscar por ID y cargar campos
+                    // Representante representante = dao.buscarPorId(id);
+                    // cargarDatosRepresentante(representante);
+                }
+            }
+        });
 
         panelTabla.setLayout(new BorderLayout());
         JScrollPane scrollPane=new JScrollPane(tabla);
@@ -256,35 +277,61 @@ public class PanelDefault extends JPanel {
 
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
-        CardLayout card = HomeAdmin.card;
-        PanelRound panelCambiante = HomeAdmin.panelCambiante;
 
-        List<String> listaComponentes= componentsList(Titulo);
-        FormularioEntidad formularioEntidad=new FormularioEntidad(Titulo, listaComponentes);
+        if (Titulo.equals("Empleados")) {
+            //RegistroEmpleados registroEmpleados=new RegistroEmpleados();
 
-        panelCambiante.add(formularioEntidad, Titulo);
-        card.show(panelCambiante, Titulo);
-        panelCambiante.revalidate();
-        panelCambiante.repaint();
+            //HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
+
+        } else if (Titulo.equals("Estudiantes")) {
+            RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
+
+            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+
+        } else if (Titulo.equals("Representantes")) {
+            RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
+
+            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+
+        }
+        HomeAdmin.panelCambiante.revalidate();
+        HomeAdmin.panelCambiante.repaint();
 
     }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_actualizarButtonActionPerformed
 
-    private List<String> componentsList(String modulo) {
-        Map<String, List<String>> camposPorTipo = new HashMap<>();
-        camposPorTipo.put("Representantes", Arrays.asList(
-                "Nombres", "Apellidos", "Cedula", "Teléfono", "Dirección", "Fecha de Nacimiento", "Correo"));
-        camposPorTipo.put("Empleados", Arrays.asList(
-                "Nombres", "Apellidos", "Cedula", "Teléfono", "Correo","Dirección", "Fecha de Nacimiento", "Contraseña", "Confirmar contraseña", "Rol"));
-        camposPorTipo.put("Estudiantes", Arrays.asList(
-                "Nombres", "Apellidos", "Cedula Representante", "Teléfono", "Fecha de Nacimiento", "Dirección"));
-        camposPorTipo.put("Tipos de Pagos", Arrays.asList(
-                "Concepto", "Categoría", "Costo"));
-        return camposPorTipo.get(modulo);
-    }
+        if (id!=null) {
+            if (Titulo.equals("Empleados")) {
+                //RegistroEmpleados registroEmpleados=new RegistroEmpleados();
+
+                //HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
+
+            } else if (Titulo.equals("Estudiantes")) {
+                ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
+
+                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+
+            } else if (Titulo.equals("Representantes")) {
+                ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
+
+                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+
+            }
+
+            HomeAdmin.panelCambiante.revalidate();
+            HomeAdmin.panelCambiante.repaint();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro de la tabla antes de actualizar.");
+        }
+
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton actualizarButton;

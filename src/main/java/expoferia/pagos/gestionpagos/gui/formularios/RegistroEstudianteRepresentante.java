@@ -4,17 +4,57 @@
  */
 package expoferia.pagos.gestionpagos.gui.formularios;
 
+import com.toedter.calendar.JDateChooser;
+import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
+import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
+import expoferia.pagos.gestionpagos.entidades.Estudiante;
+import expoferia.pagos.gestionpagos.entidades.Representante;
+import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
+
+import javax.swing.*;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author USER
  */
 public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
-
+    JDateChooser dateChooserR;
+    JDateChooser dateChooserE;
+    Estudiante estudiante;
+    Representante representante;
     /**
-     * Creates new form RegistroEstudianteRepresentante
+     * Creates new form ActualizarEstudianteRepresentante
      */
-    public RegistroEstudianteRepresentante() {
+    public RegistroEstudianteRepresentante(String modulo) {
         initComponents();
+        dateChooserR = new JDateChooser();
+        dateChooserE = new JDateChooser();
+
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            java.util.Date fechaMinR= spf.parse("1960/01/01");
+            java.util.Date fechaMaxR= spf.parse("2007/01/01");
+            dateChooserR.setDateFormatString("yyyy/MM/dd");
+            dateChooserR.setMinSelectableDate(fechaMinR);
+            dateChooserR.setMaxSelectableDate(fechaMaxR);
+            dateChooserR.setDate(fechaMaxR);
+
+            java.util.Date fechaMinE= spf.parse("2007/01/01");
+            java.util.Date fechaMaxE= spf.parse("2021/01/01");
+            dateChooserE.setDateFormatString("yyyy/MM/dd");
+            dateChooserE.setMinSelectableDate(fechaMinE);
+            dateChooserE.setMaxSelectableDate(fechaMaxE);
+            dateChooserE.setDate(fechaMaxE);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        panelCalendario1.add(dateChooserR);
+        panelCalendario.add(dateChooserE);
+
     }
 
     /**
@@ -26,59 +66,247 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtRegistrodeEstudiantes = new javax.swing.JLabel();
-        botonVolverRES = new javax.swing.JLabel();
-        txtRegistrodeRepresentantes = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtActualizarEstudiantes = new javax.swing.JLabel();
+        txtActualizarRepresentantes = new javax.swing.JLabel();
+        panelRES = new javax.swing.JPanel();
+        textfieldPrimerNombreAES = new javax.swing.JTextField();
+        txtPrimerNombreAES = new javax.swing.JLabel();
+        textfieldCedulaAES = new javax.swing.JTextField();
+        textfieldSegundoNombreAES = new javax.swing.JTextField();
+        textfieldPrimerApellidoAES = new javax.swing.JTextField();
+        textfieldSegundoApellidoAES = new javax.swing.JTextField();
+        txtSegundoNombreAES = new javax.swing.JLabel();
+        txtPrimerApellidoAES = new javax.swing.JLabel();
+        txtSegundoApellidoAES = new javax.swing.JLabel();
+        txtGradoAES = new javax.swing.JLabel();
+        textfieldDireccionAR1 = new javax.swing.JTextField();
+        txtDireccionAR1 = new javax.swing.JLabel();
+        comboGrado = new javax.swing.JComboBox<>();
+        comboPeriodo = new javax.swing.JComboBox<>();
+        txtGradoAES1 = new javax.swing.JLabel();
+        txtCedulaAES = new javax.swing.JLabel();
+        botonBorrarAES = new javax.swing.JLabel();
+        txtSegundoApellidoAES1 = new javax.swing.JLabel();
+        panelCalendario = new javax.swing.JPanel();
         barraTitulo1 = new javax.swing.JPanel();
         barraTitulo2 = new javax.swing.JPanel();
+        botonGuardarAESR = new javax.swing.JButton();
         panelRR = new javax.swing.JPanel();
-        textfieldPrimerNombreRR = new javax.swing.JTextField();
-        txtPrimerNombreRR = new javax.swing.JLabel();
-        textfieldCedulaRR = new javax.swing.JTextField();
-        textfieldCorreoRR = new javax.swing.JTextField();
-        textfieldSegundoNombreRR = new javax.swing.JTextField();
-        textfieldPrimerApellidoRR = new javax.swing.JTextField();
-        textfieldSegundoApellidoRR = new javax.swing.JTextField();
-        textfieldTelefonoRR = new javax.swing.JTextField();
-        txtSegundoNombreRR = new javax.swing.JLabel();
-        txtPrimerApellidoRR = new javax.swing.JLabel();
-        txtSegundoApellidoRR = new javax.swing.JLabel();
-        txtCedulaRR = new javax.swing.JLabel();
-        txtCorreoRR = new javax.swing.JLabel();
-        txtTelefonoRR = new javax.swing.JLabel();
-        txtDireccionRR = new javax.swing.JLabel();
-        textfieldDireccionRR = new javax.swing.JTextField();
-        comboBoxSeleccionaCantidadEstudiantesRR = new javax.swing.JComboBox<>();
-        botonBorrarRR = new javax.swing.JLabel();
-        panelRES = new javax.swing.JPanel();
-        textfieldPrimerNombreRES = new javax.swing.JTextField();
-        txtPrimerNombreRES = new javax.swing.JLabel();
-        textfieldCedulaRES = new javax.swing.JTextField();
-        textfieldSegundoNombreRES = new javax.swing.JTextField();
-        textfieldPrimerApellidoRES = new javax.swing.JTextField();
-        textfieldSegundoApellidoRES = new javax.swing.JTextField();
-        txtSegundoNombreRES = new javax.swing.JLabel();
-        txtPrimerApellidoRES = new javax.swing.JLabel();
-        txtSegundoApellidoRES = new javax.swing.JLabel();
-        txtCedulaRES = new javax.swing.JLabel();
-        txtGradoRES = new javax.swing.JLabel();
-        textfieldGradoRES = new javax.swing.JTextField();
-        botonBorrarRES = new javax.swing.JLabel();
-        textfieldCedulaRepresentanteRES = new javax.swing.JTextField();
-        txtCedulaRepresentanteRES = new javax.swing.JLabel();
-        botonGuardarRESR = new javax.swing.JButton();
+        textfieldPrimerNombreAR = new javax.swing.JTextField();
+        txtPrimerNombreAR = new javax.swing.JLabel();
+        textfieldCedulaAR = new javax.swing.JTextField();
+        textfieldSegundoNombreAR = new javax.swing.JTextField();
+        textfieldPrimerApellidoAR = new javax.swing.JTextField();
+        textfieldSegundoApellidoAR = new javax.swing.JTextField();
+        textfieldTelefonoAR = new javax.swing.JTextField();
+        txtSegundoNombreAR = new javax.swing.JLabel();
+        txtPrimerApellidoAR = new javax.swing.JLabel();
+        txtSegundoApellidoAR = new javax.swing.JLabel();
+        txtCedulaAR = new javax.swing.JLabel();
+        txtTelefonoAR = new javax.swing.JLabel();
+        txtDireccionAR = new javax.swing.JLabel();
+        textfieldDireccionAR = new javax.swing.JTextField();
+        botonBorrarAR = new javax.swing.JLabel();
+        panelCalendario1 = new javax.swing.JPanel();
+        txtSegundoApellidoAES2 = new javax.swing.JLabel();
+        buscarIcon = new javax.swing.JLabel();
+        btnRetroceder = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(858, 536));
 
-        txtRegistrodeEstudiantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtRegistrodeEstudiantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtRegistrodeEstudiantes.setText("REGISTRO DE ESTUDIANTES");
+        txtActualizarEstudiantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtActualizarEstudiantes.setForeground(new java.awt.Color(10, 72, 162));
+        txtActualizarEstudiantes.setText("REGISTRO DE ESTUDIANTES");
 
-        botonVolverRES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/volver-flecha.png"))); // NOI18N
+        txtActualizarRepresentantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtActualizarRepresentantes.setForeground(new java.awt.Color(10, 72, 162));
+        txtActualizarRepresentantes.setText("REGISTRO DE REPRESENTANTES");
 
-        txtRegistrodeRepresentantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtRegistrodeRepresentantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtRegistrodeRepresentantes.setText("REGISTRO DE REPRESENTANTES");
+        panelRES.setBackground(new java.awt.Color(244, 244, 244));
+
+        textfieldPrimerNombreAES.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldPrimerNombreAES.setForeground(new java.awt.Color(0, 0, 0));
+        textfieldPrimerNombreAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldPrimerNombreAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldPrimerNombreAESActionPerformed(evt);
+            }
+        });
+
+        txtPrimerNombreAES.setText("Primer Nombre");
+
+        textfieldCedulaAES.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldCedulaAES.setForeground(new java.awt.Color(0, 0, 0));
+        textfieldCedulaAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+
+
+        textfieldSegundoNombreAES.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldSegundoNombreAES.setForeground(new java.awt.Color(0, 0, 0));
+        textfieldSegundoNombreAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldSegundoNombreAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldSegundoNombreAESActionPerformed(evt);
+            }
+        });
+
+        textfieldPrimerApellidoAES.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldPrimerApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
+        textfieldPrimerApellidoAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldPrimerApellidoAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldPrimerApellidoAESActionPerformed(evt);
+            }
+        });
+
+        textfieldSegundoApellidoAES.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldSegundoApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
+        textfieldSegundoApellidoAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldSegundoApellidoAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldSegundoApellidoAESActionPerformed(evt);
+            }
+        });
+
+        txtSegundoNombreAES.setText("Segundo Nombre");
+
+        txtPrimerApellidoAES.setText("Primer Apellido");
+
+        txtSegundoApellidoAES.setText("Segundo apellido");
+
+        txtGradoAES.setText("Grado");
+
+        textfieldDireccionAR1.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldDireccionAR1.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldDireccionAR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfieldDireccionAR1ActionPerformed(evt);
+            }
+        });
+
+        txtDireccionAR1.setText("Dirección");
+
+        comboGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1er Grado", "2do Grado", "3er Grado", "4to Grado", "5to Grado", "6to Grado" }));
+        comboGrado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        comboPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primaria", "Secundaria" }));
+        comboPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        txtGradoAES1.setText("Grado");
+
+        txtCedulaAES.setText("Cedula de representante");
+
+        botonBorrarAES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
+        botonBorrarAES.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonBorrarAES.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonBorrarAESMouseClicked(evt);
+            }
+        });
+
+        txtSegundoApellidoAES1.setText("Fecha de nacimiento");
+
+        panelCalendario.setBackground(new java.awt.Color(255, 255, 255));
+        panelCalendario.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout panelRESLayout = new javax.swing.GroupLayout(panelRES);
+        panelRES.setLayout(panelRESLayout);
+        panelRESLayout.setHorizontalGroup(
+            panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRESLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textfieldPrimerApellidoAES, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(textfieldSegundoApellidoAES)
+                                .addComponent(txtPrimerApellidoAES)
+                                .addComponent(textfieldPrimerNombreAES)
+                                .addComponent(txtPrimerNombreAES))
+                            .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtSegundoNombreAES)
+                                .addComponent(textfieldSegundoNombreAES, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                            .addComponent(txtSegundoApellidoAES))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRESLayout.createSequentialGroup()
+                                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDireccionAR1)
+                                    .addComponent(textfieldDireccionAR1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panelRESLayout.createSequentialGroup()
+                                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(comboPeriodo, 0, 125, Short.MAX_VALUE)
+                                        .addComponent(txtGradoAES1))
+                                    .addComponent(txtGradoAES)
+                                    .addComponent(comboGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(52, 57, Short.MAX_VALUE))
+                            .addGroup(panelRESLayout.createSequentialGroup()
+                                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCedulaAES)
+                                    .addComponent(textfieldCedulaAES, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonBorrarAES)
+                                .addContainerGap())))
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSegundoApellidoAES1)
+                            .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        panelRESLayout.setVerticalGroup(
+            panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRESLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrimerNombreAES)
+                            .addComponent(txtCedulaAES))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textfieldPrimerNombreAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfieldCedulaAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botonBorrarAES))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addComponent(txtSegundoNombreAES)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldSegundoNombreAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(textfieldDireccionAR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelRESLayout.createSequentialGroup()
+                            .addComponent(txtDireccionAR1)
+                            .addGap(24, 24, 24))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addComponent(txtGradoAES1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtGradoAES)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRESLayout.createSequentialGroup()
+                        .addComponent(txtPrimerApellidoAES)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldPrimerApellidoAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSegundoApellidoAES)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldSegundoApellidoAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSegundoApellidoAES1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         barraTitulo1.setBackground(new java.awt.Color(204, 204, 204));
         barraTitulo1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -88,7 +316,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         barraTitulo1.setLayout(barraTitulo1Layout);
         barraTitulo1Layout.setHorizontalGroup(
             barraTitulo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
         barraTitulo1Layout.setVerticalGroup(
             barraTitulo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,87 +331,122 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         barraTitulo2.setLayout(barraTitulo2Layout);
         barraTitulo2Layout.setHorizontalGroup(
             barraTitulo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 383, Short.MAX_VALUE)
         );
         barraTitulo2Layout.setVerticalGroup(
             barraTitulo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 8, Short.MAX_VALUE)
         );
 
+        botonGuardarAESR.setBackground(new java.awt.Color(3, 105, 173));
+        botonGuardarAESR.setForeground(new java.awt.Color(255, 255, 255));
+        botonGuardarAESR.setText("Guardar");
+        botonGuardarAESR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGuardarAESR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarAESRActionPerformed(evt);
+            }
+        });
+
         panelRR.setBackground(new java.awt.Color(244, 244, 244));
 
-        textfieldPrimerNombreRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldPrimerNombreAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldPrimerNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldPrimerNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldPrimerNombreRRActionPerformed(evt);
+                textfieldPrimerNombreARActionPerformed(evt);
             }
         });
 
-        txtPrimerNombreRR.setText("Primer Nombre");
+        txtPrimerNombreAR.setText("Primer Nombre");
 
-        textfieldCedulaRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldCedulaAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldCedulaAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldCedulaAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldCedulaAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldCedulaRRActionPerformed(evt);
+                textfieldCedulaARActionPerformed(evt);
             }
         });
 
-        textfieldCorreoRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldSegundoNombreAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldSegundoNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldSegundoNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldCorreoRRActionPerformed(evt);
+                textfieldSegundoNombreARActionPerformed(evt);
             }
         });
 
-        textfieldSegundoNombreRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldPrimerApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldPrimerApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldPrimerApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldSegundoNombreRRActionPerformed(evt);
+                textfieldPrimerApellidoARActionPerformed(evt);
             }
         });
 
-        textfieldPrimerApellidoRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldSegundoApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldSegundoApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldSegundoApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldPrimerApellidoRRActionPerformed(evt);
+                textfieldSegundoApellidoARActionPerformed(evt);
             }
         });
 
-        textfieldSegundoApellidoRR.addActionListener(new java.awt.event.ActionListener() {
+        textfieldTelefonoAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldTelefonoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldTelefonoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldTelefonoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldSegundoApellidoRRActionPerformed(evt);
+                textfieldTelefonoARActionPerformed(evt);
             }
         });
 
-        textfieldTelefonoRR.addActionListener(new java.awt.event.ActionListener() {
+        txtSegundoNombreAR.setText("Segundo Nombre");
+
+        txtPrimerApellidoAR.setText("Primer Apellido");
+
+        txtSegundoApellidoAR.setText("Segundo apellido");
+
+        txtCedulaAR.setText("Cedula");
+
+        txtTelefonoAR.setText("Telefono");
+
+        txtDireccionAR.setText("Dirección");
+
+        textfieldDireccionAR.setBackground(new java.awt.Color(255, 255, 255));
+        textfieldDireccionAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        textfieldDireccionAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldTelefonoRRActionPerformed(evt);
+                textfieldDireccionARActionPerformed(evt);
             }
         });
 
-        txtSegundoNombreRR.setText("Segundo Nombre");
-
-        txtPrimerApellidoRR.setText("Primer Apellido");
-
-        txtSegundoApellidoRR.setText("Segundo apellido");
-
-        txtCedulaRR.setText("Cedula");
-
-        txtCorreoRR.setText("Correo");
-
-        txtTelefonoRR.setText("Telefono");
-
-        txtDireccionRR.setText("Dirección");
-
-        textfieldDireccionRR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldDireccionRRActionPerformed(evt);
+        botonBorrarAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
+        botonBorrarAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonBorrarAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonBorrarARMouseClicked(evt);
             }
         });
 
-        comboBoxSeleccionaCantidadEstudiantesRR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona la cantidad de estudiantes", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-        comboBoxSeleccionaCantidadEstudiantesRR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSeleccionaCantidadEstudiantesRRActionPerformed(evt);
+        panelCalendario1.setBackground(new java.awt.Color(255, 255, 255));
+        panelCalendario1.setLayout(new java.awt.BorderLayout());
+
+        txtSegundoApellidoAES2.setText("Fecha de nacimiento");
+
+        buscarIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
+        buscarIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscarIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarIconMouseClicked(evt);
             }
         });
-
-        botonBorrarRR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
 
         javax.swing.GroupLayout panelRRLayout = new javax.swing.GroupLayout(panelRR);
         panelRR.setLayout(panelRRLayout);
@@ -192,360 +455,565 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             .addGroup(panelRRLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRRLayout.createSequentialGroup()
-                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelRRLayout.createSequentialGroup()
-                                .addComponent(textfieldPrimerNombreRR, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textfieldCorreoRR, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRRLayout.createSequentialGroup()
-                                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSegundoNombreRR)
-                                    .addComponent(textfieldSegundoNombreRR, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                    .addComponent(textfieldCedulaRR)
-                                    .addComponent(textfieldPrimerApellidoRR)
-                                    .addComponent(textfieldSegundoApellidoRR)
-                                    .addComponent(txtPrimerApellidoRR)
-                                    .addComponent(txtSegundoApellidoRR)
-                                    .addComponent(txtCedulaRR))
-                                .addGap(55, 55, 55)
-                                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textfieldDireccionRR)
-                                    .addGroup(panelRRLayout.createSequentialGroup()
-                                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(textfieldTelefonoRR, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtTelefonoRR)
-                                            .addComponent(txtDireccionRR))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(comboBoxSeleccionaCantidadEstudiantesRR, 0, 0, Short.MAX_VALUE))))
-                        .addGap(26, 26, 26))
-                    .addGroup(panelRRLayout.createSequentialGroup()
-                        .addComponent(txtPrimerNombreRR)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCorreoRR)
-                        .addGap(85, 85, 85)
-                        .addComponent(botonBorrarRR)
-                        .addContainerGap())))
+                    .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtSegundoNombreAR)
+                        .addComponent(textfieldPrimerApellidoAR)
+                        .addComponent(textfieldSegundoApellidoAR, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                        .addComponent(txtPrimerApellidoAR)
+                        .addComponent(txtSegundoApellidoAR)
+                        .addComponent(textfieldSegundoNombreAR))
+                    .addComponent(textfieldPrimerNombreAR, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrimerNombreAR))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSegundoApellidoAES2)
+                    .addComponent(txtDireccionAR)
+                    .addComponent(textfieldTelefonoAR, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoAR)
+                    .addComponent(textfieldDireccionAR, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(panelRRLayout.createSequentialGroup()
+                            .addComponent(txtCedulaAR)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonBorrarAR))
+                        .addGroup(panelRRLayout.createSequentialGroup()
+                            .addComponent(textfieldCedulaAR, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(4, 4, 4)
+                            .addComponent(buscarIcon)
+                            .addGap(42, 42, 42)))
+                    .addComponent(panelCalendario1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         panelRRLayout.setVerticalGroup(
             panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRRLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRRLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPrimerNombreRR)
-                            .addComponent(txtCorreoRR)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRRLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(botonBorrarRR)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfieldPrimerNombreRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfieldCorreoRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSegundoNombreRR)
-                    .addComponent(txtTelefonoRR))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textfieldTelefonoRR)
-                    .addComponent(textfieldSegundoNombreRR))
-                .addGap(18, 18, 18)
-                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrimerApellidoRR)
-                    .addComponent(txtDireccionRR))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelRRLayout.createSequentialGroup()
-                        .addComponent(textfieldPrimerApellidoRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRRLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(txtPrimerApellidoAR)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textfieldPrimerApellidoAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRRLayout.createSequentialGroup()
+                                .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRRLayout.createSequentialGroup()
+                                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtPrimerNombreAR)
+                                            .addComponent(txtCedulaAR))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(textfieldPrimerNombreAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtTelefonoAR)
+                                            .addComponent(txtSegundoNombreAR))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(textfieldSegundoNombreAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textfieldTelefonoAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(panelRRLayout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(buscarIcon)
+                                            .addComponent(textfieldCedulaAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDireccionAR)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textfieldDireccionAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addComponent(txtSegundoApellidoRR)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfieldSegundoApellidoRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtCedulaRR)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfieldCedulaRR))
-                    .addComponent(textfieldDireccionRR))
-                .addGap(22, 22, 22)
-                .addComponent(comboBoxSeleccionaCantidadEstudiantesRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGroup(panelRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelRRLayout.createSequentialGroup()
+                                .addComponent(txtSegundoApellidoAR)
+                                .addGap(16, 16, 16)
+                                .addComponent(textfieldSegundoApellidoAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRRLayout.createSequentialGroup()
+                                .addComponent(txtSegundoApellidoAES2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelCalendario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(57, 57, 57))
+                    .addGroup(panelRRLayout.createSequentialGroup()
+                        .addComponent(botonBorrarAR)
+                        .addGap(80, 80, 80))))
         );
 
-        panelRES.setBackground(new java.awt.Color(244, 244, 244));
-
-        textfieldPrimerNombreRES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldPrimerNombreRESActionPerformed(evt);
+        btnRetroceder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/retroceder.png"))); // NOI18N
+        btnRetroceder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRetroceder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRetrocederMouseClicked(evt);
             }
         });
 
-        txtPrimerNombreRES.setText("Primer Nombre");
-
-        textfieldCedulaRES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldCedulaRESActionPerformed(evt);
-            }
-        });
-
-        textfieldSegundoNombreRES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldSegundoNombreRESActionPerformed(evt);
-            }
-        });
-
-        textfieldPrimerApellidoRES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldPrimerApellidoRESActionPerformed(evt);
-            }
-        });
-
-        textfieldSegundoApellidoRES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldSegundoApellidoRESActionPerformed(evt);
-            }
-        });
-
-        txtSegundoNombreRES.setText("Segundo Nombre");
-
-        txtPrimerApellidoRES.setText("Primer Apellido");
-
-        txtSegundoApellidoRES.setText("Segundo apellido");
-
-        txtCedulaRES.setText("Cedula");
-
-        txtGradoRES.setText("Grado");
-
-        botonBorrarRES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
-
-        txtCedulaRepresentanteRES.setText("cedula de representante");
-
-        javax.swing.GroupLayout panelRESLayout = new javax.swing.GroupLayout(panelRES);
-        panelRES.setLayout(panelRESLayout);
-        panelRESLayout.setHorizontalGroup(
-            panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRESLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtSegundoNombreRES)
-                        .addComponent(textfieldSegundoNombreRES)
-                        .addComponent(textfieldPrimerApellidoRES)
-                        .addComponent(textfieldSegundoApellidoRES)
-                        .addComponent(txtPrimerApellidoRES)
-                        .addComponent(txtSegundoApellidoRES)
-                        .addComponent(txtGradoRES)
-                        .addComponent(textfieldGradoRES, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addComponent(textfieldPrimerNombreRES))
-                    .addComponent(txtPrimerNombreRES))
-                .addGap(43, 43, 43)
-                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRESLayout.createSequentialGroup()
-                        .addComponent(txtCedulaRES)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonBorrarRES))
-                    .addGroup(panelRESLayout.createSequentialGroup()
-                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textfieldCedulaRepresentanteRES, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCedulaRepresentanteRES)
-                            .addComponent(textfieldCedulaRES, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 31, Short.MAX_VALUE)))
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnRetroceder)
+                        .addGap(19, 19, 19)
+                        .addComponent(txtActualizarEstudiantes))
+                    .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(txtActualizarRepresentantes)))
+                .addGap(0, 28, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(383, 383, 383)
+                .addComponent(botonGuardarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panelRESLayout.setVerticalGroup(
-            panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRESLayout.createSequentialGroup()
-                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelRESLayout.createSequentialGroup()
-                        .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelRESLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(txtPrimerNombreRES))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRESLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(botonBorrarRES)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textfieldPrimerNombreRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRESLayout.createSequentialGroup()
-                        .addComponent(txtCedulaRES)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textfieldCedulaRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSegundoNombreRES)
-                    .addComponent(txtCedulaRepresentanteRES))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtActualizarEstudiantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(2, 2, 2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnRetroceder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
+                        .addComponent(barraTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtActualizarRepresentantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)
+                        .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfieldSegundoNombreRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfieldCedulaRepresentanteRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(txtPrimerApellidoRES)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textfieldPrimerApellidoRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtSegundoApellidoRES)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textfieldSegundoApellidoRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtGradoRES)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, 291, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textfieldGradoRES, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(botonGuardarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
-
-        botonGuardarRESR.setBackground(new java.awt.Color(3, 105, 173));
-        botonGuardarRESR.setForeground(new java.awt.Color(255, 255, 255));
-        botonGuardarRESR.setText("Guardar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(barraTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelRR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(barraTitulo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonVolverRES)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtRegistrodeEstudiantes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRegistrodeRepresentantes)))
-                .addGap(28, 28, 28))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(345, 345, 345)
-                .addComponent(botonGuardarRESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtRegistrodeEstudiantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRegistrodeRepresentantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(botonVolverRES))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(barraTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botonGuardarRESR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textfieldPrimerNombreRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerNombreRRActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldPrimerNombreRRActionPerformed
+    private void botonVolverAESMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVolverAESMouseClicked
 
-    private void textfieldCedulaRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldCedulaRRActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldCedulaRRActionPerformed
+    }//GEN-LAST:event_botonVolverAESMouseClicked
 
-    private void textfieldCorreoRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldCorreoRRActionPerformed
+    private void textfieldDireccionAR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldDireccionAR1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldCorreoRRActionPerformed
+    }//GEN-LAST:event_textfieldDireccionAR1ActionPerformed
 
-    private void textfieldSegundoNombreRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoNombreRRActionPerformed
+    private void textfieldSegundoApellidoAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoApellidoAESActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldSegundoNombreRRActionPerformed
+    }//GEN-LAST:event_textfieldSegundoApellidoAESActionPerformed
 
-    private void textfieldPrimerApellidoRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerApellidoRRActionPerformed
+    private void textfieldPrimerApellidoAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerApellidoAESActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldPrimerApellidoRRActionPerformed
+    }//GEN-LAST:event_textfieldPrimerApellidoAESActionPerformed
 
-    private void textfieldSegundoApellidoRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoApellidoRRActionPerformed
+    private void textfieldSegundoNombreAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoNombreAESActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldSegundoApellidoRRActionPerformed
+    }//GEN-LAST:event_textfieldSegundoNombreAESActionPerformed
 
-    private void textfieldTelefonoRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldTelefonoRRActionPerformed
+    private void textfieldPrimerNombreAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerNombreAESActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldTelefonoRRActionPerformed
+    }//GEN-LAST:event_textfieldPrimerNombreAESActionPerformed
 
-    private void textfieldDireccionRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldDireccionRRActionPerformed
+    private void textfieldDireccionARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldDireccionARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldDireccionRRActionPerformed
+    }//GEN-LAST:event_textfieldDireccionARActionPerformed
 
-    private void comboBoxSeleccionaCantidadEstudiantesRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSeleccionaCantidadEstudiantesRRActionPerformed
+    private void textfieldTelefonoARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldTelefonoARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSeleccionaCantidadEstudiantesRRActionPerformed
+    }//GEN-LAST:event_textfieldTelefonoARActionPerformed
 
-    private void textfieldPrimerNombreRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerNombreRESActionPerformed
+    private void textfieldSegundoApellidoARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoApellidoARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldPrimerNombreRESActionPerformed
+    }//GEN-LAST:event_textfieldSegundoApellidoARActionPerformed
 
-    private void textfieldCedulaRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldCedulaRESActionPerformed
+    private void textfieldPrimerApellidoARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerApellidoARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldCedulaRESActionPerformed
+    }//GEN-LAST:event_textfieldPrimerApellidoARActionPerformed
 
-    private void textfieldSegundoNombreRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoNombreRESActionPerformed
+    private void textfieldSegundoNombreARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoNombreARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldSegundoNombreRESActionPerformed
+    }//GEN-LAST:event_textfieldSegundoNombreARActionPerformed
 
-    private void textfieldPrimerApellidoRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerApellidoRESActionPerformed
+    private void textfieldCedulaARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldCedulaARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldPrimerApellidoRESActionPerformed
+    }//GEN-LAST:event_textfieldCedulaARActionPerformed
 
-    private void textfieldSegundoApellidoRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldSegundoApellidoRESActionPerformed
+    private void textfieldPrimerNombreARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldPrimerNombreARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldSegundoApellidoRESActionPerformed
+    }//GEN-LAST:event_textfieldPrimerNombreARActionPerformed
 
+    private void buscarIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarIconMouseClicked
+        llenarDatosRepre();
+    }//GEN-LAST:event_buscarIconMouseClicked
+
+    private void botonGuardarAESRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarAESRActionPerformed
+        guardar();
+    }//GEN-LAST:event_botonGuardarAESRActionPerformed
+
+    private void botonBorrarARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBorrarARMouseClicked
+        refrescarRepresentante();
+    }//GEN-LAST:event_botonBorrarARMouseClicked
+
+    private void botonBorrarAESMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBorrarAESMouseClicked
+        refrescarEstudiante();
+    }//GEN-LAST:event_botonBorrarAESMouseClicked
+
+    private void btnRetrocederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetrocederMouseClicked
+        HomeAdmin.card.show(HomeAdmin.panelCambiante, PanelDefault.Titulo);
+        HomeAdmin.panelCambiante.revalidate();
+        HomeAdmin.panelCambiante.repaint();
+    }//GEN-LAST:event_btnRetrocederMouseClicked
+
+    private boolean validarEstudiante() {
+        String cedulaRep = textfieldCedulaAES.getText().trim();
+        String nombre1Est = textfieldPrimerNombreAES.getText().trim();
+        String nombre2Est = textfieldSegundoNombreAES.getText().trim();
+        String apellido1Est = textfieldPrimerApellidoAES.getText().trim();
+        String apellido2Est = textfieldSegundoApellidoAES.getText().trim();
+        String direccionEst = textfieldDireccionAR1.getText().trim();
+
+        // ➤ Verificación de campos vacíos
+        if (cedulaRep.isEmpty() || nombre1Est.isEmpty() || apellido1Est.isEmpty() ||
+                direccionEst.isEmpty() || nombre2Est.isEmpty() || apellido2Est.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos del estudiante deben estar completos.");
+            return false;
+        }
+
+        String regexLetras = "[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+";
+
+        if (!nombre1Est.matches(regexLetras) || !nombre2Est.matches(regexLetras) ||
+                !apellido1Est.matches(regexLetras) || !apellido2Est.matches(regexLetras)) {
+            JOptionPane.showMessageDialog(null, "Los nombres y apellidos solo deben contener letras.");
+            return false;
+        }
+
+        if (!cedulaRep.matches("V"+"\\d+")) {
+            JOptionPane.showMessageDialog(null, "La cédula debe contener solo V y números.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarRepresentante() {
+        String cedulaRepPadre = textfieldCedulaAR.getText().trim();
+        String nombre1Rep = textfieldPrimerNombreAR.getText().trim();
+        String nombre2Rep = textfieldSegundoNombreAR.getText().trim();
+        String apellido1Rep = textfieldPrimerApellidoAR.getText().trim();
+        String apellido2Rep = textfieldSegundoApellidoAR.getText().trim();
+        String direccionRep = textfieldDireccionAR.getText().trim();
+        String telefono = textfieldTelefonoAR.getText().trim();
+
+        // ➤ Verificación de campos vacíos
+        if (cedulaRepPadre.isEmpty() || nombre1Rep.isEmpty() || apellido1Rep.isEmpty() ||
+                direccionRep.isEmpty() || telefono.isEmpty() || nombre2Rep.isEmpty() || apellido2Rep.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.");
+            return false;
+        }
+
+        String regexLetras = "[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+";
+
+        if (!nombre1Rep.matches(regexLetras) || !nombre2Rep.matches(regexLetras) ||
+                !apellido1Rep.matches(regexLetras) || !apellido2Rep.matches(regexLetras)) {
+            JOptionPane.showMessageDialog(null, "Los nombres y apellidos solo deben contener letras.");
+            return false;
+        }
+
+        if (!cedulaRepPadre.matches("V"+"\\d+")) {
+            JOptionPane.showMessageDialog(null, "La cédula debe contener solo V y números.");
+            return false;
+        }
+
+        if (!telefono.matches("\\d{11}")) {
+            JOptionPane.showMessageDialog(null, "El número de teléfono debe tener exactamente 11 dígitos numéricos.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void llenarDatosRepre() {
+
+        String cedulaRep = textfieldCedulaAR.getText().trim();
+        if (cedulaRep.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "La cédula no puede quedar vacía.");
+            return;
+        }
+        if (!cedulaRep.matches("V"+"\\d+")) {
+            JOptionPane.showMessageDialog(null, "La cédula debe contener V y solo números.");
+            return;
+        }
+
+        RepresentanteDAO rDao=new RepresentanteDAO();
+        Representante representante=rDao.buscarPorCedula(cedulaRep);
+
+        if (representante!=null) {
+            textfieldCedulaAR.setText(representante.getCedula());
+            textfieldCedulaAR.setEnabled(false);
+
+            textfieldCedulaAES.setText(representante.getCedula());
+            textfieldCedulaAES.setEnabled(false);
+
+            textfieldPrimerNombreAR.setText(representante.getNombre1());
+            textfieldPrimerNombreAR.setEnabled(false);
+
+            textfieldSegundoNombreAR.setText(representante.getNombre2());
+            textfieldSegundoNombreAR.setEnabled(false);
+
+            textfieldPrimerApellidoAR.setText(representante.getApellido1());
+            textfieldPrimerApellidoAR.setEnabled(false);
+
+            textfieldSegundoApellidoAR.setText(representante.getApellido2());
+            textfieldSegundoApellidoAR.setEnabled(false);
+
+            textfieldTelefonoAR.setText(representante.getTelefono());
+            textfieldTelefonoAR.setEnabled(false);
+
+            textfieldDireccionAR.setText(representante.getDireccion());
+            textfieldDireccionAR.setEnabled(false);
+
+            dateChooserR.setDate(representante.getFechaN());
+            dateChooserR.setEnabled(false);
+
+            JOptionPane.showMessageDialog(null, "Representante encontrado, datos rellenados.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Representante no existente o cédula incorrecta.");
+        }
+
+
+    }
+
+    private void refrescarEstudiante() {
+        textfieldCedulaAES.setText(estudiante.getCedulaRep());
+        textfieldPrimerNombreAES.setText(estudiante.getNombre1());
+        textfieldSegundoNombreAES.setText(estudiante.getNombre2());
+        textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
+        textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
+        textfieldDireccionAR1.setText(estudiante.getDireccion());
+        dateChooserE.setDate(estudiante.getFechaN());
+
+    }
+
+    private void refrescarRepresentante() {
+
+        textfieldCedulaAR.setText(representante.getCedula());
+        textfieldPrimerNombreAR.setText(representante.getNombre1());
+        textfieldSegundoNombreAR.setText(representante.getNombre2());
+        textfieldPrimerApellidoAR.setText(representante.getApellido1());
+        textfieldSegundoApellidoAR.setText(representante.getApellido2());
+        textfieldDireccionAR.setText(representante.getDireccion());
+        textfieldTelefonoAR.setText(representante.getTelefono());
+        dateChooserR.setDate(representante.getFechaN());
+
+    }
+
+    private void cargarEstudiante(int id) {
+
+        EstudianteDAO eDao=new EstudianteDAO();
+        estudiante=eDao.buscarPorId(id);
+
+        textfieldCedulaAR.setEnabled(false);
+        textfieldPrimerNombreAR.setEnabled(false);
+        textfieldSegundoNombreAR.setEnabled(false);
+        textfieldPrimerApellidoAR.setEnabled(false);
+        textfieldSegundoApellidoAR.setEnabled(false);
+        textfieldDireccionAR.setEnabled(false);
+        textfieldTelefonoAR.setEnabled(false);
+        dateChooserR.setEnabled(false);
+        botonBorrarAR.setEnabled(false);
+        buscarIcon.setEnabled(false);
+
+        textfieldCedulaAES.setText(estudiante.getCedulaRep());
+        textfieldPrimerNombreAES.setText(estudiante.getNombre1());
+        textfieldSegundoNombreAES.setText(estudiante.getNombre2());
+        textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
+        textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
+        textfieldDireccionAR1.setText(estudiante.getDireccion());
+        dateChooserE.setDate(estudiante.getFechaN());
+
+    }
+
+    private void cargarRepresentante(int id) {
+
+        RepresentanteDAO rDao=new RepresentanteDAO();
+        representante=rDao.buscarPorId(id);
+
+        textfieldCedulaAES.setEnabled(false);
+        textfieldPrimerNombreAES.setEnabled(false);
+        textfieldSegundoNombreAES.setEnabled(false);
+        textfieldPrimerApellidoAES.setEnabled(false);
+        textfieldSegundoApellidoAES.setEnabled(false);
+        textfieldDireccionAR1.setEnabled(false);
+        dateChooserE.setEnabled(false);
+        comboGrado.setEnabled(false);
+        botonBorrarAES.setEnabled(false);
+        buscarIcon.setEnabled(false);
+
+        textfieldCedulaAR.setText(representante.getCedula());
+        textfieldPrimerNombreAR.setText(representante.getNombre1());
+        textfieldSegundoNombreAR.setText(representante.getNombre2());
+        textfieldPrimerApellidoAR.setText(representante.getApellido1());
+        textfieldSegundoApellidoAR.setText(representante.getApellido2());
+        textfieldDireccionAR.setText(representante.getDireccion());
+        textfieldTelefonoAR.setText(representante.getTelefono());
+        dateChooserR.setDate(representante.getFechaN());
+
+    }
+
+    private void guardarDatosE() {
+
+        estudiante.setNombre1(textfieldPrimerNombreAES.getText());
+        estudiante.setNombre2(textfieldSegundoNombreAES.getText());
+        estudiante.setApellido1(textfieldPrimerApellidoAES.getText());
+        estudiante.setApellido2(textfieldSegundoApellidoAES.getText());
+        estudiante.setFechaN((Date) dateChooserE.getDate());
+        estudiante.setDireccion(textfieldDireccionAR1.getText());
+        estudiante.setGrado((String) comboGrado.getSelectedItem());
+        estudiante.setNivel_academico((String) comboPeriodo.getSelectedItem());
+        estudiante.setEstado(true);
+        estudiante.setCedulaRep(textfieldCedulaAR.getText());
+
+    }
+
+    private void guardarDatosR() {
+
+        representante.setNombre1(textfieldPrimerNombreAR.getText());
+        representante.setNombre2(textfieldSegundoNombreAR.getText());
+        representante.setApellido1(textfieldPrimerApellidoAR.getText());
+        representante.setApellido2(textfieldSegundoApellidoAR.getText());
+        representante.setFechaN((Date) dateChooserR.getDate());
+        representante.setDireccion(textfieldDireccionAR.getText());
+        representante.setTelefono(textfieldTelefonoAR.getText());
+        representante.setCedula(textfieldCedulaAR.getText());
+        representante.setEstado(true);
+
+    }
+
+    private void guardar() {
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd"); // Formato compatible con SQL
+        boolean exitoE;
+        boolean exitoR;
+
+        // Validación para saber si se va a registrar un estudiante o un estudiante y un representante
+        // Si un campo cualquiera de Representante está habilitado, entonces hará un registro de ambos
+        if (textfieldSegundoNombreAR.isEnabled()) {
+
+            if (validarEstudiante() && validarRepresentante()) {
+
+                if (textfieldCedulaAES.getText().trim().equals(textfieldCedulaAR.getText().trim())) {
+
+                    //Datos Representante
+                    guardarDatosR();
+
+                    //Datos Estudiante
+                    guardarDatosE();
+
+                    RepresentanteDAO rDao=new RepresentanteDAO();
+                    EstudianteDAO eDao=new EstudianteDAO();
+
+                    exitoR=rDao.agregar(representante);
+                    exitoE=eDao.agregar(estudiante);
+
+                    if (!exitoR && !exitoE) {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar al estudiante y representante.");
+                    } else if (!exitoR) {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar al representante.");
+                    } else if (!exitoE) {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar al estudiante.");
+                    } else JOptionPane.showMessageDialog(null, "Estudiante y representante agregados con éxito.");
+
+                } else JOptionPane.showMessageDialog(
+                        null,"La cédula del estudiante debe ser la misma que la del representante.");
+
+            }
+        } else {
+            // Si ese campo está deshabilitado, entonces agregará un estudiante
+            if (validarEstudiante()) {
+
+                //Datos Estudiante
+               guardarDatosE();
+
+                EstudianteDAO eDao=new EstudianteDAO();
+                exitoE=eDao.agregar(estudiante);
+                if (exitoE) {
+                    JOptionPane.showMessageDialog(null, "Estudiante registrado con éxito.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar al estudiante.");
+
+                }
+            }
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barraTitulo1;
     private javax.swing.JPanel barraTitulo2;
-    private javax.swing.JLabel botonBorrarRES;
-    private javax.swing.JLabel botonBorrarRR;
-    private javax.swing.JButton botonGuardarRESR;
-    private javax.swing.JLabel botonVolverRES;
-    private javax.swing.JComboBox<String> comboBoxSeleccionaCantidadEstudiantesRR;
+    private javax.swing.JLabel botonBorrarAES;
+    private javax.swing.JLabel botonBorrarAR;
+    private javax.swing.JButton botonGuardarAESR;
+    private javax.swing.JLabel btnRetroceder;
+    private javax.swing.JLabel buscarIcon;
+    private javax.swing.JComboBox<String> comboGrado;
+    private javax.swing.JComboBox<String> comboPeriodo;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panelCalendario;
+    private javax.swing.JPanel panelCalendario1;
     private javax.swing.JPanel panelRES;
     private javax.swing.JPanel panelRR;
-    private javax.swing.JTextField textfieldCedulaRES;
-    private javax.swing.JTextField textfieldCedulaRR;
-    private javax.swing.JTextField textfieldCedulaRepresentanteRES;
-    private javax.swing.JTextField textfieldCorreoRR;
-    private javax.swing.JTextField textfieldDireccionRR;
-    private javax.swing.JTextField textfieldGradoRES;
-    private javax.swing.JTextField textfieldPrimerApellidoRES;
-    private javax.swing.JTextField textfieldPrimerApellidoRR;
-    private javax.swing.JTextField textfieldPrimerNombreRES;
-    private javax.swing.JTextField textfieldPrimerNombreRR;
-    private javax.swing.JTextField textfieldSegundoApellidoRES;
-    private javax.swing.JTextField textfieldSegundoApellidoRR;
-    private javax.swing.JTextField textfieldSegundoNombreRES;
-    private javax.swing.JTextField textfieldSegundoNombreRR;
-    private javax.swing.JTextField textfieldTelefonoRR;
-    private javax.swing.JLabel txtCedulaRES;
-    private javax.swing.JLabel txtCedulaRR;
-    private javax.swing.JLabel txtCedulaRepresentanteRES;
-    private javax.swing.JLabel txtCorreoRR;
-    private javax.swing.JLabel txtDireccionRR;
-    private javax.swing.JLabel txtGradoRES;
-    private javax.swing.JLabel txtPrimerApellidoRES;
-    private javax.swing.JLabel txtPrimerApellidoRR;
-    private javax.swing.JLabel txtPrimerNombreRES;
-    private javax.swing.JLabel txtPrimerNombreRR;
-    private javax.swing.JLabel txtRegistrodeEstudiantes;
-    private javax.swing.JLabel txtRegistrodeRepresentantes;
-    private javax.swing.JLabel txtSegundoApellidoRES;
-    private javax.swing.JLabel txtSegundoApellidoRR;
-    private javax.swing.JLabel txtSegundoNombreRES;
-    private javax.swing.JLabel txtSegundoNombreRR;
-    private javax.swing.JLabel txtTelefonoRR;
+    private javax.swing.JTextField textfieldCedulaAES;
+    private javax.swing.JTextField textfieldCedulaAR;
+    private javax.swing.JTextField textfieldDireccionAR;
+    private javax.swing.JTextField textfieldDireccionAR1;
+    private javax.swing.JTextField textfieldPrimerApellidoAES;
+    private javax.swing.JTextField textfieldPrimerApellidoAR;
+    private javax.swing.JTextField textfieldPrimerNombreAES;
+    private javax.swing.JTextField textfieldPrimerNombreAR;
+    private javax.swing.JTextField textfieldSegundoApellidoAES;
+    private javax.swing.JTextField textfieldSegundoApellidoAR;
+    private javax.swing.JTextField textfieldSegundoNombreAES;
+    private javax.swing.JTextField textfieldSegundoNombreAR;
+    private javax.swing.JTextField textfieldTelefonoAR;
+    private javax.swing.JLabel txtActualizarEstudiantes;
+    private javax.swing.JLabel txtActualizarRepresentantes;
+    private javax.swing.JLabel txtCedulaAES;
+    private javax.swing.JLabel txtCedulaAR;
+    private javax.swing.JLabel txtDireccionAR;
+    private javax.swing.JLabel txtDireccionAR1;
+    private javax.swing.JLabel txtGradoAES;
+    private javax.swing.JLabel txtGradoAES1;
+    private javax.swing.JLabel txtPrimerApellidoAES;
+    private javax.swing.JLabel txtPrimerApellidoAR;
+    private javax.swing.JLabel txtPrimerNombreAES;
+    private javax.swing.JLabel txtPrimerNombreAR;
+    private javax.swing.JLabel txtSegundoApellidoAES;
+    private javax.swing.JLabel txtSegundoApellidoAES1;
+    private javax.swing.JLabel txtSegundoApellidoAES2;
+    private javax.swing.JLabel txtSegundoApellidoAR;
+    private javax.swing.JLabel txtSegundoNombreAES;
+    private javax.swing.JLabel txtSegundoNombreAR;
+    private javax.swing.JLabel txtTelefonoAR;
     // End of variables declaration//GEN-END:variables
 }

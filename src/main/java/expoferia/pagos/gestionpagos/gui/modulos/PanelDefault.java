@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package expoferia.pagos.gestionpagos.gui.panelcambiante;
+package expoferia.pagos.gestionpagos.gui.modulos;
 
 /**
  *
@@ -17,35 +17,45 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.DefaultTable;
-import expoferia.pagos.gestionpagos.gui.panelcambiante.componentes.Tabla;
+import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.PanelRound;
+import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEmpleados;
+import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEstudianteRepresentante;
+//import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
+import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
+import expoferia.pagos.gestionpagos.gui.formularios.RegistroEstudianteRepresentante;
+import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
 import java.util.List;
 
 public class PanelDefault extends JPanel {
     private Tabla tabla;
+    public static String Titulo;
+    private Integer id=null;
     /**
      * Creates new form PanelRepresentante
      */
 
-    public PanelDefault(String titulo,
-                        String nombresColumnas,
-                        String nombreTabla) {
+    public PanelDefault(String nombresColumnas,
+                        String nombreModulo) {
+        Titulo=nombreModulo;
 
         initComponents();
-        jLabel8.setText(titulo);
+        jLabel8.setText("Gestión de "+ Titulo);
         List<String> listaColumnas = new ArrayList<>();
         listaColumnas.addAll(Arrays.asList(nombresColumnas.split(" ")));
 
         DefaultTableModel modelo= new DefaultTableModel();
-        DefaultTableCellRenderer headerRenderer= new DefaultTableCellRenderer();
-        if (nombreTabla.equals("representante")){
+
+        if (nombreModulo.equals("Representantes")){
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             RepresentanteDAO rdao=new RepresentanteDAO();
@@ -57,9 +67,10 @@ public class PanelDefault extends JPanel {
                         rep.getNombre1()+" "+rep.getNombre2(),
                         rep.getApellido1()+" "+rep.getApellido2()});
             }
+
         }
 
-        if (nombreTabla.equals("empleado")) {
+        if (nombreModulo.equals("Empleados")) {
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             EmpleadoDAO edao=new EmpleadoDAO();
@@ -75,7 +86,7 @@ public class PanelDefault extends JPanel {
 
         }
 
-        if (nombreTabla.equals("estudiante")) {
+        if (nombreModulo.equals("Estudiantes")) {
 
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             EstudianteDAO esdao=new EstudianteDAO();
@@ -91,7 +102,7 @@ public class PanelDefault extends JPanel {
 
         }
 
-        if (nombreTabla.equals("tipo_pago")) {
+        if (nombreModulo.equals("Tipos de Pagos")) {
             modelo.setColumnIdentifiers(nombresColumnas.split(" "));
             TipoPagoDAO tpDao=new TipoPagoDAO();
             List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
@@ -106,12 +117,28 @@ public class PanelDefault extends JPanel {
         }
         tabla=new Tabla();
         tabla.setModel(modelo);
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = tabla.rowAtPoint(e.getPoint());
+
+                if (fila >= 0) {
+                    // Asumiendo que la columna 0 contiene el ID
+                    id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
+                    System.out.println("ID seleccionado: " + id);
+
+                    // Puedes buscar por ID y cargar campos
+                    // Representante representante = dao.buscarPorId(id);
+                    // cargarDatosRepresentante(representante);
+                }
+            }
+        });
 
         panelTabla.setLayout(new BorderLayout());
         JScrollPane scrollPane=new JScrollPane(tabla);
         panelTabla.add(scrollPane, BorderLayout.CENTER);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
-        tabla.setDefaultRenderer(Object.class, new DefaultTable());
+
     }
 
     /**
@@ -123,17 +150,20 @@ public class PanelDefault extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRepresentantes = new JPanel();
+        panelDefault = new PanelRound();
         jLabel8 = new JLabel();
         registrarButton = new JButton();
         actualizarButton = new JButton();
         archivarButton = new JButton();
         jComboBox1 = new JComboBox<>();
         jLabel1 = new JLabel();
-        panelTabla = new JPanel();
+        panelTabla = new PanelRound();
 
-        panelRepresentantes.setBackground(new Color(255, 255, 255));
-        panelRepresentantes.setMaximumSize(new Dimension(787, 445));
+        panelDefault.setBackground(new Color(255, 255, 255));
+        panelDefault.setRoundBottomLeft(30);
+        panelDefault.setRoundBottomRight(30);
+        panelDefault.setRoundTopLeft(30);
+        panelDefault.setRoundTopRight(30);
 
         jLabel8.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new Color(10, 72, 162));
@@ -143,13 +173,18 @@ public class PanelDefault extends JPanel {
         registrarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         registrarButton.setForeground(new Color(255, 255, 255));
         registrarButton.setText("Agregar");
+        registrarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                registrarButtonActionPerformed(evt);
+            }
+        });
 
         actualizarButton.setBackground(new Color(3, 105, 173));
         actualizarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         actualizarButton.setForeground(new Color(255, 255, 255));
         actualizarButton.setText("Actualizar");
-        actualizarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        actualizarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 actualizarButtonActionPerformed(evt);
             }
         });
@@ -164,6 +199,10 @@ public class PanelDefault extends JPanel {
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/imagenes/close.png"))); // NOI18N
 
         panelTabla.setBackground(new Color(255, 255, 255));
+        panelTabla.setRoundBottomLeft(30);
+        panelTabla.setRoundBottomRight(30);
+        panelTabla.setRoundTopLeft(30);
+        panelTabla.setRoundTopRight(30);
 
         GroupLayout panelTablaLayout = new GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
@@ -176,8 +215,8 @@ public class PanelDefault extends JPanel {
             .addGap(0, 474, Short.MAX_VALUE)
         );
 
-        GroupLayout panelRepresentantesLayout = new GroupLayout(panelRepresentantes);
-        panelRepresentantes.setLayout(panelRepresentantesLayout);
+        GroupLayout panelRepresentantesLayout = new GroupLayout(panelDefault);
+        panelDefault.setLayout(panelRepresentantesLayout);
         panelRepresentantesLayout.setHorizontalGroup(
             panelRepresentantesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(panelRepresentantesLayout.createSequentialGroup()
@@ -220,13 +259,13 @@ public class PanelDefault extends JPanel {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 813, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDefault, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 581, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(panelRepresentantes, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDefault, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -238,10 +277,63 @@ public class PanelDefault extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
+    private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_actualizarButtonActionPerformed
 
+        if (Titulo.equals("Empleados")) {
+            RegistroEmpleados registroEmpleados=new RegistroEmpleados();
+
+            HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
+
+        } else if (Titulo.equals("Estudiantes")) {
+            RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
+
+            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+
+        } else if (Titulo.equals("Representantes")) {
+            RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
+
+            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+
+        }
+        HomeAdmin.panelCambiante.revalidate();
+        HomeAdmin.panelCambiante.repaint();
+
+    }//GEN-LAST:event_registrarButtonActionPerformed
+
+    private void actualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtonActionPerformed
+
+        if (id!=null) {
+            if (Titulo.equals("Empleados")) {
+                ActualizarEmpleados actualizarEmpleados=new ActualizarEmpleados(id);
+
+                HomeAdmin.panelCambiante.add(actualizarEmpleados, "actEmp");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEmp");
+
+            } else if (Titulo.equals("Estudiantes")) {
+                ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
+
+                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+
+            } else if (Titulo.equals("Representantes")) {
+                ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
+
+                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+
+            }
+
+            HomeAdmin.panelCambiante.revalidate();
+            HomeAdmin.panelCambiante.repaint();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un registro de la tabla antes de actualizar.");
+        }
+
+    }//GEN-LAST:event_actualizarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton actualizarButton;
@@ -249,8 +341,8 @@ public class PanelDefault extends JPanel {
     private JComboBox<String> jComboBox1;
     private JLabel jLabel1;
     private JLabel jLabel8;
-    private JPanel panelRepresentantes;
-    private JPanel panelTabla;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelDefault;
+    private expoferia.pagos.gestionpagos.gui.PanelRound panelTabla;
     private JButton registrarButton;
     // End of variables declaration//GEN-END:variables
 }

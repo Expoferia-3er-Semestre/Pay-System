@@ -1,8 +1,7 @@
 package expoferia.pagos.gestionpagos.dao;
 
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
-import static expoferia.pagos.gestionpagos.conexion.Conexion.closeConnection;
-import static expoferia.pagos.gestionpagos.conexion.Conexion.getConexion;
+import static expoferia.pagos.gestionpagos.conexion.Conexion.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,10 +41,11 @@ public class EstudianteDAO {
                             rs.getString("nombre2"),
                             rs.getString("apellido1"),
                             rs.getString("apellido2"),
-                            rs.getString("telefono"),
                             rs.getDate("fechaN"),
                             rs.getString("direccion"),
-                            rs.getBoolean("estado")
+                            rs.getBoolean("estado"),
+                            rs.getString("grado"),
+                            rs.getString("nivel_academico")
                     );
                     lista.add(estudiante);
                 }
@@ -55,32 +55,49 @@ public class EstudianteDAO {
 
         } catch (Exception e) {
             System.out.println("Error al listar estudiantes: " + e);
+            closeConnection();
             return null;
         }
     }
 
-    public Integer buscarPorId(int id) {
-        String sql = "SELECT id FROM estudiante WHERE id=?";
-
+    public Estudiante buscarPorId(int id) {
+        String sql = "SELECT * FROM estudiante WHERE id=?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("id");
-                } else {
-                    return null;
+                    Estudiante estudiante = new Estudiante(
+                            rs.getInt("id"),
+                            rs.getString("cedulaRep"),
+                            rs.getString("nombre1"),
+                            rs.getString("nombre2"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getDate("fechaN"),
+                            rs.getString("direccion"),
+                            rs.getBoolean("estado"),
+                            rs.getString("grado"),
+                            rs.getString("nivel_academico")
+                    );
+                    closeConnection();
+                    return estudiante;
                 }
+                closeConnection();
+                return null;
             }
+
         } catch (SQLException e) {
             System.out.println("Error al buscar estudiante: " + e);
+            closeConnection();
             return null;
         }
     }
 
     public boolean agregar(Estudiante estudiante) {
-        String sql = "INSERT INTO estudiante(cedulaRep, nombre1, nombre2, apellido1, apellido2, telefono, fechaN, direccion, estado) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO estudiante(cedulaRep, nombre1, nombre2, apellido1, apellido2, fechaN, direccion, estado, grado, nivel_academico) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -90,16 +107,19 @@ public class EstudianteDAO {
             ps.setString(3, estudiante.getNombre2());
             ps.setString(4, estudiante.getApellido1());
             ps.setString(5, estudiante.getApellido2());
-            ps.setString(6, estudiante.getTelefono());
-            ps.setDate(7, estudiante.getFechaN());
-            ps.setString(8, estudiante.getDireccion());
-            ps.setBoolean(9, estudiante.getEstado());
+            ps.setDate(6, estudiante.getFechaN());
+            ps.setString(7, estudiante.getDireccion());
+            ps.setBoolean(8, estudiante.getEstado());
+            ps.setString(9, estudiante.getGrado());
+            ps.setString(10, estudiante.getNivel_academico());
 
             int filasAfectadas = ps.executeUpdate();
             closeConnection();
             return filasAfectadas > 0;
+
         } catch (Exception e) {
             System.out.println("Error al agregar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
@@ -110,56 +130,43 @@ public class EstudianteDAO {
         boolean hayComa = false;
 
         if (estudiante.getCedulaRep() != null) {
-            sql.append("cedulaRep=?");
-            valores.add(estudiante.getCedulaRep());
-            hayComa = true;
+            sql.append("cedulaRep=?"); valores.add(estudiante.getCedulaRep()); hayComa = true;
         }
         if (estudiante.getNombre1() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("nombre1=?");
-            valores.add(estudiante.getNombre1());
-            hayComa = true;
+            sql.append("nombre1=?"); valores.add(estudiante.getNombre1()); hayComa = true;
         }
         if (estudiante.getNombre2() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("nombre2=?");
-            valores.add(estudiante.getNombre2());
-            hayComa = true;
+            sql.append("nombre2=?"); valores.add(estudiante.getNombre2()); hayComa = true;
         }
         if (estudiante.getApellido1() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("apellido1=?");
-            valores.add(estudiante.getApellido1());
-            hayComa = true;
+            sql.append("apellido1=?"); valores.add(estudiante.getApellido1()); hayComa = true;
         }
         if (estudiante.getApellido2() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("apellido2=?");
-            valores.add(estudiante.getApellido2());
-            hayComa = true;
-        }
-        if (estudiante.getTelefono() != null) {
-            if (hayComa) sql.append(", ");
-            sql.append("telefono=?");
-            valores.add(estudiante.getTelefono());
-            hayComa = true;
+            sql.append("apellido2=?"); valores.add(estudiante.getApellido2()); hayComa = true;
         }
         if (estudiante.getFechaN() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("fechaN=?");
-            valores.add(estudiante.getFechaN());
-            hayComa = true;
+            sql.append("fechaN=?"); valores.add(estudiante.getFechaN()); hayComa = true;
         }
         if (estudiante.getDireccion() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("direccion=?");
-            valores.add(estudiante.getDireccion());
-            hayComa = true;
+            sql.append("direccion=?"); valores.add(estudiante.getDireccion()); hayComa = true;
         }
         if (estudiante.getEstado() != null) {
             if (hayComa) sql.append(", ");
-            sql.append("estado=?");
-            valores.add(estudiante.getEstado());
+            sql.append("estado=?"); valores.add(estudiante.getEstado()); hayComa = true;
+        }
+        if (estudiante.getGrado() != null) {
+            if (hayComa) sql.append(", ");
+            sql.append("grado=?"); valores.add(estudiante.getGrado()); hayComa = true;
+        }
+        if (estudiante.getNivel_academico() != null) {
+            if (hayComa) sql.append(", ");
+            sql.append("nivel_academico=?"); valores.add(estudiante.getNivel_academico());
         }
 
         if (valores.isEmpty()) {
@@ -180,15 +187,16 @@ public class EstudianteDAO {
             int filasAfectadas = ps.executeUpdate();
             closeConnection();
             return filasAfectadas > 0;
+
         } catch (SQLException e) {
             System.out.println("Error al modificar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
 
     public boolean desactivar(int id) {
         String sql = "UPDATE estudiante SET estado=false WHERE id=?";
-
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -197,13 +205,13 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al desactivar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }
 
     public boolean activar(int id) {
         String sql = "UPDATE estudiante SET estado=true WHERE id=?";
-
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -212,6 +220,7 @@ public class EstudianteDAO {
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al activar estudiante: " + e);
+            closeConnection();
             return false;
         }
     }

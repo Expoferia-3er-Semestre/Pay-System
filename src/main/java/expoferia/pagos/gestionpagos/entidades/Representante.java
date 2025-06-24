@@ -10,15 +10,16 @@ public class Representante {
     private String apellido1;
     private String apellido2;
     private String telefono;
-    private String correo;
     private Date fechaN;
     private String direccion;
     private Boolean estado;
 
-    // Constructor
+    // Constructores
+    public Representante() {}
+
     public Representante(int id, String cedula, String nombre1, String nombre2,
                          String apellido1, String apellido2, String telefono,
-                         String correo, Date fechaN, String direccion, Boolean estado) {
+                         Date fechaN, String direccion, Boolean estado) {
         this.id = id;
         this.cedula = cedula;
         this.nombre1 = nombre1;
@@ -26,7 +27,6 @@ public class Representante {
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.telefono = telefono;
-        this.correo = correo;
         this.fechaN = fechaN;
         this.direccion = direccion;
         this.estado = estado;
@@ -53,9 +53,6 @@ public class Representante {
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
-
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
 
     public Date getFechaN() { return fechaN; }
     public void setFechaN(Date fechaN) { this.fechaN = fechaN; }

@@ -26,6 +26,8 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
     JDateChooser dateChooserE;
     Estudiante estudiante;
     Representante representante;
+    Boolean cambiarCedula=false;
+
     /**
      * Creates new form ActualizarEstudianteRepresentante
      */
@@ -92,6 +94,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         botonBorrarAES = new javax.swing.JLabel();
         txtSegundoApellidoAES1 = new javax.swing.JLabel();
         panelCalendario = new javax.swing.JPanel();
+        buscarIcon1 = new javax.swing.JLabel();
         barraTitulo1 = new javax.swing.JPanel();
         barraTitulo2 = new javax.swing.JPanel();
         botonActualizarAESR = new javax.swing.JButton();
@@ -230,6 +233,14 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         panelCalendario.setBackground(new java.awt.Color(255, 255, 255));
         panelCalendario.setLayout(new java.awt.BorderLayout());
 
+        buscarIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
+        buscarIcon1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscarIcon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarIcon1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRESLayout = new javax.swing.GroupLayout(panelRES);
         panelRES.setLayout(panelRESLayout);
         panelRESLayout.setHorizontalGroup(
@@ -249,7 +260,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                                 .addComponent(txtSegundoNombreAES)
                                 .addComponent(textfieldSegundoNombreAES, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                             .addComponent(txtSegundoApellidoAES))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRESLayout.createSequentialGroup()
                                 .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,8 +280,11 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                                     .addGroup(panelRESLayout.createSequentialGroup()
                                         .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtCedulaAES)
-                                            .addComponent(textfieldCedulaAES, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                            .addGroup(panelRESLayout.createSequentialGroup()
+                                                .addComponent(textfieldCedulaAES, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(buscarIcon1)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                         .addComponent(botonBorrarAES)))
                                 .addContainerGap())))
                     .addGroup(panelRESLayout.createSequentialGroup()
@@ -292,7 +306,8 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                         .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textfieldPrimerNombreAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textfieldCedulaAES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(botonBorrarAES))
+                    .addComponent(botonBorrarAES)
+                    .addComponent(buscarIcon1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRESLayout.createSequentialGroup()
@@ -586,15 +601,15 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(btnRetroceder)
                                 .addGap(19, 19, 19)
-                                .addComponent(txtActualizarEstudiantes)))
-                        .addGap(43, 43, 43)
+                                .addComponent(txtActualizarEstudiantes)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -604,7 +619,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(336, 336, 336)
                         .addComponent(botonActualizarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,18 +627,16 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtActualizarRepresentantes, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)
+                        .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtActualizarEstudiantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(2, 2, 2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnRetroceder)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(barraTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtActualizarRepresentantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(2, 2, 2)
-                        .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnRetroceder))
+                        .addComponent(barraTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -700,9 +713,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
     }//GEN-LAST:event_textfieldPrimerNombreARActionPerformed
 
     private void buscarIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarIconMouseClicked
-
-
-
+        cambiarCedulaR();
     }//GEN-LAST:event_buscarIconMouseClicked
 
     private void botonActualizarAESRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarAESRActionPerformed
@@ -722,6 +733,10 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         HomeAdmin.panelCambiante.revalidate();
         HomeAdmin.panelCambiante.repaint();
     }//GEN-LAST:event_btnRetrocederMouseClicked
+
+    private void buscarIcon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarIcon1MouseClicked
+        cambiarCedulaE();
+    }//GEN-LAST:event_buscarIcon1MouseClicked
 
     private boolean validarEstudiante() {
         String cedulaRep = textfieldCedulaAES.getText().trim();
@@ -798,12 +813,22 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
 
         if (confirmacion==0) {
             textfieldCedulaAES.setText(estudiante.getCedulaRep());
+            textfieldCedulaAES.setEnabled(true);
             textfieldPrimerNombreAES.setText(estudiante.getNombre1());
             textfieldSegundoNombreAES.setText(estudiante.getNombre2());
             textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
             textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
             textfieldDireccionAR1.setText(estudiante.getDireccion());
             dateChooserE.setDate(estudiante.getFechaN());
+
+            textfieldCedulaAR.setText("");
+            textfieldPrimerNombreAR.setText("");
+            textfieldSegundoNombreAR.setText("");
+            textfieldPrimerApellidoAR.setText("");
+            textfieldSegundoApellidoAR.setText("");
+            textfieldDireccionAR.setText("");
+            textfieldTelefonoAR.setText("");
+            dateChooserR.setDate(null);
         }
 
     }
@@ -816,6 +841,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
 
         if (confirmacion==0) {
             textfieldCedulaAR.setText(representante.getCedula());
+            textfieldCedulaAR.setEnabled(true);
             textfieldPrimerNombreAR.setText(representante.getNombre1());
             textfieldSegundoNombreAR.setText(representante.getNombre2());
             textfieldPrimerApellidoAR.setText(representante.getApellido1());
@@ -858,15 +884,18 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         RepresentanteDAO rDao=new RepresentanteDAO();
         representante=rDao.buscarPorId(id);
 
+        textfieldCedulaAES.setEnabled(false);
         textfieldPrimerNombreAES.setEnabled(false);
         textfieldSegundoNombreAES.setEnabled(false);
         textfieldPrimerApellidoAES.setEnabled(false);
         textfieldSegundoApellidoAES.setEnabled(false);
+        buscarIcon1.setEnabled(false);
+        comboGrado.setEnabled(false);
+        comboPeriodo.setEnabled(false);
         textfieldDireccionAR1.setEnabled(false);
         dateChooserE.setEnabled(false);
         comboGrado.setEnabled(false);
         botonBorrarAES.setEnabled(false);
-        buscarIcon.setEnabled(false);
 
         textfieldCedulaAR.setText(representante.getCedula());
         textfieldPrimerNombreAR.setText(representante.getNombre1());
@@ -876,6 +905,95 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         textfieldDireccionAR.setText(representante.getDireccion());
         textfieldTelefonoAR.setText(representante.getTelefono());
         dateChooserR.setDate(representante.getFechaN());
+
+    }
+
+    private void cambiarCedulaE() {
+
+        if (!textfieldCedulaAES.getText().isBlank()) {
+
+            // Si la cedula del campo estudiante no es la misma a la anterior que tenia, entonces es está modificando
+            if (!textfieldCedulaAES.getText().equals(estudiante.getCedulaRep())) {
+
+                // Si la nueva cedula cumple con los requisitos
+                if (textfieldCedulaAES.getText().matches("V"+"\\d+")) {
+
+                    RepresentanteDAO rDao=new RepresentanteDAO();
+                    representante=rDao.buscarPorCedula(textfieldCedulaAES.getText());
+
+                    if (representante!=null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Representante encontrado, verifique que es el correcto antes de actualizar.");
+
+                        textfieldCedulaAR.setText(representante.getCedula());
+                        textfieldPrimerNombreAR.setText(representante.getNombre1());
+                        textfieldSegundoNombreAR.setText(representante.getNombre2());
+                        textfieldPrimerApellidoAR.setText(representante.getApellido1());
+                        textfieldSegundoApellidoAR.setText(representante.getApellido2());
+                        textfieldDireccionAR.setText(representante.getDireccion());
+                        textfieldTelefonoAR.setText(representante.getTelefono());
+                        dateChooserR.setDate(representante.getFechaN());
+
+                        textfieldCedulaAES.setEnabled(false);
+                        cambiarCedula=true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe un representante con la cédula ingresada.");
+                        cambiarCedula=false;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cédula debe contener solo V y números.");
+                    cambiarCedula=false;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "La cédula ingresada es la misma que la anterior.");
+                cambiarCedula=false;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "La cédula no puede quedar vacía.");
+            cambiarCedula=false;
+        }
+
+    }
+
+    private void cambiarCedulaR() {
+
+        if (!textfieldCedulaAR.getText().isBlank()) {
+
+            if (!textfieldCedulaAR.getText().matches(representante.getCedula())) {
+
+                if (textfieldCedulaAR.getText().matches("V"+"\\d+")) {
+
+                    RepresentanteDAO rDao=new RepresentanteDAO();
+                    Representante rBusqueda=rDao.buscarPorCedula(textfieldCedulaAR.getText());
+
+                    if (rBusqueda==null) {
+                        JOptionPane.showMessageDialog(null, "Todo en orden. Verifique que es la cédula correcta antes de actualizar.");
+                        textfieldCedulaAR.setEnabled(false);
+                        cambiarCedula=true;
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Ya existe un representante con esta cédula. Retornando la cédula a la original...");
+                        textfieldCedulaAR.setText(representante.getCedula());
+                        cambiarCedula=false;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cédula debe contener solo V y números.");
+                    cambiarCedula=false;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "La cédula ingresada es la misma que la anterior.");
+                cambiarCedula=false;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "La cédula no puede quedar vacía.");
+            cambiarCedula=false;
+        }
 
     }
 
@@ -894,6 +1012,9 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         estudiante.setGrado((String) comboGrado.getSelectedItem());
         estudiante.setNivel_academico((String) comboPeriodo.getSelectedItem());
 
+        if (cambiarCedula) {
+            estudiante.setCedulaRep(textfieldCedulaAES.getText());
+        }
     }
 
     private void actualizarDatosR() {
@@ -909,7 +1030,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         representante.setDireccion(textfieldDireccionAR.getText());
         representante.setTelefono(textfieldTelefonoAR.getText());
 
-        if (!representante.getCedula().matches(textfieldCedulaAR.getText())) {
+        if (cambiarCedula) {
             representante.setCedula(textfieldCedulaAR.getText());
         }
 
@@ -934,12 +1055,30 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
 
             if (validarRepresentante()) {
 
-                actualizarDatosR();
-                RepresentanteDAO rDao=new RepresentanteDAO();
-                exito=rDao.modificar(representante);
-                if (exito) {
-                    JOptionPane.showMessageDialog(null, "Representante modificado con éxito.");
-                } else JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar el representante.");
+                // Si se va a actualizar la cédula, se actualiza los datos del repre y las cédulas de sus estudiantes vinculados
+                if (cambiarCedula) {
+
+                    EstudianteDAO eDao=new EstudianteDAO();
+                    boolean filasAfectadas=eDao.cambiarCedula(textfieldCedulaAR.getText(), representante.getCedula());
+
+                    RepresentanteDAO rDao=new RepresentanteDAO();
+                    actualizarDatosR();
+                    exito=rDao.modificar(representante);
+
+                    if (exito && filasAfectadas) {
+                        JOptionPane.showMessageDialog(null, "Representante actualizado con éxito.");
+                    } else JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar el representante.");
+
+                } else {
+                    actualizarDatosR();
+                    RepresentanteDAO rDao=new RepresentanteDAO();
+                    exito=rDao.modificar(representante);
+
+                    if (exito) {
+                        JOptionPane.showMessageDialog(null, "Representante actualizado con éxito.");
+                    } else JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar el representante.");
+
+                }
 
             }
 
@@ -955,6 +1094,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
     private javax.swing.JLabel botonBorrarAR;
     private javax.swing.JLabel btnRetroceder;
     private javax.swing.JLabel buscarIcon;
+    private javax.swing.JLabel buscarIcon1;
     private javax.swing.JComboBox<String> comboGrado;
     private javax.swing.JComboBox<String> comboPeriodo;
     private javax.swing.JPanel jPanel1;

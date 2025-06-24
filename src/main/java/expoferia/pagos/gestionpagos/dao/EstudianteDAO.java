@@ -95,6 +95,27 @@ public class EstudianteDAO {
         }
     }
 
+    public boolean cambiarCedula(String cedulanueva, String cedulavieja) {
+
+        String sql = "UPDATE estudiantes SET cedulaRep=? WHERE cedulaRep=?";
+
+        try (Connection con=getConexion();
+             PreparedStatement ps= con.prepareStatement(sql)) {
+
+            ps.setString(1, cedulanueva);
+            ps.setString(2, cedulavieja);
+
+            int filasAfectadas = ps.executeUpdate();
+            closeConnection();
+            return filasAfectadas>0;
+
+        } catch (Exception e) {
+            System.out.println("Error al actualizar la cédula de los estudiantes: "+e.getMessage());
+            closeConnection();
+            return false;
+        }
+    }
+
     public boolean agregar(Estudiante estudiante) {
         String sql = "INSERT INTO estudiante(cedulaRep, nombre1, nombre2, apellido1, apellido2, fechaN, direccion, estado, grado, nivel_academico) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

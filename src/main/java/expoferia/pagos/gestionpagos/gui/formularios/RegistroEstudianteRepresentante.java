@@ -118,11 +118,11 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
 
         txtActualizarEstudiantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtActualizarEstudiantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtActualizarEstudiantes.setText("ACTUALIZAR ESTUDIANTES");
+        txtActualizarEstudiantes.setText("REGISTRAR ESTUDIANTES");
 
         txtActualizarRepresentantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtActualizarRepresentantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtActualizarRepresentantes.setText("ACTUALIZAR REPRESENTANTES");
+        txtActualizarRepresentantes.setText("REGISTRAR REPRESENTANTES");
 
         panelRES.setBackground(new java.awt.Color(244, 244, 244));
 

@@ -1,16 +1,18 @@
 package expoferia.pagos.gestionpagos.dao;
 
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
+import expoferia.pagos.gestionpagos.entidades.Abono;
 import static expoferia.pagos.gestionpagos.conexion.Conexion.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetallesPagoDAO {
 
     public boolean agregar(DetallesPago detalle) {
-        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago, id_tipo_pago, mes_correspondiente, descripcion, abono, monto_abonado) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago, id_tipo_pago, mes_correspondiente, descripcion) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -20,8 +22,6 @@ public class DetallesPagoDAO {
             ps.setInt(3, detalle.getIdTipoPago());
             ps.setString(4, detalle.getMesCorrespondiente());
             ps.setString(5, detalle.getDescripcion());
-            ps.setDouble(6, detalle.getAbono());
-            ps.setDouble(7, detalle.getMontoAbonado());
 
             int filas = ps.executeUpdate();
             closeConnection();
@@ -36,7 +36,13 @@ public class DetallesPagoDAO {
 
     public ArrayList<DetallesPago> listarPorPago(String idPago) {
         ArrayList<DetallesPago> lista = new ArrayList<>();
-        String sql = "SELECT * FROM detalles_pago WHERE id_pago = ? ORDER BY mes_correspondiente ASC";
+        String sql = """
+            SELECT dp.*, tp.costo AS monto_esperado
+            FROM detalles_pago dp
+            JOIN tipo_pago tp ON dp.id_tipo_pago = tp.id_tipo_pago
+            WHERE dp.id_pago = ?
+            ORDER BY dp.mes_correspondiente ASC
+        """;
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -50,14 +56,14 @@ public class DetallesPagoDAO {
                             rs.getString("id_pago"),
                             rs.getInt("id_tipo_pago"),
                             rs.getString("mes_correspondiente"),
-                            rs.getString("descripcion"),
-                            rs.getDouble("abono"),
-                            rs.getDouble("monto_abonado")
+                            rs.getString("descripcion")
                     );
+
+                    detalle.setMontoEsperado(rs.getDouble("monto_esperado"));
+                    detalle.setAbonos(obtenerAbonosPorDetalle(detalle.getIdDetallesPago()));
+
                     lista.add(detalle);
                 }
-                closeConnection();
-                return lista;
             }
 
         } catch (SQLException e) {
@@ -65,6 +71,36 @@ public class DetallesPagoDAO {
             closeConnection();
             return null;
         }
+
+        return lista;
+    }
+
+    public List<Abono> obtenerAbonosPorDetalle(int idDetallePago) {
+        List<Abono> abonos = new ArrayList<>();
+        String sql = "SELECT * FROM abono WHERE id_detalles_pago = ? ORDER BY fecha_abono ASC";
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idDetallePago);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Abono a = new Abono(
+                            rs.getInt("id_abono"),
+                            rs.getInt("id_detalles_pago"),
+                            rs.getDate("fecha_abono").toLocalDate(),
+                            rs.getDouble("monto_abonado"),
+                            rs.getString("descripcion")
+                    );
+                    abonos.add(a);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener abonos: " + e);
+        }
+
+        return abonos;
     }
 }
 

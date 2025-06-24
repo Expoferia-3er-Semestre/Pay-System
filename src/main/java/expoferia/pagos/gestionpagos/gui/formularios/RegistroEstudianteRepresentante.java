@@ -118,11 +118,11 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
 
         txtActualizarEstudiantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtActualizarEstudiantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtActualizarEstudiantes.setText("REGISTRO DE ESTUDIANTES");
+        txtActualizarEstudiantes.setText("ACTUALIZAR ESTUDIANTES");
 
         txtActualizarRepresentantes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtActualizarRepresentantes.setForeground(new java.awt.Color(10, 72, 162));
-        txtActualizarRepresentantes.setText("REGISTRO DE REPRESENTANTES");
+        txtActualizarRepresentantes.setText("ACTUALIZAR REPRESENTANTES");
 
         panelRES.setBackground(new java.awt.Color(244, 244, 244));
 
@@ -135,12 +135,12 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtPrimerNombreAES.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerNombreAES.setText("Primer Nombre");
 
         textfieldCedulaAES.setBackground(new java.awt.Color(255, 255, 255));
         textfieldCedulaAES.setForeground(new java.awt.Color(0, 0, 0));
         textfieldCedulaAES.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
-
 
         textfieldSegundoNombreAES.setBackground(new java.awt.Color(255, 255, 255));
         textfieldSegundoNombreAES.setForeground(new java.awt.Color(0, 0, 0));
@@ -169,16 +169,20 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoNombreAES.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoNombreAES.setText("Segundo Nombre");
 
+        txtPrimerApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerApellidoAES.setText("Primer Apellido");
 
+        txtSegundoApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES.setText("Segundo apellido");
 
+        txtGradoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtGradoAES.setText("Grado");
 
         textfieldDireccionAR1.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldDireccionAR1.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR1.setForeground(new java.awt.Color(0, 0, 0));
         textfieldDireccionAR1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldDireccionAR1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,16 +190,25 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtDireccionAR1.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionAR1.setText("Dirección");
 
+        comboGrado.setBackground(new java.awt.Color(255, 255, 255));
+        comboGrado.setForeground(new java.awt.Color(0, 0, 0));
         comboGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1er Grado", "2do Grado", "3er Grado", "4to Grado", "5to Grado", "6to Grado" }));
+        comboGrado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         comboGrado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        comboPeriodo.setBackground(new java.awt.Color(255, 255, 255));
+        comboPeriodo.setForeground(new java.awt.Color(0, 0, 0));
         comboPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primaria", "Secundaria" }));
+        comboPeriodo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         comboPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        txtGradoAES1.setForeground(new java.awt.Color(0, 0, 0));
         txtGradoAES1.setText("Grado");
 
+        txtCedulaAES.setForeground(new java.awt.Color(0, 0, 0));
         txtCedulaAES.setText("Cedula de representante");
 
         botonBorrarAES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
@@ -206,6 +219,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoApellidoAES1.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES1.setText("Fecha de nacimiento");
 
         panelCalendario.setBackground(new java.awt.Color(255, 255, 255));
@@ -342,6 +356,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         botonGuardarAESR.setForeground(new java.awt.Color(255, 255, 255));
         botonGuardarAESR.setText("Guardar");
         botonGuardarAESR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         botonGuardarAESR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarAESRActionPerformed(evt);
@@ -351,7 +366,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         panelRR.setBackground(new java.awt.Color(244, 244, 244));
 
         textfieldPrimerNombreAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldPrimerNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldPrimerNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldPrimerNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,10 +374,11 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtPrimerNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerNombreAR.setText("Primer Nombre");
 
         textfieldCedulaAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldCedulaAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldCedulaAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldCedulaAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldCedulaAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,7 +387,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldSegundoNombreAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldSegundoNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldSegundoNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldSegundoNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,7 +396,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldPrimerApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldPrimerApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldPrimerApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldPrimerApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,7 +405,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldSegundoApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldSegundoApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldSegundoApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldSegundoApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,7 +414,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldTelefonoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldTelefonoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldTelefonoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldTelefonoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldTelefonoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,20 +422,26 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoNombreAR.setText("Segundo Nombre");
 
+        txtPrimerApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerApellidoAR.setText("Primer Apellido");
 
+        txtSegundoApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAR.setText("Segundo apellido");
 
+        txtCedulaAR.setForeground(new java.awt.Color(0, 0, 0));
         txtCedulaAR.setText("Cedula");
 
+        txtTelefonoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefonoAR.setText("Telefono");
 
+        txtDireccionAR.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionAR.setText("Dirección");
 
         textfieldDireccionAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldDireccionAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldDireccionAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldDireccionAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,6 +460,7 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         panelCalendario1.setBackground(new java.awt.Color(255, 255, 255));
         panelCalendario1.setLayout(new java.awt.BorderLayout());
 
+        txtSegundoApellidoAES2.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES2.setText("Fecha de nacimiento");
 
         buscarIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
@@ -551,27 +574,28 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnRetroceder)
-                        .addGap(19, 19, 19)
-                        .addComponent(txtActualizarEstudiantes))
-                    .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(txtActualizarRepresentantes)))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(btnRetroceder)
+                                .addGap(19, 19, 19)
+                                .addComponent(txtActualizarEstudiantes))
+                            .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(txtActualizarRepresentantes))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(339, 339, 339)
+                        .addComponent(botonGuardarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 28, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(383, 383, 383)
-                .addComponent(botonGuardarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,9 +619,9 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, 291, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(botonGuardarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -770,7 +794,6 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
 
         if (representante!=null) {
             textfieldCedulaAR.setText(representante.getCedula());
-            textfieldCedulaAR.setEnabled(false);
 
             textfieldCedulaAES.setText(representante.getCedula());
             textfieldCedulaAES.setEnabled(false);
@@ -805,26 +828,69 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
     }
 
     private void refrescarEstudiante() {
-        textfieldCedulaAES.setText(estudiante.getCedulaRep());
-        textfieldPrimerNombreAES.setText(estudiante.getNombre1());
-        textfieldSegundoNombreAES.setText(estudiante.getNombre2());
-        textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
-        textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
-        textfieldDireccionAR1.setText(estudiante.getDireccion());
-        dateChooserE.setDate(estudiante.getFechaN());
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Seguro que desea limpiar los campos de estudiante?", "Confirmación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion==0) {
+
+            if (!textfieldCedulaAES.isEnabled()) {
+                textfieldCedulaAES.setEnabled(true);
+                textfieldCedulaAES.setText("");
+            }
+            textfieldPrimerNombreAES.setText("");
+            textfieldSegundoNombreAES.setText("");
+            textfieldPrimerApellidoAES.setText("");
+            textfieldSegundoApellidoAES.setText("");
+            textfieldDireccionAR1.setText("");
+
+            SimpleDateFormat spf=new SimpleDateFormat("yyyy/MM/dd");
+            try {
+                java.util.Date fechaMaxE= spf.parse("2021/01/01");
+                dateChooserE.setDate(fechaMaxE);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
     }
 
     private void refrescarRepresentante() {
 
-        textfieldCedulaAR.setText(representante.getCedula());
-        textfieldPrimerNombreAR.setText(representante.getNombre1());
-        textfieldSegundoNombreAR.setText(representante.getNombre2());
-        textfieldPrimerApellidoAR.setText(representante.getApellido1());
-        textfieldSegundoApellidoAR.setText(representante.getApellido2());
-        textfieldDireccionAR.setText(representante.getDireccion());
-        textfieldTelefonoAR.setText(representante.getTelefono());
-        dateChooserR.setDate(representante.getFechaN());
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Seguro que desea limpiar los campos de representante?", "Confirmación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion==0) {
+            textfieldCedulaAR.setText("");
+            textfieldCedulaAR.setEnabled(true);
+            textfieldPrimerNombreAR.setText("");
+            textfieldPrimerNombreAR.setEnabled(true);
+            textfieldSegundoNombreAR.setText("");
+            textfieldSegundoNombreAR.setEnabled(true);
+            textfieldPrimerApellidoAR.setText("");
+            textfieldPrimerApellidoAR.setEnabled(true);
+            textfieldSegundoApellidoAR.setText("");
+            textfieldSegundoApellidoAR.setEnabled(true);
+            textfieldDireccionAR.setText("");
+            textfieldDireccionAR.setEnabled(true);
+            textfieldTelefonoAR.setText("");
+            textfieldTelefonoAR.setEnabled(true);
+
+            textfieldCedulaAES.setText("");
+            textfieldCedulaAES.setEnabled(true);
+
+            SimpleDateFormat spf=new SimpleDateFormat("yyyy/MM/dd");
+            try {
+                java.util.Date fechaMaxR= spf.parse("2007/01/01");
+                dateChooserR.setDate(fechaMaxR);
+                dateChooserR.setEnabled(true);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
@@ -916,12 +982,13 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
         boolean exitoE;
         boolean exitoR;
 
-        // Validación para saber si se va a registrar un estudiante o un estudiante y un representante
+        // Validación para saber si se va a registrar un estudiante o un estudiante && un representante
         // Si un campo cualquiera de Representante está habilitado, entonces hará un registro de ambos
         if (textfieldSegundoNombreAR.isEnabled()) {
 
             if (validarEstudiante() && validarRepresentante()) {
 
+                //Validación extra para confirmar que la cédula de estudiante es la misma que la del representante
                 if (textfieldCedulaAES.getText().trim().equals(textfieldCedulaAR.getText().trim())) {
 
                     //Datos Representante

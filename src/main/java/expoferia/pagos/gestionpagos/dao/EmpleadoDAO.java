@@ -51,17 +51,37 @@ public class EmpleadoDAO implements IEmpleadoDAO{
         }
     }
 
-    @Override
-    public Integer buscarPorId(int id) {
-        String sql="SELECT FROM empleado WHERE id=?";
+    public Empleado buscarPorId(int id) {
+        String sql="SELECT * FROM empleado WHERE id=?";
 
         try (Connection con=getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
             ps.setInt(1, id);
             try (ResultSet rs=ps.executeQuery()){
-                return rs.getInt("id");
+                if (rs.next()) {
+                    Empleado empleado=new Empleado(
+                            rs.getInt("id"),
+                            rs.getString("cedula"),
+                            rs.getString("nombre1"),
+                            rs.getString("nombre2"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getString("telefono"),
+                            rs.getString("correo"),
+                            rs.getDate("fechaN"),
+                            rs.getString("direccion"),
+                            rs.getBoolean("estado"),
+                            rs.getString("contrasena"),
+                            rs.getBoolean("rol")
+                    );
+                    closeConnection();
+                    return empleado;
+                }
+                closeConnection();
+                return null;
             } catch (SQLException e) {
                 System.out.println("Error al buscar empleado: "+e);
+                closeConnection();
                 return null;
             }
         } catch (SQLException e) {

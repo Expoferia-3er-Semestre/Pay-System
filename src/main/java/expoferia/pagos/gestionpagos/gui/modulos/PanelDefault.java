@@ -19,8 +19,10 @@ import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import expoferia.pagos.gestionpagos.gui.HomeAdmin;
 import expoferia.pagos.gestionpagos.gui.PanelRound;
+import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEmpleados;
 import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEstudianteRepresentante;
 //import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
+import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
 import expoferia.pagos.gestionpagos.gui.formularios.RegistroEstudianteRepresentante;
 import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
@@ -279,9 +281,9 @@ public class PanelDefault extends JPanel {
         // TODO add your handling code here:
 
         if (Titulo.equals("Empleados")) {
-            //RegistroEmpleados registroEmpleados=new RegistroEmpleados();
+            RegistroEmpleados registroEmpleados=new RegistroEmpleados();
 
-            //HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
+            HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
             HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
 
         } else if (Titulo.equals("Estudiantes")) {
@@ -306,10 +308,10 @@ public class PanelDefault extends JPanel {
 
         if (id!=null) {
             if (Titulo.equals("Empleados")) {
-                //RegistroEmpleados registroEmpleados=new RegistroEmpleados();
+                ActualizarEmpleados actualizarEmpleados=new ActualizarEmpleados(id);
 
-                //HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
-                HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
+                HomeAdmin.panelCambiante.add(actualizarEmpleados, "actEmp");
+                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEmp");
 
             } else if (Titulo.equals("Estudiantes")) {
                 ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);

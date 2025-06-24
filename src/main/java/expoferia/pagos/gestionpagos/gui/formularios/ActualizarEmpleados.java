@@ -21,14 +21,14 @@ import java.util.Arrays;
  *
  * @author USER
  */
-public class RegistroEmpleados extends javax.swing.JPanel {
+public class ActualizarEmpleados extends javax.swing.JPanel {
 
     JDateChooser dateChooser;
     Empleado empleado;
     /**
      * Creates new form RegistroEmpleados
      */
-    public RegistroEmpleados() {
+    public ActualizarEmpleados(int id) {
         initComponents();
 
         dateChooser = new JDateChooser();
@@ -46,6 +46,8 @@ public class RegistroEmpleados extends javax.swing.JPanel {
             throw new RuntimeException(e);
         }
         panelCalendario.add(dateChooser);
+
+        cargarDatos(id);
     }
 
     /**
@@ -114,7 +116,7 @@ public class RegistroEmpleados extends javax.swing.JPanel {
 
         txtregistrodeEmpleadoRE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtregistrodeEmpleadoRE.setForeground(new java.awt.Color(10, 72, 162));
-        txtregistrodeEmpleadoRE.setText("REGISTRO DE EMPLEADOS");
+        txtregistrodeEmpleadoRE.setText("ACTUALIZAR EMPLEADOS");
 
         botonBorrarRE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
         botonBorrarRE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -125,7 +127,7 @@ public class RegistroEmpleados extends javax.swing.JPanel {
         });
 
         txtClaveRE.setForeground(new java.awt.Color(0, 0, 0));
-        txtClaveRE.setText("Contraseña");
+        txtClaveRE.setText("Nueva Contraseña");
 
         textfieldPrimerNombreRE.setBackground(new java.awt.Color(255, 255, 255));
         textfieldPrimerNombreRE.setForeground(new java.awt.Color(0, 0, 0));
@@ -206,7 +208,7 @@ public class RegistroEmpleados extends javax.swing.JPanel {
 
         botonGuardarRE.setBackground(new java.awt.Color(3, 105, 173));
         botonGuardarRE.setForeground(new java.awt.Color(255, 255, 255));
-        botonGuardarRE.setText("Guardar");
+        botonGuardarRE.setText("Actualizar");
         botonGuardarRE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonGuardarRE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,7 +388,7 @@ public class RegistroEmpleados extends javax.swing.JPanel {
     }//GEN-LAST:event_textfieldSegundoNombreREActionPerformed
 
     private void botonGuardarREActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarREActionPerformed
-        guardar();
+        actualizar();
     }//GEN-LAST:event_botonGuardarREActionPerformed
 
     private void botonBorrarREMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBorrarREMouseClicked
@@ -442,14 +444,14 @@ public class RegistroEmpleados extends javax.swing.JPanel {
         String telefono = textfieldTelefonoRE.getText();
         String correo = textfieldCorreoRE.getText();
         String direccion = textfieldDireccionRE.getText();
-        String contra = new String(password.getPassword());
-        String contra2 = new String(confirmarPassword.getPassword());
+        String contra = Arrays.toString(password.getPassword());
+        String contra2 = Arrays.toString(confirmarPassword.getPassword());
         String cargo = comboBoxCargoaCumplirRE.getSelectedItem().toString();
 
         if (cedula.isBlank() || nombre1.isBlank() || nombre2.isBlank() || apellido1.isBlank() ||
             apellido2.isBlank() || telefono.isBlank() || correo.isBlank() || direccion.isBlank() ||
             contra.isBlank() || contra2.isBlank()) {
-            JOptionPane.showMessageDialog(null, "Los campos no pueden quedar vacíos o con espacios en blanco.");
+            JOptionPane.showMessageDialog(null, "Los campos no pueden quedar vacíos.");
             return false;
         }
 
@@ -490,27 +492,32 @@ public class RegistroEmpleados extends javax.swing.JPanel {
             return false;
         }
 
+        if (contra.matches(" ") || contra2.matches(" ")) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede contener espacios.");
+            return false;
+        }
+
         return true;
 
     }
 
-    public void guardar() {
+    public void actualizar() {
 
         if (validarCampos()) {
 
             int confirmacion = JOptionPane.showConfirmDialog(null,
-                    "¿Seguro que desea registrar al empleado?", "Confirmación",
+                    "¿Seguro que desea actualizar los datos del empleado?", "Confirmación",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirmacion==0) {
 
                 EmpleadoDAO eDao=new EmpleadoDAO();
                 guardarDatos();
-                boolean exito=eDao.agregar(empleado);
+                boolean exito=eDao.modificar(empleado);
 
                 if (exito) {
-                    JOptionPane.showMessageDialog(null, "Empleado registrado éxitosamente.");
-                } else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el empleado.");
+                    JOptionPane.showMessageDialog(null, "Datos del empleado actualizados éxitosamente.");
+                } else JOptionPane.showMessageDialog(null, "Ocurrió un error al actualizar los datos del empleado.");
 
             }
 
@@ -520,7 +527,6 @@ public class RegistroEmpleados extends javax.swing.JPanel {
 
     public void guardarDatos() {
 
-        empleado=new Empleado();
         empleado.setCedula(textfieldCedulaRE.getText().trim());
         empleado.setNombre1(textfieldPrimerNombreRE.getText().trim());
         empleado.setNombre2(textfieldSegundoNombreRE.getText().trim());
@@ -537,7 +543,28 @@ public class RegistroEmpleados extends javax.swing.JPanel {
         empleado.setEstado(true);
         if (comboBoxCargoaCumplirRE.getSelectedItem().equals("Administrador")) empleado.setRol(true);
         else empleado.setRol(false);
-        empleado.setContrasena(Password.hashContrasena(new String(password.getPassword())));
+
+        String contra=Arrays.toString(password.getPassword());
+        empleado.setContrasena(Password.hashContrasena(contra));
+
+    }
+
+    public void cargarDatos(int id) {
+
+        EmpleadoDAO eDao=new EmpleadoDAO();
+        Empleado empleado=eDao.buscarPorId(id);
+
+        textfieldPrimerNombreRE.setText(empleado.getNombre1());
+        textfieldSegundoNombreRE.setText(empleado.getNombre2());
+        textfieldPrimerApellidoRE.setText(empleado.getApellido1());
+        textfieldSegundoApellidoRE.setText(empleado.getApellido2());
+        textfieldCedulaRE.setText(empleado.getCedula());
+        textfieldTelefonoRE.setText(empleado.getTelefono());
+        textfieldCorreoRE.setText(empleado.getCorreo());
+        textfieldDireccionRE.setText(empleado.getDireccion());
+        if (empleado.getRol()) comboBoxCargoaCumplirRE.setSelectedItem("Administrador");
+        else comboBoxCargoaCumplirRE.setSelectedItem("Cajero");
+        dateChooser.setDate(empleado.getFechaN());
 
     }
 

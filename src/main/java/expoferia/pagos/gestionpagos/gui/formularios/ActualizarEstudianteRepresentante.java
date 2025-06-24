@@ -116,6 +116,8 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         buscarIcon = new javax.swing.JLabel();
         btnRetroceder = new javax.swing.JLabel();
 
+        setForeground(new java.awt.Color(0, 0, 0));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(858, 536));
 
@@ -138,6 +140,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtPrimerNombreAES.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerNombreAES.setText("Primer Nombre");
 
         textfieldCedulaAES.setBackground(new java.awt.Color(255, 255, 255));
@@ -171,16 +174,20 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoNombreAES.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoNombreAES.setText("Segundo Nombre");
 
+        txtPrimerApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerApellidoAES.setText("Primer Apellido");
 
+        txtSegundoApellidoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES.setText("Segundo apellido");
 
+        txtGradoAES.setForeground(new java.awt.Color(0, 0, 0));
         txtGradoAES.setText("Grado");
 
         textfieldDireccionAR1.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldDireccionAR1.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR1.setForeground(new java.awt.Color(0, 0, 0));
         textfieldDireccionAR1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldDireccionAR1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,16 +195,25 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtDireccionAR1.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionAR1.setText("Dirección");
 
+        comboGrado.setBackground(new java.awt.Color(255, 255, 255));
+        comboGrado.setForeground(new java.awt.Color(0, 0, 0));
         comboGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1er Grado", "2do Grado", "3er Grado", "4to Grado", "5to Grado", "6to Grado" }));
+        comboGrado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         comboGrado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        comboPeriodo.setBackground(new java.awt.Color(255, 255, 255));
+        comboPeriodo.setForeground(new java.awt.Color(0, 0, 0));
         comboPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primaria", "Secundaria" }));
+        comboPeriodo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         comboPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        txtGradoAES1.setForeground(new java.awt.Color(0, 0, 0));
         txtGradoAES1.setText("Grado");
 
+        txtCedulaAES.setForeground(new java.awt.Color(0, 0, 0));
         txtCedulaAES.setText("Cedula de representante");
 
         botonBorrarAES.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
@@ -208,6 +224,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoApellidoAES1.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES1.setText("Fecha de nacimiento");
 
         panelCalendario.setBackground(new java.awt.Color(255, 255, 255));
@@ -355,7 +372,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         panelRR.setBackground(new java.awt.Color(244, 244, 244));
 
         textfieldPrimerNombreAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldPrimerNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldPrimerNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldPrimerNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,10 +380,11 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtPrimerNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerNombreAR.setText("Primer Nombre");
 
         textfieldCedulaAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldCedulaAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldCedulaAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldCedulaAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldCedulaAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,7 +393,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldSegundoNombreAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldSegundoNombreAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldSegundoNombreAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldSegundoNombreAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +402,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldPrimerApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldPrimerApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldPrimerApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldPrimerApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldPrimerApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,7 +411,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldSegundoApellidoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldSegundoApellidoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldSegundoApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldSegundoApellidoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldSegundoApellidoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,7 +420,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         });
 
         textfieldTelefonoAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldTelefonoAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldTelefonoAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldTelefonoAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldTelefonoAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,20 +428,26 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
             }
         });
 
+        txtSegundoNombreAR.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoNombreAR.setText("Segundo Nombre");
 
+        txtPrimerApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtPrimerApellidoAR.setText("Primer Apellido");
 
+        txtSegundoApellidoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAR.setText("Segundo apellido");
 
+        txtCedulaAR.setForeground(new java.awt.Color(0, 0, 0));
         txtCedulaAR.setText("Cedula");
 
+        txtTelefonoAR.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefonoAR.setText("Telefono");
 
+        txtDireccionAR.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionAR.setText("Dirección");
 
         textfieldDireccionAR.setBackground(new java.awt.Color(255, 255, 255));
-        textfieldDireccionAR.setForeground(new java.awt.Color(102, 102, 102));
+        textfieldDireccionAR.setForeground(new java.awt.Color(0, 0, 0));
         textfieldDireccionAR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         textfieldDireccionAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,6 +466,7 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         panelCalendario1.setBackground(new java.awt.Color(255, 255, 255));
         panelCalendario1.setLayout(new java.awt.BorderLayout());
 
+        txtSegundoApellidoAES2.setForeground(new java.awt.Color(0, 0, 0));
         txtSegundoApellidoAES2.setText("Fecha de nacimiento");
 
         buscarIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
@@ -557,28 +582,29 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnRetroceder)
-                        .addGap(19, 19, 19)
-                        .addComponent(txtActualizarEstudiantes)))
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(panelRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(barraTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(btnRetroceder)
+                                .addGap(19, 19, 19)
+                                .addComponent(txtActualizarEstudiantes)))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(barraTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(txtActualizarRepresentantes))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(txtActualizarRepresentantes)))
+                        .addGap(336, 336, 336)
+                        .addComponent(botonActualizarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 27, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(384, 384, 384)
-                .addComponent(botonActualizarAESR, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -765,26 +791,39 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
     }
 
     private void refrescarEstudiante() {
-        textfieldCedulaAES.setText(estudiante.getCedulaRep());
-        textfieldPrimerNombreAES.setText(estudiante.getNombre1());
-        textfieldSegundoNombreAES.setText(estudiante.getNombre2());
-        textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
-        textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
-        textfieldDireccionAR1.setText(estudiante.getDireccion());
-        dateChooserE.setDate(estudiante.getFechaN());
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Seguro que desea limpiar los campos de estudiante?", "Confirmación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion==0) {
+            textfieldCedulaAES.setText(estudiante.getCedulaRep());
+            textfieldPrimerNombreAES.setText(estudiante.getNombre1());
+            textfieldSegundoNombreAES.setText(estudiante.getNombre2());
+            textfieldPrimerApellidoAES.setText(estudiante.getApellido1());
+            textfieldSegundoApellidoAES.setText(estudiante.getApellido2());
+            textfieldDireccionAR1.setText(estudiante.getDireccion());
+            dateChooserE.setDate(estudiante.getFechaN());
+        }
 
     }
 
     private void refrescarRepresentante() {
 
-        textfieldCedulaAR.setText(representante.getCedula());
-        textfieldPrimerNombreAR.setText(representante.getNombre1());
-        textfieldSegundoNombreAR.setText(representante.getNombre2());
-        textfieldPrimerApellidoAR.setText(representante.getApellido1());
-        textfieldSegundoApellidoAR.setText(representante.getApellido2());
-        textfieldDireccionAR.setText(representante.getDireccion());
-        textfieldTelefonoAR.setText(representante.getTelefono());
-        dateChooserR.setDate(representante.getFechaN());
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Seguro que desea limpiar los campos de representante?", "Confirmación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion==0) {
+            textfieldCedulaAR.setText(representante.getCedula());
+            textfieldPrimerNombreAR.setText(representante.getNombre1());
+            textfieldSegundoNombreAR.setText(representante.getNombre2());
+            textfieldPrimerApellidoAR.setText(representante.getApellido1());
+            textfieldSegundoApellidoAR.setText(representante.getApellido2());
+            textfieldDireccionAR.setText(representante.getDireccion());
+            textfieldTelefonoAR.setText(representante.getTelefono());
+            dateChooserR.setDate(representante.getFechaN());
+        }
 
     }
 
@@ -819,7 +858,6 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         RepresentanteDAO rDao=new RepresentanteDAO();
         representante=rDao.buscarPorId(id);
 
-        textfieldCedulaAES.setEnabled(false);
         textfieldPrimerNombreAES.setEnabled(false);
         textfieldSegundoNombreAES.setEnabled(false);
         textfieldPrimerApellidoAES.setEnabled(false);
@@ -847,7 +885,11 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         estudiante.setNombre2(textfieldSegundoNombreAES.getText());
         estudiante.setApellido1(textfieldPrimerApellidoAES.getText());
         estudiante.setApellido2(textfieldSegundoApellidoAES.getText());
-        estudiante.setFechaN((Date) dateChooserE.getDate());
+
+        java.util.Date utilFecha = dateChooserE.getDate();
+        java.sql.Date sqlFecha = new java.sql.Date(utilFecha.getTime());
+        estudiante.setFechaN((sqlFecha));
+
         estudiante.setDireccion(textfieldDireccionAR1.getText());
         estudiante.setGrado((String) comboGrado.getSelectedItem());
         estudiante.setNivel_academico((String) comboPeriodo.getSelectedItem());
@@ -860,7 +902,10 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         representante.setNombre2(textfieldSegundoNombreAR.getText());
         representante.setApellido1(textfieldPrimerApellidoAR.getText());
         representante.setApellido2(textfieldSegundoApellidoAR.getText());
-        representante.setFechaN((Date) dateChooserR.getDate());
+
+        java.util.Date utilFecha = dateChooserR.getDate();
+        java.sql.Date sqlFecha = new java.sql.Date(utilFecha.getTime());
+        representante.setFechaN((sqlFecha));
         representante.setDireccion(textfieldDireccionAR.getText());
         representante.setTelefono(textfieldTelefonoAR.getText());
 
@@ -874,21 +919,29 @@ public class ActualizarEstudianteRepresentante extends javax.swing.JPanel {
         boolean exito;
         if (textfieldSegundoApellidoAES.isEnabled()) {
 
-            actualizarDatosE();
-            EstudianteDAO eDao=new EstudianteDAO();
-            exito=eDao.modificar(estudiante);
-            if (exito) {
-                JOptionPane.showMessageDialog(null, "Estudiante modificado con éxito.");
-            } else JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar el estudiante.");
+            if (validarEstudiante()) {
+
+                actualizarDatosE();
+                EstudianteDAO eDao=new EstudianteDAO();
+                exito=eDao.modificar(estudiante);
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "Estudiante modificado con éxito.");
+                } else JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar el estudiante.");
+
+            }
 
         } else {
 
-            actualizarDatosR();
-            RepresentanteDAO rDao=new RepresentanteDAO();
-            exito=rDao.modificar(representante);
-            if (exito) {
-                JOptionPane.showMessageDialog(null, "Representante modificado con éxito.");
-            } else JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar el representante.");
+            if (validarRepresentante()) {
+
+                actualizarDatosR();
+                RepresentanteDAO rDao=new RepresentanteDAO();
+                exito=rDao.modificar(representante);
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "Representante modificado con éxito.");
+                } else JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar el representante.");
+
+            }
 
         }
 

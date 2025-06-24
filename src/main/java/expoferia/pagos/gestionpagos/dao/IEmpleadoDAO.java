@@ -8,7 +8,7 @@ public interface IEmpleadoDAO extends IGenericInterface<Empleado>{
 
     ArrayList<Empleado> lista(Integer id, String nombre);
 
-    Integer buscarPorId(int id);
+    Empleado buscarPorId(int id);
 
     boolean agregar(Empleado empleado);
 

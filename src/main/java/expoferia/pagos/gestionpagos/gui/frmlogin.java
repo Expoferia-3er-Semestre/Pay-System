@@ -307,7 +307,7 @@ public class frmlogin extends javax.swing.JDialog {
             this.dispose();
             // Si es true lo mandará a admin
             if (empleado.getRol()) {
-                HomeAdmin escritorio=new HomeAdmin();
+                SistemaAdmin escritorio=new SistemaAdmin();
                 escritorio.setVisible(true);
                 escritorio.setLocationRelativeTo(null);
             } else {

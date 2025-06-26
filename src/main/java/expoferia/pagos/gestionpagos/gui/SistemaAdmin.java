@@ -13,11 +13,11 @@ import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
  *
  * @author Suglin
  */
-public class HomeAdmin extends javax.swing.JFrame {
+public class SistemaAdmin extends javax.swing.JFrame {
 
     public static CardLayout card;
 
-    public HomeAdmin() {
+    public SistemaAdmin() {
         initComponents();
         setLocationRelativeTo(null);
         card= (CardLayout) panelCambiante.getLayout();
@@ -358,14 +358,16 @@ public class HomeAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SistemaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SistemaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SistemaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SistemaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -374,7 +376,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
             public void run() {
 
-                new HomeAdmin().setVisible(true);
+                new SistemaAdmin().setVisible(true);
             }
         });
     }

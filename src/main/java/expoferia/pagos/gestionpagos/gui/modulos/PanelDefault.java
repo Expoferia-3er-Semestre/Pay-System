@@ -17,7 +17,7 @@ import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
-import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.SistemaAdmin;
 import expoferia.pagos.gestionpagos.gui.PanelRound;
 import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEmpleados;
 import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEstudianteRepresentante;
@@ -283,24 +283,24 @@ public class PanelDefault extends JPanel {
         if (Titulo.equals("Empleados")) {
             RegistroEmpleados registroEmpleados=new RegistroEmpleados();
 
-            HomeAdmin.panelCambiante.add(registroEmpleados, "regEmp");
-            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEmp");
+            SistemaAdmin.panelCambiante.add(registroEmpleados, "regEmp");
+            SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "regEmp");
 
         } else if (Titulo.equals("Estudiantes")) {
             RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
 
-            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
-            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+            SistemaAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "regEstRep");
 
         } else if (Titulo.equals("Representantes")) {
             RegistroEstudianteRepresentante registroEstudianteRepresentante=new RegistroEstudianteRepresentante(Titulo);
 
-            HomeAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
-            HomeAdmin.card.show(HomeAdmin.panelCambiante, "regEstRep");
+            SistemaAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
+            SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "regEstRep");
 
         }
-        HomeAdmin.panelCambiante.revalidate();
-        HomeAdmin.panelCambiante.repaint();
+        SistemaAdmin.panelCambiante.revalidate();
+        SistemaAdmin.panelCambiante.repaint();
 
     }//GEN-LAST:event_registrarButtonActionPerformed
 
@@ -310,25 +310,25 @@ public class PanelDefault extends JPanel {
             if (Titulo.equals("Empleados")) {
                 ActualizarEmpleados actualizarEmpleados=new ActualizarEmpleados(id);
 
-                HomeAdmin.panelCambiante.add(actualizarEmpleados, "actEmp");
-                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEmp");
+                SistemaAdmin.panelCambiante.add(actualizarEmpleados, "actEmp");
+                SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "actEmp");
 
             } else if (Titulo.equals("Estudiantes")) {
                 ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
 
-                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
-                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+                SistemaAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "actEstRep");
 
             } else if (Titulo.equals("Representantes")) {
                 ActualizarEstudianteRepresentante actualizarEstudianteRepresentante=new ActualizarEstudianteRepresentante(id, Titulo);
 
-                HomeAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
-                HomeAdmin.card.show(HomeAdmin.panelCambiante, "actEstRep");
+                SistemaAdmin.panelCambiante.add(actualizarEstudianteRepresentante, "actEstRep");
+                SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "actEstRep");
 
             }
 
-            HomeAdmin.panelCambiante.revalidate();
-            HomeAdmin.panelCambiante.repaint();
+            SistemaAdmin.panelCambiante.revalidate();
+            SistemaAdmin.panelCambiante.repaint();
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un registro de la tabla antes de actualizar.");
         }

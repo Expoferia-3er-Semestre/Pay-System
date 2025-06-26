@@ -60,6 +60,48 @@ public class EstudianteDAO {
         }
     }
 
+    public ArrayList<Estudiante> obtenerEVinculados(String cedula) {
+
+        ArrayList<Estudiante> listE = new ArrayList<>();
+        String sql = "SELECT * FROM estudiante WHERE cedulaRep=?";
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Estudiante estudiante = new Estudiante(
+                            rs.getInt("id"),
+                            rs.getString("cedulaRep"),
+                            rs.getString("nombre1"),
+                            rs.getString("nombre2"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getDate("fechaN"),
+                            rs.getString("direccion"),
+                            rs.getBoolean("estado"),
+                            rs.getString("grado"),
+                            rs.getString("nivel_academico")
+                    );
+                    listE.add(estudiante);
+                }
+                closeConnection();
+                return listE;
+
+                }
+
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error al obtener la lista de estudiantes por cedula: \n"+e.getMessage());
+            closeConnection();
+            return null;
+        }
+
+    }
+
     public Estudiante buscarPorId(int id) {
         String sql = "SELECT * FROM estudiante WHERE id=?";
         try (Connection con = getConexion();

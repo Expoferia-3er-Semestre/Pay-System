@@ -9,7 +9,7 @@ import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
 import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
-import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.SistemaAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 
 import javax.swing.*;
@@ -705,9 +705,9 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBorrarAESMouseClicked
 
     private void btnRetrocederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetrocederMouseClicked
-        HomeAdmin.card.show(HomeAdmin.panelCambiante, PanelDefault.Titulo);
-        HomeAdmin.panelCambiante.revalidate();
-        HomeAdmin.panelCambiante.repaint();
+        SistemaAdmin.card.show(SistemaAdmin.panelCambiante, PanelDefault.Titulo);
+        SistemaAdmin.panelCambiante.revalidate();
+        SistemaAdmin.panelCambiante.repaint();
     }//GEN-LAST:event_btnRetrocederMouseClicked
 
     private boolean validarEstudiante() {

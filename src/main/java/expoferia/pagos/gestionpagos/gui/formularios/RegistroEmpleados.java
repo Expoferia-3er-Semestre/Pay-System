@@ -7,7 +7,7 @@ package expoferia.pagos.gestionpagos.gui.formularios;
 import com.toedter.calendar.JDateChooser;
 import expoferia.pagos.gestionpagos.dao.EmpleadoDAO;
 import expoferia.pagos.gestionpagos.entidades.Empleado;
-import expoferia.pagos.gestionpagos.gui.HomeAdmin;
+import expoferia.pagos.gestionpagos.gui.SistemaAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.util.Password;
 
@@ -394,9 +394,9 @@ public class RegistroEmpleados extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBorrarREMouseClicked
 
     private void botonVolverREMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVolverREMouseClicked
-        HomeAdmin.card.show(HomeAdmin.panelCambiante, PanelDefault.Titulo);
-        HomeAdmin.panelCambiante.revalidate();
-        HomeAdmin.panelCambiante.repaint();
+        SistemaAdmin.card.show(SistemaAdmin.panelCambiante, PanelDefault.Titulo);
+        SistemaAdmin.panelCambiante.revalidate();
+        SistemaAdmin.panelCambiante.repaint();
     }//GEN-LAST:event_botonVolverREMouseClicked
 
     private void textfieldCorreoREActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldCorreoREActionPerformed

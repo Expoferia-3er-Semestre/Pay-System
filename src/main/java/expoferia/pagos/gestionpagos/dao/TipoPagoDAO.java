@@ -39,7 +39,6 @@ public class TipoPagoDAO implements ITipoPagoDAO {
 
                     TipoPago nuevoTPago=new TipoPago(
                             rs.getInt("id"),
-                            rs.getString("concepto"),
                             rs.getString("categoria"),
                             rs.getDouble("costo"),
                             rs.getBoolean("estado"));
@@ -58,17 +57,29 @@ public class TipoPagoDAO implements ITipoPagoDAO {
     }
 
     @Override
-    public Integer buscarPorId(int id) {
-        String sql="SELECT FROM tipopago WHERE id=?";
+    public TipoPago buscarPorId(String tipoPago) {
+        String sql="SELECT * FROM tipo_pago WHERE categoria=?";
 
         try (Connection con=getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
-            ps.setInt(1, id);
+            ps.setString(1, tipoPago);
 
             try (ResultSet rs=ps.executeQuery()){
 
-                System.out.println("Si existe el tipo de pago.");
-                return rs.getInt("id");
+                if (rs.next()) {
+                    System.out.println("Si existe el tipo de pago.");
+
+                    TipoPago tipoPago1 = new TipoPago(
+                            rs.getInt("id"),
+                            rs.getString("categoria"),
+                            rs.getDouble("costo"),
+                            rs.getBoolean("estado"));
+
+                    closeConnection();
+                    return tipoPago1;
+
+                }
+
 
             } catch (SQLException e) {
                 System.out.println("Error al encontrar tipo de pago: "+e);
@@ -80,18 +91,19 @@ public class TipoPagoDAO implements ITipoPagoDAO {
             closeConnection();
             return null;
         }
+        closeConnection();
+        return null;
     }
 
     @Override
     public boolean agregar(TipoPago tipoPago) {
-        String sql="INSERT INTO tipo_pago(concepto, categoria, costo) " +
-        " VALUES(?, ?, ?)";
+        String sql="INSERT INTO tipo_pago( categoria, costo) " +
+        " VALUES(?, ?)";
         try (Connection con=getConexion();
         PreparedStatement ps=con.prepareStatement(sql)){
 
-                ps.setString(1, tipoPago.getConcepto());
-                ps.setString(2, tipoPago.getCategoria());
-                ps.setDouble(3, tipoPago.getCosto());
+                ps.setString(1, tipoPago.getCategoria());
+                ps.setDouble(2, tipoPago.getCosto());
 
                 int filasAfectadas=ps.executeUpdate();
                 closeConnection();
@@ -109,12 +121,6 @@ public class TipoPagoDAO implements ITipoPagoDAO {
         StringBuilder sql=new StringBuilder("UPDATE tipo_pago SET ");
         boolean hayComa=false;
         List<Object> valores=new ArrayList<>();
-
-        if (tipoPago.getConcepto()!=null) {
-            sql.append("concepto=?");
-            hayComa=true;
-            valores.add(tipoPago.getConcepto());
-        }
 
         if (tipoPago.getCategoria()!=null) {
             if (hayComa) sql.append(", ");

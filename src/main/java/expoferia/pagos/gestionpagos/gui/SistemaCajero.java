@@ -21,6 +21,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         card= (CardLayout) panelCambiante.getLayout();
+
         RegistroPago registroPago = new RegistroPago();
         panelCambiante.add(registroPago, "regPago");
         card.show(panelCambiante, "regPago");

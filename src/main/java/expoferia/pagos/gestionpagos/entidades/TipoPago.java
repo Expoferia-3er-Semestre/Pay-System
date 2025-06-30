@@ -1,45 +1,35 @@
 package expoferia.pagos.gestionpagos.entidades;
 
 public class TipoPago {
-
-    private Integer id;
-    private String concepto;
-    private String categoria;
+    private int id;
+    private String categoria; // "Mensualidad", "Curso", etc.
     private Double costo;
     private boolean estado;
 
-    public TipoPago() {}
+    public TipoPago() {
+    }
 
-    public TipoPago(Integer id, String concepto, String categoria, Double costo, boolean estado) {
+    public TipoPago(int id, String categoria, Double costo, boolean estado) {
         this.id = id;
-        this.concepto = concepto;
         this.categoria = categoria;
         this.costo = costo;
         this.estado = estado;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getConcepto() {
-        return concepto;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setConcepto(String concepto) {
-        this.concepto = concepto;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public Double getCosto() {
@@ -50,17 +40,12 @@ public class TipoPago {
         this.costo = costo;
     }
 
-    public boolean getEstado() { return estado; }
-
-    public void setEstado(boolean estado) { this.estado = estado; }
-
-    @Override
-    public String toString() {
-        return "tipo_pagos{" +
-                "id=" + id +
-                ", concepto='" + concepto + '\'' +
-                ", categoria='" + categoria + '\'' +
-                ", costo=" + costo +
-                '}';
+    public String getCategoria() {
+        return categoria;
     }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+// Getters y setters
 }

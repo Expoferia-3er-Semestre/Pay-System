@@ -11,14 +11,14 @@ import java.util.List;
 public class DetallesPagoDAO {
 
     public boolean agregar(DetallesPago detalle) {
-        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago, id_tipo_pago, mes_correspondiente, descripcion) " +
+        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago_recibo, id_tipo_pago, mes_correspondiente, descripcion) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, detalle.getIdAnoEscolar());
-            ps.setString(2, detalle.getIdPago());
+            ps.setInt(2, detalle.getIdPagoRecibo());
             ps.setInt(3, detalle.getIdTipoPago());
             ps.setString(4, detalle.getMesCorrespondiente());
             ps.setString(5, detalle.getDescripcion());
@@ -52,15 +52,13 @@ public class DetallesPagoDAO {
                 while (rs.next()) {
                     DetallesPago detalle = new DetallesPago(
                             rs.getInt("id_detalles_pago"),
-                            rs.getInt("id_ano_escolar"),
-                            rs.getString("id_pago"),
+                            rs.getInt("id_pago_recibo"),
                             rs.getInt("id_tipo_pago"),
-                            rs.getString("mes_correspondiente"),
-                            rs.getString("descripcion")
+                            rs.getString("num_trans"),
+                            rs.getInt("id_ano_escolar"),
+                            rs.getString("descripcion"),
+                            rs.getString("mes_correspondiente")
                     );
-
-                    detalle.setMontoEsperado(rs.getDouble("monto_esperado"));
-                    detalle.setAbonos(obtenerAbonosPorDetalle(detalle.getIdDetallesPago()));
 
                     lista.add(detalle);
                 }
@@ -102,5 +100,42 @@ public class DetallesPagoDAO {
 
         return abonos;
     }
+
+    public List<String> obtenerMesesPagados(int idEstudiante, int idAnoEscolar) {
+
+        List<String> mesesPagados = new ArrayList<>();
+        String sql = """
+        SELECT dp.mes_correspondiente
+        FROM detalles_pago dp
+        JOIN pago_recibo pr ON dp.id_pago_recibo = pr.id_pago_recibo
+        JOIN tipo_pago tp ON dp.id_tipo_pago = tp.id
+        WHERE pr.id_estudiante = ?
+          AND dp.id_ano_escolar = ?
+          AND tp.categoria = 'Mensualidad'
+    """;
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idEstudiante);
+            ps.setInt(2, idAnoEscolar);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String mes = rs.getString("mes_correspondiente");
+                    mesesPagados.add(mes);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener meses pagados: " + e);
+        } finally {
+            closeConnection();
+        }
+
+        return mesesPagados;
+    }
+
+
 }
 

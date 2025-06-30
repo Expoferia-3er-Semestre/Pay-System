@@ -287,4 +287,11 @@ public class EstudianteDAO {
             return false;
         }
     }
+
+    public ArrayList<String> mesesTotales(int idEstudiante) {
+
+        String sql = "";
+
+        return null;
+    }
 }

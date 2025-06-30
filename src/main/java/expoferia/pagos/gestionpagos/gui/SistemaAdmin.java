@@ -256,7 +256,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelTipoPago= new PanelDefault("ID Concepto Categoría Costo Estado Acciones",
+        PanelDefault panelTipoPago= new PanelDefault("ID Categoría Costo Estado Acciones",
             "Tipos de Pagos"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelTipoPago, "Tipos de Pagos"); // Agregar con nombre único
         card.show(panelCambiante, "Tipos de Pagos");

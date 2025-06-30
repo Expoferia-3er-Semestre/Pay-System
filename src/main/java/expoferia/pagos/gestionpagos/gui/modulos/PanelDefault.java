@@ -109,7 +109,6 @@ public class PanelDefault extends JPanel {
             for (TipoPago tp : listaTiposPagos) {
                 modelo.addRow(new Object[] {
                         tp.getId(),
-                        tp.getConcepto(),
                         tp.getCategoria(),
                         tp.getCosto()
                 });

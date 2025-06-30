@@ -1,6 +1,8 @@
 package expoferia.pagos.gestionpagos.dao;
 
 
+import expoferia.pagos.gestionpagos.entidades.AnioEscolar;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +23,12 @@ public class AnoEscolarDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("id_ano_escolar");
+                    AnioEscolar aEs = new AnioEscolar(
+                            rs.getInt("id_ano_escolar"),
+                            rs.getDate(""),
+                            rs.getDate(""),
+                            rs.getBoolean("")
+                    );
                 }
             }
 
@@ -34,6 +41,35 @@ public class AnoEscolarDAO {
         return null;
     }
 
+    public AnioEscolar obtenerPeriodoActivo() {
+        String sql = "SELECT id_ano_escolar, periodo_inicio, periodo_fin, estado " +
+                "FROM ano_escolar " +
+                "WHERE estado = 1 AND ? BETWEEN periodo_inicio AND periodo_fin";
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, new java.sql.Date(System.currentTimeMillis()));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new AnioEscolar(
+                            rs.getInt("id_ano_escolar"),
+                            rs.getDate("periodo_inicio"),
+                            rs.getDate("periodo_fin"),
+                            rs.getBoolean("estado")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener año escolar activo: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+
+        return null;
+    }
 
 }
 

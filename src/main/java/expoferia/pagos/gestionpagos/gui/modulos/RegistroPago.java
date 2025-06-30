@@ -26,13 +26,15 @@ public class RegistroPago extends javax.swing.JPanel {
     Estudiante estudiante;
     TipoPago tipoPago;
     String metodoPago;
-    List<DetallesPago> conceptosPago= new ArrayList<>();
-    List<Double> montosPagados= new ArrayList<>();
+    public static List<DetallesPago> conceptosPago= new ArrayList<>();
+    public static List<Double> montosPagados = new ArrayList<>();
+    List<Double> montosTotales = new ArrayList<>();
     private static final List<String> MESES_ESCOLARES = Arrays.asList(
             "Septiembre", "Octubre", "Noviembre", "Diciembre",
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto"
     );
-    Integer idAnoEscolar;
+    AnioEscolar anioEscolar;
+    String mesPendiente;
 
     /**
      * Creates new form Registro
@@ -41,7 +43,9 @@ public class RegistroPago extends javax.swing.JPanel {
         initComponents();
 
         AnoEscolarDAO aEDao = new AnoEscolarDAO();
-        idAnoEscolar = aEDao.obtenerAnoEscolarActivo();
+        anioEscolar = aEDao.obtenerPeriodoActivo();
+        PagoReciboDAO pRDao = new PagoReciboDAO();
+        datosNFactura.setText(String.valueOf(pRDao.obtenerProximoIdPagoRecibo()));
 
     }
 
@@ -712,7 +716,7 @@ public class RegistroPago extends javax.swing.JPanel {
         if (!comboTPago.getSelectedItem().equals("Seleccione un tipo")) {
 
             TipoPagoDAO tDao = new TipoPagoDAO();
-            tipoPago = tDao.buscarPorId(comboTPago.getSelectedItem().toString());
+            tipoPago = tDao.buscarPorCategoria(comboTPago.getSelectedItem().toString());
 
             txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
@@ -720,7 +724,24 @@ public class RegistroPago extends javax.swing.JPanel {
                 txtMonto.setEnabled(true);
             } else txtMonto.setEnabled(false);
 
-            if (tipoPago.getCategoria().equals("Mensualidad")) checkAbono.setEnabled(true);
+            if (tipoPago.getCategoria().equals("Mensualidad")) {
+                if (estudiante != null) {
+                    checkAbono.setEnabled(true);
+
+                    mesPendiente = buscarPrimerMesPendiente();
+                    if (tieneMoraParaMes(mesPendiente)) {
+                        txtMonto.setText(String.valueOf(tipoPago.getCosto()+5));
+                        System.out.println("Tiene mora para el mes de: "+mesPendiente);
+                        tipoPago.setCosto(Double.parseDouble(txtMonto.getText()));
+                    } else {
+                        System.out.println("No tiene mora para el mes de: "+mesPendiente);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar una mensualidad.");
+                    comboTPago.setSelectedIndex(0);
+                }
+            }
             else checkAbono.setEnabled(false);
         }
 
@@ -880,19 +901,12 @@ public class RegistroPago extends javax.swing.JPanel {
             detallePago.setIdTipoPago(tipoPago.getId());
             if (txtTReferencia.isEnabled()) detallePago.setNumTrans(txtTReferencia.getText());
             else detallePago.setNumTrans(null);
-            detallePago.setIdAnoEscolar(idAnoEscolar); //Trabajar la asignación automática del periodo escolar
+            detallePago.setIdAnoEscolar(anioEscolar.getIdAnoEscolar()); //Trabajar la asignación automática del periodo escolar
             detallePago.setDescripcion(txtConcepto.getText());
 
             // Asignación automática del mes más lejano que tiene pendiente si es una mensualidad
             if (tipoPago.getCategoria().equals("Mensualidad")) {
-                String mesPendiente = buscarPrimerMesPendiente();
-
-                if (tieneMoraParaMes(mesPendiente)) {
-
-                }
-
                 detallePago.setMesCorrespondiente(mesPendiente);
-
             }
             conceptosPago.add(detallePago);
 
@@ -962,7 +976,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
     private List<String> busquedaMeses() {
 
-        if (idAnoEscolar != null ) {
+        if (anioEscolar != null ) {
             DetallesPagoDAO dPDao = new DetallesPagoDAO();
             List<String> mesesPagados = dPDao.obtenerMesesPagados(estudiante.getId(), 1);
             List<String> mesesPendientes = new ArrayList<>();
@@ -982,20 +996,26 @@ public class RegistroPago extends javax.swing.JPanel {
     }
 
     private String buscarPrimerMesPendiente() {
-
-        if (idAnoEscolar == null) return null;
+        if (anioEscolar == null) return null;
 
         DetallesPagoDAO dPDao = new DetallesPagoDAO();
+        List<String> pagados = dPDao.obtenerMesesPagados(estudiante.getId(), anioEscolar.getIdAnoEscolar());
 
-        List<String> pagados = dPDao.obtenerMesesPagados(estudiante.getId(), idAnoEscolar);
-
-        for (String mes : MESES_ESCOLARES) {
-            if (!pagados.contains(mes)) {
-                return mes; // El primer mes pendiente
+        TipoPagoDAO tipoPagoDAO = new TipoPagoDAO();
+        // ➕ Agregar meses que están en el carrito
+        for (DetallesPago dp : conceptosPago) {
+            if ("Mensualidad".equals(tipoPagoDAO.buscarPorId(dp.getIdTipoPago()).getCategoria())) {
+                pagados.add(dp.getMesCorrespondiente());
             }
         }
 
-        return null; // Todo pagado
+        for (String mes : MESES_ESCOLARES) {
+            if (!pagados.contains(mes)) {
+                return mes;
+            }
+        }
+
+        return null;
     }
 
     public List<String> obtenerMesesMorosos(int idEstudiante, int idAnoEscolar) {
@@ -1026,26 +1046,32 @@ public class RegistroPago extends javax.swing.JPanel {
         return morosos;
     }
 
+
+
     public boolean tieneMoraParaMes(String mesEscolar) {
-        if (mesEscolar == null) return false;
+        if (mesEscolar == null || anioEscolar == null) return false;
 
         List<String> mesesEscolares = Arrays.asList(
                 "Septiembre", "Octubre", "Noviembre", "Diciembre",
-                "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
+                "Enero", "Febrero", "Marzo", "Abril",
+                "Mayo", "Junio", "Julio", "Agosto"
         );
 
         int index = mesesEscolares.indexOf(mesEscolar);
-        if (index == -1) return false; // mes inválido
+        if (index == -1) return false;
 
         int numeroMes = (index + 9) % 12;
         if (numeroMes == 0) numeroMes = 12;
 
-        LocalDate hoy = LocalDate.now();
-        int anio = (index + 9 > 12) ? hoy.getYear() + 1 : hoy.getYear();
+        // Año base tomado del periodo escolar actual
+        LocalDate inicioPeriodo = anioEscolar.getPeriodoInicio().toLocalDate();
+        int anioBase = inicioPeriodo.getYear();
 
-        LocalDate fechaLimite = LocalDate.of(anio, numeroMes, 5);
+        int anioFinal = (numeroMes >= 9) ? anioBase : anioBase + 1;
 
-        return hoy.isAfter(fechaLimite);
+        LocalDate fechaLimite = LocalDate.of(anioFinal, numeroMes, 5);
+
+        return LocalDate.now().isAfter(fechaLimite);
     }
 
 

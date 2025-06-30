@@ -57,7 +57,7 @@ public class TipoPagoDAO implements ITipoPagoDAO {
     }
 
     @Override
-    public TipoPago buscarPorId(String tipoPago) {
+    public TipoPago buscarPorCategoria(String tipoPago) {
         String sql="SELECT * FROM tipo_pago WHERE categoria=?";
 
         try (Connection con=getConexion();
@@ -94,6 +94,45 @@ public class TipoPagoDAO implements ITipoPagoDAO {
         closeConnection();
         return null;
     }
+
+    public TipoPago buscarPorId(int id) {
+        String sql="SELECT * FROM tipo_pago WHERE id=?";
+
+        try (Connection con=getConexion();
+             PreparedStatement ps=con.prepareStatement(sql)){
+            ps.setInt(1, id);
+
+            try (ResultSet rs=ps.executeQuery()){
+
+                if (rs.next()) {
+                    System.out.println("Si existe el tipo de pago.");
+
+                    TipoPago tipoPago1 = new TipoPago(
+                            rs.getInt("id"),
+                            rs.getString("categoria"),
+                            rs.getDouble("costo"),
+                            rs.getBoolean("estado"));
+
+                    closeConnection();
+                    return tipoPago1;
+
+                }
+
+
+            } catch (SQLException e) {
+                System.out.println("Error al encontrar tipo de pago: "+e);
+                closeConnection();
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al encontrar tipo de pago: "+e);
+            closeConnection();
+            return null;
+        }
+        closeConnection();
+        return null;
+    }
+
 
     @Override
     public boolean agregar(TipoPago tipoPago) {

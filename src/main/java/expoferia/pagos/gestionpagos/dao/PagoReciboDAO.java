@@ -66,4 +66,24 @@ public class PagoReciboDAO {
                 }
         }
 
+        public Integer obtenerProximoIdPagoRecibo() {
+                String sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'gestion_pagos' AND TABLE_NAME = 'pago_recibo'";
+
+                try (Connection con = getConexion();
+                     PreparedStatement ps = con.prepareStatement(sql);
+                     ResultSet rs = ps.executeQuery()) {
+
+                        if (rs.next()) {
+                                return rs.getInt("AUTO_INCREMENT");
+                        }
+
+                } catch (SQLException e) {
+                        System.out.println("Error al obtener próximo ID de pago_recibo: " + e.getMessage());
+                } finally {
+                        closeConnection();
+                }
+
+                return null; // En caso de error o que no exista
+        }
+
 }

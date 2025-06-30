@@ -8,7 +8,7 @@ public interface ITipoPagoDAO extends IGenericInterface<TipoPago> {
 
     ArrayList<TipoPago> listar(String categoria, Boolean estado);
 
-    TipoPago buscarPorId(String categoria);
+    TipoPago buscarPorCategoria(String categoria);
 
     boolean agregar(TipoPago tipoPago);
 

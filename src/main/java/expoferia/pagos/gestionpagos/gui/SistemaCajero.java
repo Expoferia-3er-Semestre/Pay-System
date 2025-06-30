@@ -4,9 +4,8 @@
  */
 package expoferia.pagos.gestionpagos.gui;
 
+import expoferia.pagos.gestionpagos.gui.modulos.ConsultarPago;
 import java.awt.*;
-import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
-import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 
 /**
@@ -16,16 +15,21 @@ import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 public class SistemaCajero extends javax.swing.JFrame {
 
     public static CardLayout card;
+    public static CardLayout card2;
 
     public SistemaCajero() {
         initComponents();
         setLocationRelativeTo(null);
-        card= (CardLayout) panelCambiante.getLayout();
-
+        card = (CardLayout) panelRound1.getLayout();
+        card2 = (CardLayout) panelRound2.getLayout();
+        
         RegistroPago registroPago = new RegistroPago();
-        panelCambiante.add(registroPago, "regPago");
-        card.show(panelCambiante, "regPago");
+        panelRound1.add(registroPago, "regPago");
+        card.show(panelRound1, "regPago");
 
+        ConsultarPago consultarPago = new ConsultarPago();
+        panelRound2.add(consultarPago, "conPago");
+        card2.show(panelRound2, "conPago");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,17 +113,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelRound2.setPreferredSize(new java.awt.Dimension(500, 410));
         panelRound2.setRoundBottomRight(30);
         panelRound2.setRoundTopRight(30);
-
-        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-        panelRound2.setLayout(panelRound2Layout);
-        panelRound2Layout.setHorizontalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
-        panelRound2Layout.setVerticalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
-        );
+        panelRound2.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);

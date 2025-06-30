@@ -8,6 +8,7 @@ import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
 import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
+import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class TablaConsultarPago extends javax.swing.JPanel {
      */
     public TablaConsultarPago() {
         initComponents();
+        DetallePagoTableModel detallePagoTableModel = new DetallePagoTableModel();
+        jTable1.setModel(detallePagoTableModel);
     }
 
     /**

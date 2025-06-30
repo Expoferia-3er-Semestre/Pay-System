@@ -7,6 +7,7 @@ package expoferia.pagos.gestionpagos.gui;
 import expoferia.pagos.gestionpagos.gui.modulos.ConsultarPago;
 import java.awt.*;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
+import expoferia.pagos.gestionpagos.gui.modulos.TablaConsultarPago;
 
 /**
  *
@@ -27,7 +28,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelRound1.add(registroPago, "regPago");
         card.show(panelRound1, "regPago");
 
-        ConsultarPago consultarPago = new ConsultarPago();
+        TablaConsultarPago consultarPago = new TablaConsultarPago();
         panelRound2.add(consultarPago, "conPago");
         card2.show(panelRound2, "conPago");
     }

@@ -455,7 +455,7 @@ public class ActualizarEmpleados extends javax.swing.JPanel {
             return false;
         }
 
-        if (!cedula.matches("^V\\d+")) {
+        if (!cedula.matches("V\\d+")) {
             JOptionPane.showMessageDialog(null, "La cédula solo debe contener V y números.");
             return false;
         }
@@ -552,7 +552,7 @@ public class ActualizarEmpleados extends javax.swing.JPanel {
     public void cargarDatos(int id) {
 
         EmpleadoDAO eDao=new EmpleadoDAO();
-        Empleado empleado=eDao.buscarPorId(id);
+        empleado=eDao.buscarPorId(id);
 
         textfieldPrimerNombreRE.setText(empleado.getNombre1());
         textfieldSegundoNombreRE.setText(empleado.getNombre2());

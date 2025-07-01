@@ -949,11 +949,13 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
 
     private void guardarDatosE() {
 
+        estudiante = new Estudiante();
         estudiante.setNombre1(textfieldPrimerNombreAES.getText());
         estudiante.setNombre2(textfieldSegundoNombreAES.getText());
         estudiante.setApellido1(textfieldPrimerApellidoAES.getText());
         estudiante.setApellido2(textfieldSegundoApellidoAES.getText());
-        estudiante.setFechaN((Date) dateChooserE.getDate());
+        java.util.Date dateUtil = dateChooserE.getDate();
+        estudiante.setFechaN(new java.sql.Date(dateUtil.getTime()));
         estudiante.setDireccion(textfieldDireccionAR1.getText());
         estudiante.setGrado((String) comboGrado.getSelectedItem());
         estudiante.setNivel_academico((String) comboPeriodo.getSelectedItem());
@@ -964,11 +966,13 @@ public class RegistroEstudianteRepresentante extends javax.swing.JPanel {
 
     private void guardarDatosR() {
 
+        representante = new Representante();
         representante.setNombre1(textfieldPrimerNombreAR.getText());
         representante.setNombre2(textfieldSegundoNombreAR.getText());
         representante.setApellido1(textfieldPrimerApellidoAR.getText());
         representante.setApellido2(textfieldSegundoApellidoAR.getText());
-        representante.setFechaN((Date) dateChooserR.getDate());
+        java.util.Date dateUtil = dateChooserR.getDate();
+        representante.setFechaN(new java.sql.Date(dateUtil.getTime()));
         representante.setDireccion(textfieldDireccionAR.getText());
         representante.setTelefono(textfieldTelefonoAR.getText());
         representante.setCedula(textfieldCedulaAR.getText());

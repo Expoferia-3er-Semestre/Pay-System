@@ -1,5 +1,7 @@
 package expoferia.pagos.gestionpagos.entidades;
 
+import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
+
 public class DetallesPago {
     private int id;
     private int idPagoRecibo;
@@ -8,11 +10,13 @@ public class DetallesPago {
     private int idAnoEscolar;
     private String descripcion;
     private String mesCorrespondiente;
+    private double montoTotal;
+    private double montoPagado;
 
     public DetallesPago() {
     }
 
-    public DetallesPago(int id, int idPagoRecibo, int idTipoPago, String numTrans, int idAnoEscolar, String descripcion, String mesCorrespondiente) {
+    public DetallesPago(int id, int idPagoRecibo, int idTipoPago, String numTrans, int idAnoEscolar, String descripcion, String mesCorrespondiente, double montoTotal, double montoPagado) {
         this.id = id;
         this.idPagoRecibo = idPagoRecibo;
         this.idTipoPago = idTipoPago;
@@ -20,8 +24,27 @@ public class DetallesPago {
         this.idAnoEscolar = idAnoEscolar;
         this.descripcion = descripcion;
         this.mesCorrespondiente = mesCorrespondiente;
+        this.montoTotal = montoTotal;
+        this.montoPagado = montoPagado;
     }
-// Getters y setters
+
+    // Getters y setters
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public double getMontoPagado() {
+        return montoPagado;
+    }
+
+    public void setMontoPagado(double montoPagado) {
+        this.montoPagado = montoPagado;
+    }
 
     public int getId() {
         return id;
@@ -77,5 +100,13 @@ public class DetallesPago {
 
     public void setMesCorrespondiente(String mesCorrespondiente) {
         this.mesCorrespondiente = mesCorrespondiente;
+    }
+
+    public String getCategoria() {
+
+        TipoPagoDAO tipoPagoDAO = new TipoPagoDAO();
+        TipoPago tipoPago = tipoPagoDAO.buscarPorId(idTipoPago);
+        return tipoPago.getCategoria();
+
     }
 }

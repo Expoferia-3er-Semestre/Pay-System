@@ -11,8 +11,8 @@ import java.util.List;
 public class DetallesPagoDAO {
 
     public boolean agregar(DetallesPago detalle) {
-        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago_recibo, id_tipo_pago, mes_correspondiente, descripcion) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO detalles_pago(id_ano_escolar, id_pago_recibo, id_tipo_pago, mes_correspondiente, descripcion, monto_total, monto_pagado) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -22,15 +22,17 @@ public class DetallesPagoDAO {
             ps.setInt(3, detalle.getIdTipoPago());
             ps.setString(4, detalle.getMesCorrespondiente());
             ps.setString(5, detalle.getDescripcion());
+            ps.setDouble(6, detalle.getMontoTotal());
+            ps.setDouble(7, detalle.getMontoPagado());
 
             int filas = ps.executeUpdate();
-            closeConnection();
             return filas > 0;
 
         } catch (SQLException e) {
             System.out.println("Error al insertar detalle de pago: " + e);
-            closeConnection();
             return false;
+        } finally {
+            closeConnection();
         }
     }
 
@@ -57,7 +59,9 @@ public class DetallesPagoDAO {
                             rs.getString("num_trans"),
                             rs.getInt("id_ano_escolar"),
                             rs.getString("descripcion"),
-                            rs.getString("mes_correspondiente")
+                            rs.getString("mes_correspondiente"),
+                            rs.getDouble("monto_total"),
+                            rs.getDouble("monto_pagado")
                     );
 
                     lista.add(detalle);
@@ -136,6 +140,24 @@ public class DetallesPagoDAO {
         return mesesPagados;
     }
 
+    public boolean actualizarMontoPagado(int idDetallePago, double nuevoMontoPagado) {
+        String sql = "UPDATE detalles_pago SET monto_pagado = ? WHERE id_detalles_pago = ?";
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDouble(1, nuevoMontoPagado);
+            ps.setInt(2, idDetallePago);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar monto_pagado: " + e);
+            return false;
+        } finally {
+            closeConnection();
+        }
+    }
 
 }
 

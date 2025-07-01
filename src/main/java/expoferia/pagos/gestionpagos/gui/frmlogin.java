@@ -311,7 +311,9 @@ public class frmlogin extends javax.swing.JDialog {
                 escritorio.setVisible(true);
                 escritorio.setLocationRelativeTo(null);
             } else {
-
+                SistemaCajero escritoria = new SistemaCajero();
+                escritoria.setVisible(true);
+                escritoria.setLocationRelativeTo(null);
             }
 
         }else {

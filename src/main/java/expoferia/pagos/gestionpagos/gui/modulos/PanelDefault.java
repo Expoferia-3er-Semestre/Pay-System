@@ -192,6 +192,11 @@ public class PanelDefault extends JPanel {
         archivarButton.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
         archivarButton.setForeground(new Color(255, 255, 255));
         archivarButton.setText("Archivar");
+        archivarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                archivarButtonActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Buscar ", "ID Trabajador ", "Cedula ", "Nombre " }));
 
@@ -333,6 +338,54 @@ public class PanelDefault extends JPanel {
         }
 
     }//GEN-LAST:event_actualizarButtonActionPerformed
+
+    private void archivarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivarButtonActionPerformed
+
+        if (id != null) {
+            if (Titulo.equals("Empleados")) {
+                EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+                boolean exito = empleadoDAO.desactivar(id);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Empleado archivado correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al archivar el empleado.");
+                }
+
+            } else if (Titulo.equals("Estudiantes")) {
+                EstudianteDAO estudianteDAO = new EstudianteDAO();
+                boolean exito = estudianteDAO.desactivar(id);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Estudiante archivado correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al archivar el estudiante.");
+                }
+
+            } else if (Titulo.equals("Representantes")) {
+                RepresentanteDAO representanteDAO = new RepresentanteDAO();
+                boolean exito = representanteDAO.desactivar(id);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Representante archivado correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al archivar el representante.");
+                }
+            }
+
+            SistemaAdmin.panelCambiante.revalidate();
+            SistemaAdmin.panelCambiante.repaint();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro de la tabla antes de darle al botón archivar.");
+        }
+
+    }//GEN-LAST:event_archivarButtonActionPerformed
+
+
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton actualizarButton;

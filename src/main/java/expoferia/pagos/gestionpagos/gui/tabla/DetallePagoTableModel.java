@@ -41,23 +41,21 @@ public class DetallePagoTableModel extends DefaultTableModel {
     public void cargarDatos(List<DetallesPago> conceptosPago, List<Double> montosPagados) {
         // Limpia filas previas
         setRowCount(0);
+        montoTotal = 0;
 
         if (conceptosPago == null) return;
 
-        for (int i=0; i<montosPagados.size();i++) {
-
+        for (int i = 0; i < montosPagados.size(); i++) {
             DetallesPago dp = conceptosPago.get(i);
             double monto = montosPagados.get(i);
-            montoTotal += montosPagados.get(i);
+            montoTotal += monto;
             addRow(new Object[]{
                     dp.getDescripcion(),
                     1,
                     monto,
                     montoTotal
             });
-
         }
-
     }
 
     /**

@@ -7,19 +7,17 @@ public class PagoRecibo {
     private int idEstudiante;
     private double montoTotal;
     private double montoPagado;
-    private String metodoPago;
     private boolean estado; // true = pagado, false = parcial/pending
     private Date fechaPago;
 
     public PagoRecibo() {
     }
 
-    public PagoRecibo(int idPagoRecibo, int idEstudiante, double montoTotal, double montoPagado, String metodoPago, boolean estado, Date fechaPago) {
+    public PagoRecibo(int idPagoRecibo, int idEstudiante, double montoTotal, double montoPagado, boolean estado, Date fechaPago) {
         this.idPagoRecibo = idPagoRecibo;
         this.idEstudiante = idEstudiante;
         this.montoTotal = montoTotal;
         this.montoPagado = montoPagado;
-        this.metodoPago = metodoPago;
         this.estado = estado;
         this.fechaPago = fechaPago;
     }
@@ -54,14 +52,6 @@ public class PagoRecibo {
 
     public void setMontoPagado(double montoPagado) {
         this.montoPagado = montoPagado;
-    }
-
-    public String getMetodoPago() {
-        return metodoPago;
-    }
-
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public boolean isEstado() {

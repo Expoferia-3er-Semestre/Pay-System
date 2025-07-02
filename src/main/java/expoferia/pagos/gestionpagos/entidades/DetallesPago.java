@@ -6,6 +6,7 @@ public class DetallesPago {
     private int id;
     private int idPagoRecibo;
     private int idTipoPago;
+    private String metodoPago;
     private String numTrans;       // opcional, según tipo de pago
     private int idAnoEscolar;
     private String descripcion;
@@ -16,10 +17,11 @@ public class DetallesPago {
     public DetallesPago() {
     }
 
-    public DetallesPago(int id, int idPagoRecibo, int idTipoPago, String numTrans, int idAnoEscolar, String descripcion, String mesCorrespondiente, double montoTotal, double montoPagado) {
+    public DetallesPago(int id, int idPagoRecibo, int idTipoPago, String numTrans, int idAnoEscolar, String descripcion, String mesCorrespondiente, double montoTotal, double montoPagado, String metodoPago) {
         this.id = id;
         this.idPagoRecibo = idPagoRecibo;
         this.idTipoPago = idTipoPago;
+        this.metodoPago = metodoPago;
         this.numTrans = numTrans;
         this.idAnoEscolar = idAnoEscolar;
         this.descripcion = descripcion;
@@ -70,6 +72,14 @@ public class DetallesPago {
         this.idTipoPago = idTipoPago;
     }
 
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
     public String getNumTrans() {
         return numTrans;
     }
@@ -109,4 +119,17 @@ public class DetallesPago {
         return tipoPago.getCategoria();
 
     }
+
+    public boolean esMensualidad() {
+        return mesCorrespondiente != null && !mesCorrespondiente.isBlank();
+    }
+
+    public boolean tieneSaldoPendiente() {
+        return Double.compare(montoPagado, montoTotal) < 0;
+    }
+
+    public double getDiferencia() {
+        return montoTotal - montoPagado;
+    }
+
 }

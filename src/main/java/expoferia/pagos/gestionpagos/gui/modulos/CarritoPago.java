@@ -1,12 +1,16 @@
 package expoferia.pagos.gestionpagos.gui.modulos;
 
+import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CarritoPago {
+
+    private final List<Abono> abonos = new ArrayList<>();
     private final List<DetallesPago> conceptos = new ArrayList<>();
 
     public void agregarConcepto(DetallesPago concepto) {
@@ -35,6 +39,12 @@ public class CarritoPago {
                 .sum();
     }
 
+    public double calcularTotalPagado() {
+        return conceptos.stream()
+                .mapToDouble(DetallesPago::getMontoPagado)
+                .sum();
+    }
+
     public boolean yaExiste(DetallesPago nuevo) {
         return conceptos.stream().anyMatch(c ->
                 Objects.equals(c.getIdTipoPago(), nuevo.getIdTipoPago()) &&
@@ -48,22 +58,35 @@ public class CarritoPago {
 
     public long contarMensualidades() {
         return conceptos.stream()
-                .filter(c -> "Mensualidad".equalsIgnoreCase(c.getCategoria()))
+                .filter(DetallesPago::esMensualidad)
                 .count();
     }
 
-//    public double calcularTotalPagado() {
-//        return conceptos.stream()
-//                .flatMap(c -> c.getMetodosPago().stream())
-//                .mapToDouble(MetodoPago::getMonto)
-//                .sum();
-//    }
-//
-//    public boolean requiereBloqueo(DetallesPago concepto) {
-//        return concepto.tieneSaldoPendiente() && !concepto.isEsAbonoPermitido();
-//    }
+    public List<DetallesPago> getDetallesConDiferencia() {
+        return conceptos.stream()
+                .filter(dp ->
+                        dp.esMensualidad() &&
+                                dp.tieneSaldoPendiente()
+                )
+                .collect(Collectors.toList());
+    }
 
-//    public boolean tieneErroresDePago() {
-//        return conceptos.stream().anyMatch(this::requiereBloqueo);
-//    }
+    public void agregarAbono(Abono abono) {
+        abonos.add(abono);
+    }
+
+    public List<Abono> getAbonos() {
+        return abonos;
+    }
+
+    public boolean estaVacioAbono() {
+        return abonos.isEmpty();
+    }
+
+    public void limpiarAbonos() {
+        abonos.clear();
+    }
+
+
+
 }

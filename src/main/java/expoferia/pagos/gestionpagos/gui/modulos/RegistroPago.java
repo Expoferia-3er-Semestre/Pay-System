@@ -13,7 +13,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -25,10 +27,10 @@ public class RegistroPago extends javax.swing.JPanel {
     Representante representante;
     Estudiante estudiante;
     TipoPago tipoPago;
+    CarritoPago carritoPago = new CarritoPago();
     String metodoPago;
-    public static List<DetallesPago> conceptosPago= new ArrayList<>();
-    public static List<Double> montosPagados = new ArrayList<>();
-    List<Double> montosTotales = new ArrayList<>();
+    boolean aplicaMora=false;
+    DetallesPago mesAPagar;
     private static final List<String> MESES_ESCOLARES = Arrays.asList(
             "Septiembre", "Octubre", "Noviembre", "Diciembre",
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto"
@@ -155,9 +157,9 @@ public class RegistroPago extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Datos Grado/Año y Seccion:");
+        jLabel8.setText("Datos Grado/Año:");
 
-        gradoEstu.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        gradoEstu.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
         gradoEstu.setForeground(new java.awt.Color(0, 0, 0));
         gradoEstu.setText("            ");
 
@@ -325,6 +327,7 @@ public class RegistroPago extends javax.swing.JPanel {
         jLabel16.setText("Concepto de Pago");
         jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        txtConcepto.setEditable(false);
         txtConcepto.setBackground(new java.awt.Color(255, 255, 255));
         txtConcepto.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
         txtConcepto.setForeground(new java.awt.Color(0, 0, 0));
@@ -566,55 +569,50 @@ public class RegistroPago extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(78, 78, 78)
                 .addComponent(btnLimpiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnImprimir)
-                .addGap(108, 108, 108))
+                .addGap(100, 100, 100))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(185, 185, 185)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGap(28, 28, 28)
-                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addContainerGap()
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                    .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(btnBuscar))
-                                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addComponent(comboEstudiantes, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                                                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)))))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                    .addGap(37, 37, 37)
-                                                    .addComponent(btnConsultar)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(191, 191, 191)))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(28, 28, 28)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnBuscar))
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(comboEstudiantes, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(btnConsultar)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,7 +642,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         .addComponent(comboEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConsultar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,7 +657,7 @@ public class RegistroPago extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -684,7 +682,7 @@ public class RegistroPago extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConceptoActionPerformed
 
     private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtMontoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -711,38 +709,53 @@ public class RegistroPago extends javax.swing.JPanel {
 
     private void comboTPagoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_comboTPagoActionPerformed
 
-        checkAbono.setState(false);
+        if (estudiante != null) {
+            checkAbono.setState(false);
 
-        if (!comboTPago.getSelectedItem().equals("Seleccione un tipo")) {
+            if (!comboTPago.getSelectedItem().equals("Seleccione un tipo")) {
 
-            TipoPagoDAO tDao = new TipoPagoDAO();
-            tipoPago = tDao.buscarPorCategoria(comboTPago.getSelectedItem().toString());
+                TipoPagoDAO tDao = new TipoPagoDAO();
+                tipoPago = tDao.buscarPorCategoria(comboTPago.getSelectedItem().toString());
 
-            txtMonto.setText(String.valueOf(tipoPago.getCosto()));
+                txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
-            if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra")) {
-                txtMonto.setEnabled(true);
-            } else txtMonto.setEnabled(false);
+                if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra") || tipoPago.getCategoria().equals("Inscripción")) {
+                    txtConcepto.setText("Pago "+tipoPago.getCategoria());
+                } else txtMonto.setEnabled(false);
 
-            if (tipoPago.getCategoria().equals("Mensualidad")) {
-                if (estudiante != null) {
+                if (tipoPago.getCategoria().equals("Mensualidad")) {
+
                     checkAbono.setEnabled(true);
+                    mesAPagar = buscarPrimerMesPendiente();
+                    mesPendiente = mesAPagar.getMesCorrespondiente();
 
-                    mesPendiente = buscarPrimerMesPendiente();
-                    if (tieneMoraParaMes(mesPendiente)) {
+                    if (mesAPagar.tieneSaldoPendiente()) {
+
+                        txtConcepto.setText("Abono " + mesPendiente);
+                        txtMonto.setText(String.valueOf(mesAPagar.getDiferencia()));
+                        System.out.println("Tiene un abono pendiente del mes "+mesPendiente+" de: "+mesAPagar.getDiferencia());
+                    }
+                    else if (tieneMoraParaMes(mesPendiente)) {
+
+                        txtConcepto.setText("Mora "+mesPendiente);
+
                         txtMonto.setText(String.valueOf(tipoPago.getCosto()+5));
+                        aplicaMora = true;
                         System.out.println("Tiene mora para el mes de: "+mesPendiente);
                         tipoPago.setCosto(Double.parseDouble(txtMonto.getText()));
+
                     } else {
                         System.out.println("No tiene mora para el mes de: "+mesPendiente);
+                        txtConcepto.setText("Pago "+mesPendiente);
+
                     }
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar una mensualidad.");
-                    comboTPago.setSelectedIndex(0);
                 }
-            }
-            else checkAbono.setEnabled(false);
+                else checkAbono.setEnabled(false);
+            } else checkAbono.setEnabled(false);
+        }  else {
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar los tipos de pago.");
+            comboTPago.setSelectedIndex(0);
         }
 
     }//GEN-LAST:event_comboTPagoActionPerformed
@@ -775,8 +788,13 @@ public class RegistroPago extends javax.swing.JPanel {
         if (!checkAbono.getState()) {
 
             txtMonto.setEnabled(true);
+            txtConcepto.setText(((aplicaMora) ? "Abono de mora "+ mesPendiente : "Pago "+ mesPendiente));
 
-        } else txtMonto.setEnabled(false);
+        } else {
+            txtMonto.setEnabled(false);
+            txtConcepto.setText(((aplicaMora) ? "Mora "+ mesPendiente : "Pago "+ mesPendiente));
+
+        }
 
     }//GEN-LAST:event_checkAbonoMouseClicked
 
@@ -812,6 +830,10 @@ public class RegistroPago extends javax.swing.JPanel {
         }
         if (!txtConcepto.getText().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")) {
             JOptionPane.showMessageDialog(null, "El concepto solo puede contener palabras.");
+            return false;
+        }
+        if (metodoPagos.getSelection() == null) {
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un método de pago.");
             return false;
         }
         if (txtTReferencia.isEnabled()) {
@@ -874,6 +896,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
             estudiante = listE.get(index-1);
             datosEstu.setText(estudiante.getNombre1()+" "+estudiante.getApellido1());
+            gradoEstu.setText(estudiante.getGrado());
 
         } else {
             datosEstu.setText("               ");
@@ -896,23 +919,47 @@ public class RegistroPago extends javax.swing.JPanel {
 
         if (validarCampos()) {
 
-            DetallesPago detallePago = new DetallesPago();
+            if (mesAPagar.tieneSaldoPendiente()) {
 
-            detallePago.setIdTipoPago(tipoPago.getId());
-            if (txtTReferencia.isEnabled()) detallePago.setNumTrans(txtTReferencia.getText());
-            else detallePago.setNumTrans(null);
-            detallePago.setIdAnoEscolar(anioEscolar.getIdAnoEscolar()); //Trabajar la asignación automática del periodo escolar
-            detallePago.setDescripcion(txtConcepto.getText());
-
-            // Asignación automática del mes más lejano que tiene pendiente si es una mensualidad
-            if (tipoPago.getCategoria().equals("Mensualidad")) {
-                detallePago.setMesCorrespondiente(mesPendiente);
+                Abono abono = new Abono();
+                abono.setIdDetallesPago(mesAPagar.getId());
+                abono.setFechaAbono(LocalDate.now());
+                abono.setMetodoPago(metodoPago);
+                if (txtTReferencia.isEnabled()) abono.setNumTrans(txtTReferencia.getText());
+                else abono.setNumTrans(null);
+                abono.setMontoAbonado(Double.parseDouble(txtMonto.getText()));
+                abono.setDescripcion(txtConcepto.getText());
+                carritoPago.agregarAbono(abono);
+                resetCampos();
+                mesAPagar = null;
             }
-            conceptosPago.add(detallePago);
+            else {
 
-            JOptionPane.showMessageDialog(null, "Concepto agregado al pago!");
-            montosPagados.add(Double.parseDouble(txtMonto.getText()));
-            resetCampos();
+                DetallesPago detallePago = new DetallesPago();
+
+                detallePago.setIdTipoPago(tipoPago.getId());
+                detallePago.setMetodoPago(metodoPago);
+                if (txtTReferencia.isEnabled()) detallePago.setNumTrans(txtTReferencia.getText());
+                else detallePago.setNumTrans(null);
+
+                detallePago.setIdAnoEscolar(anioEscolar.getIdAnoEscolar());
+                detallePago.setDescripcion(txtConcepto.getText());
+
+                // Asignación automática del mes más lejano que tiene pendiente si es una mensualidad
+                if (tipoPago.getCategoria().equals("Mensualidad")) {
+                    detallePago.setMesCorrespondiente(mesPendiente);
+                }
+                detallePago.setMontoPagado(Double.parseDouble(txtMonto.getText()));
+
+                // Asignación del monto total del tipo de pago
+                detallePago.setMontoTotal(tipoPago.getCosto());
+                carritoPago.agregarConcepto(detallePago);
+
+                if (detallePago.tieneSaldoPendiente()) JOptionPane.showMessageDialog(null, "Abono agregado al pago!");
+                else JOptionPane.showMessageDialog(null, "Concepto agregado al pago!");
+
+                resetCampos();
+            }
 
         }
 
@@ -920,9 +967,11 @@ public class RegistroPago extends javax.swing.JPanel {
 
     private void registrarPago() {
 
-        if (!comboEstudiantes.getSelectedItem().equals("Seleccione un estudiante")) {
+        if (comboEstudiantes.getSelectedItem() != "Seleccione un estudiante" && estudiante != null) {
 
-            if (!conceptosPago.isEmpty()) {
+
+
+            if (!carritoPago.estaVacio()) {
 
                 int opcion = JOptionPane.showConfirmDialog(null, "Confirmar", "¿Desea imprimir el recibo?", JOptionPane.YES_NO_OPTION);
 
@@ -932,36 +981,34 @@ public class RegistroPago extends javax.swing.JPanel {
 
                     pagoRecibo.setIdEstudiante(estudiante.getId());
 
-                    if (tipoPago.getCategoria().equals("Mensualidad")) {
-                        pagoRecibo.setMontoTotal(tipoPago.getCosto());
-                    } else pagoRecibo.setMontoTotal(Double.parseDouble((txtMonto.getText())));
+                    pagoRecibo.setMontoTotal(carritoPago.calcularTotal());
 
-                    double montoPagado=0;
-                    for (double precioConcepto : montosPagados) {
-                        montoPagado+=precioConcepto;
-                    }
+                    pagoRecibo.setMontoPagado(carritoPago.calcularTotalPagado());
 
-                    pagoRecibo.setMontoPagado(montoPagado);
-                    pagoRecibo.setMetodoPago(metodoPago);
-                    pagoRecibo.setEstado(!checkAbono.getState());
+                    // Esto considera "pagado" si la diferencia entre los montos es menor a 0.001 (un milésimo)
+                    final double TOLERANCIA = 0.001;
+                    boolean pagado = Math.abs(pagoRecibo.getMontoPagado() - pagoRecibo.getMontoTotal()) < TOLERANCIA;
+                    pagoRecibo.setEstado(pagado);
 
                     Date fechaSql = new Date(System.currentTimeMillis());
                     pagoRecibo.setFechaPago(fechaSql);
 
-                    boolean exito = pRDao.registrarPago(pagoRecibo, conceptosPago);
+                    boolean exito = pRDao.registrarPago(pagoRecibo, carritoPago.getConceptos());
 
                     if (exito) {
                         JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
+                        comboEstudiantes.setSelectedIndex(0);
                         txtcedula.setText("");
                         representante=null;
-                        comboEstudiantes.setSelectedIndex(0);
                         estudiante=null;
                         datosEstu.setText("               ");
                         datosRepre.setText("               ");
                         gradoEstu.setText("               ");
+
                         resetCampos();
-                    }
-                    else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
+                        carritoPago.limpiar();
+
+                    } else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
                 }
 
             } else JOptionPane.showMessageDialog(null, "Primero debe registrar conceptos al pago.");
@@ -969,8 +1016,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
         } else JOptionPane.showMessageDialog(null, "Debe seleccionar un estudiante antes de crear el pago.");
 
-        conceptosPago.clear();
-        conceptosPago = new ArrayList<>();
+
 
     }
 
@@ -987,7 +1033,7 @@ public class RegistroPago extends javax.swing.JPanel {
                 }
 
             }
-            System.out.println("Pagados: "+mesesPagados);
+            System.out.println("Pagados: " + (!mesesPagados.isEmpty() ? mesesPagados : "Debe la vida."));
             System.out.println("Pendientes: "+mesesPendientes);
             return mesesPendientes;
         } else JOptionPane.showMessageDialog(null, "No se encontró un año escolar activo.");
@@ -995,27 +1041,47 @@ public class RegistroPago extends javax.swing.JPanel {
 
     }
 
-    private String buscarPrimerMesPendiente() {
+    private DetallesPago buscarPrimerMesPendiente() {
         if (anioEscolar == null) return null;
 
         DetallesPagoDAO dPDao = new DetallesPagoDAO();
-        List<String> pagados = dPDao.obtenerMesesPagados(estudiante.getId(), anioEscolar.getIdAnoEscolar());
+        List<DetallesPago> pagados = dPDao.listarPorEstudiante(estudiante.getId(), anioEscolar.getIdAnoEscolar());
 
-        TipoPagoDAO tipoPagoDAO = new TipoPagoDAO();
-        // ➕ Agregar meses que están en el carrito
-        for (DetallesPago dp : conceptosPago) {
-            if ("Mensualidad".equals(tipoPagoDAO.buscarPorId(dp.getIdTipoPago()).getCategoria())) {
-                pagados.add(dp.getMesCorrespondiente());
+        for (DetallesPago dp : pagados) {
+            System.out.println(dp.getMesCorrespondiente());
+        }
+
+        // Primero se confirma que no haya un saldo pendiente en las mensualidades de antes, para tenerlo como prioridad a pagar
+        for (DetallesPago deuda : pagados) {
+            if (deuda.tieneSaldoPendiente()) {
+                return deuda;
             }
         }
 
+        // ➕ Agregar los meses ya cargados al carrito
+        for (DetallesPago dp : carritoPago.getConceptos()) {
+            if (dp.esMensualidad()) {
+                pagados.add(dp);
+            }
+        }
+
+        List<String> mesesCubiertos = pagados.stream()
+                .filter(DetallesPago::esMensualidad)
+                .map(DetallesPago::getMesCorrespondiente)
+                .toList();
+
+        // 📌 Encontrar el primer mes que no esté en la lista de pagados
         for (String mes : MESES_ESCOLARES) {
-            if (!pagados.contains(mes)) {
-                return mes;
+            if (!mesesCubiertos.contains(mes)) {
+                // Aquí puedes crear un nuevo DetallesPago o retornar el mes pendiente
+                DetallesPago pendiente = new DetallesPago();
+                pendiente.setMesCorrespondiente(mes);
+                return pendiente;
             }
         }
 
-        return null;
+
+        return null; // Todos los meses fueron pagados
     }
 
     public List<String> obtenerMesesMorosos(int idEstudiante, int idAnoEscolar) {
@@ -1046,8 +1112,6 @@ public class RegistroPago extends javax.swing.JPanel {
         return morosos;
     }
 
-
-
     public boolean tieneMoraParaMes(String mesEscolar) {
         if (mesEscolar == null || anioEscolar == null) return false;
 
@@ -1073,10 +1137,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
         return LocalDate.now().isAfter(fechaLimite);
     }
-
-
-    // Septiembre 16 - Julio 31
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup abonoPago;
     private javax.swing.JLabel btnBuscar;

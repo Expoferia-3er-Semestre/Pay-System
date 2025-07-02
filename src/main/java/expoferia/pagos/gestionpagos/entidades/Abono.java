@@ -8,13 +8,20 @@ public class Abono {
     private LocalDate fechaAbono;
     private double montoAbonado;
     private String descripcion;
+    private String metodoPago;
+    private String numTrans;
 
-    public Abono(int idAbono, int idDetallesPago, LocalDate fechaAbono, double montoAbonado, String descripcion) {
+    public Abono() {
+    }
+
+    public Abono(int idAbono, int idDetallesPago, LocalDate fechaAbono, double montoAbonado, String descripcion, String metodoPago, String numTrans) {
         this.idAbono = idAbono;
         this.idDetallesPago = idDetallesPago;
         this.fechaAbono = fechaAbono;
         this.montoAbonado = montoAbonado;
         this.descripcion = descripcion;
+        this.metodoPago = metodoPago;
+        this.numTrans = numTrans;
     }
 
     // Getters y setters
@@ -32,4 +39,18 @@ public class Abono {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getNumTrans() {
+        return numTrans;
+    }
+    public void setNumTrans(String numTrans) {
+        this.numTrans = numTrans;
+    }
 }

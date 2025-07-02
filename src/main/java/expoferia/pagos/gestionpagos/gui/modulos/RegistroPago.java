@@ -11,10 +11,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +24,7 @@ public class RegistroPago extends javax.swing.JPanel {
     Representante representante;
     Estudiante estudiante;
     TipoPago tipoPago;
-    CarritoPago carritoPago = new CarritoPago();
+    CarritoPago carritoPago;
     String metodoPago;
     boolean aplicaMora=false;
     DetallesPago mesAPagar;
@@ -41,9 +38,9 @@ public class RegistroPago extends javax.swing.JPanel {
     /**
      * Creates new form Registro
      */
-    public RegistroPago() {
+    public RegistroPago(CarritoPago carritoPago) {
         initComponents();
-
+        this.carritoPago = carritoPago;
         AnoEscolarDAO aEDao = new AnoEscolarDAO();
         anioEscolar = aEDao.obtenerPeriodoActivo();
         PagoReciboDAO pRDao = new PagoReciboDAO();
@@ -904,7 +901,7 @@ public class RegistroPago extends javax.swing.JPanel {
         }
     }
 
-    private void resetCampos() {
+    private void resetCamposPago() {
 
         txtMonto.setText("");
         comboTPago.setSelectedIndex(0);
@@ -930,8 +927,8 @@ public class RegistroPago extends javax.swing.JPanel {
                 abono.setMontoAbonado(Double.parseDouble(txtMonto.getText()));
                 abono.setDescripcion(txtConcepto.getText());
                 carritoPago.agregarAbono(abono);
-                resetCampos();
-                mesAPagar = null;
+                resetCamposPago();
+                JOptionPane.showMessageDialog(null, "Abono agregado al pago!");                mesAPagar = null;
             }
             else {
 
@@ -958,7 +955,7 @@ public class RegistroPago extends javax.swing.JPanel {
                 if (detallePago.tieneSaldoPendiente()) JOptionPane.showMessageDialog(null, "Abono agregado al pago!");
                 else JOptionPane.showMessageDialog(null, "Concepto agregado al pago!");
 
-                resetCampos();
+                resetCamposPago();
             }
 
         }
@@ -969,55 +966,90 @@ public class RegistroPago extends javax.swing.JPanel {
 
         if (comboEstudiantes.getSelectedItem() != "Seleccione un estudiante" && estudiante != null) {
 
+            // Si registrará detalles pago y abonos
+            if (!carritoPago.estaVacio() && !carritoPago.estaVacioAbono()) {
 
+                AbonoDAO abonoDAO = new AbonoDAO();
+                boolean exito = registrarSoloDetalle();
+                boolean exito2 = abonoDAO.agregarAbono(carritoPago.getAbonos());
 
-            if (!carritoPago.estaVacio()) {
-
-                int opcion = JOptionPane.showConfirmDialog(null, "Confirmar", "¿Desea imprimir el recibo?", JOptionPane.YES_NO_OPTION);
-
-                if (opcion == 0) {
-                    PagoRecibo pagoRecibo = new PagoRecibo();
-                    PagoReciboDAO pRDao = new PagoReciboDAO();
-
-                    pagoRecibo.setIdEstudiante(estudiante.getId());
-
-                    pagoRecibo.setMontoTotal(carritoPago.calcularTotal());
-
-                    pagoRecibo.setMontoPagado(carritoPago.calcularTotalPagado());
-
-                    // Esto considera "pagado" si la diferencia entre los montos es menor a 0.001 (un milésimo)
-                    final double TOLERANCIA = 0.001;
-                    boolean pagado = Math.abs(pagoRecibo.getMontoPagado() - pagoRecibo.getMontoTotal()) < TOLERANCIA;
-                    pagoRecibo.setEstado(pagado);
-
-                    Date fechaSql = new Date(System.currentTimeMillis());
-                    pagoRecibo.setFechaPago(fechaSql);
-
-                    boolean exito = pRDao.registrarPago(pagoRecibo, carritoPago.getConceptos());
-
-                    if (exito) {
-                        JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
-                        comboEstudiantes.setSelectedIndex(0);
-                        txtcedula.setText("");
-                        representante=null;
-                        estudiante=null;
-                        datosEstu.setText("               ");
-                        datosRepre.setText("               ");
-                        gradoEstu.setText("               ");
-
-                        resetCampos();
-                        carritoPago.limpiar();
-
-                    } else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
+                if (exito && exito2) {
+                    JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
+                    limpiarCampos();
                 }
+                else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
+
+            } //Si registrará solo detalles pago
+            else if (!carritoPago.estaVacio()) {
+
+                boolean exito = registrarSoloDetalle();
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
+                    limpiarCampos();
+                }
+                else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
+
+            }  // Si registrará solo abonos
+            else if (!carritoPago.estaVacioAbono()) {
+
+                AbonoDAO abonoDAO = new AbonoDAO();
+                boolean exito = abonoDAO.agregarAbono(carritoPago.getAbonos());
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
+                    limpiarCampos();
+                }
+                else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
 
             } else JOptionPane.showMessageDialog(null, "Primero debe registrar conceptos al pago.");
 
-
         } else JOptionPane.showMessageDialog(null, "Debe seleccionar un estudiante antes de crear el pago.");
 
+    }
 
+    private boolean registrarSoloDetalle() {
 
+        boolean exito = false;
+
+        int opcion = JOptionPane.showConfirmDialog(null, "Confirmar", "¿Desea imprimir el recibo?", JOptionPane.YES_NO_OPTION);
+
+        if (opcion == 0) {
+            PagoRecibo pagoRecibo = new PagoRecibo();
+            PagoReciboDAO pRDao = new PagoReciboDAO();
+
+            pagoRecibo.setIdEstudiante(estudiante.getId());
+
+            pagoRecibo.setMontoTotal(carritoPago.calcularTotal());
+
+            pagoRecibo.setMontoPagado(carritoPago.calcularTotalPagado());
+
+            // Esto considera "pagado" si la diferencia entre los montos es menor a 0.001 (un milésimo)
+            final double TOLERANCIA = 0.001;
+            boolean pagado = Math.abs(pagoRecibo.getMontoPagado() - pagoRecibo.getMontoTotal()) < TOLERANCIA;
+            pagoRecibo.setEstado(pagado);
+
+            Date fechaSql = new Date(System.currentTimeMillis());
+            pagoRecibo.setFechaPago(fechaSql);
+
+            exito = pRDao.registrarPago(pagoRecibo, carritoPago.getConceptos());
+        }
+        return exito;
+    }
+
+    private void limpiarCampos() {
+
+        comboEstudiantes.setSelectedIndex(0);
+        txtcedula.setText("");
+        representante=null;
+        estudiante=null;
+        datosEstu.setText("               ");
+        datosRepre.setText("               ");
+        gradoEstu.setText("               ");
+
+        resetCamposPago();
+        comboEstudiantes.removeAll();
+        comboEstudiantes.addItem("Seleccione un Estudiante");
+        carritoPago.limpiar();
+        carritoPago.limpiarAbonos();
     }
 
     private List<String> busquedaMeses() {
@@ -1047,6 +1079,23 @@ public class RegistroPago extends javax.swing.JPanel {
         DetallesPagoDAO dPDao = new DetallesPagoDAO();
         List<DetallesPago> pagados = dPDao.listarPorEstudiante(estudiante.getId(), anioEscolar.getIdAnoEscolar());
 
+        List<Abono> abonosEnCarrito = carritoPago.getAbonos();
+
+        if (!abonosEnCarrito.isEmpty()) {
+            Map<Integer, Double> sumasAbonos = abonosEnCarrito.stream()
+                    .collect(Collectors.groupingBy(
+                            Abono::getIdDetallesPago,
+                            Collectors.summingDouble(Abono::getMontoAbonado)
+                    ));
+
+            for (DetallesPago dp : pagados) {
+                double extra = sumasAbonos.getOrDefault(dp.getId(), 0.0);
+                if (extra > 0) {
+                    dp.setMontoPagado(dp.getMontoPagado() + extra);
+                }
+            }
+        }
+
         for (DetallesPago dp : pagados) {
             System.out.println(dp.getMesCorrespondiente());
         }
@@ -1067,6 +1116,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
         List<String> mesesCubiertos = pagados.stream()
                 .filter(DetallesPago::esMensualidad)
+                .filter(dp -> !dp.tieneSaldoPendiente()) // ❗ Solo mensualidades pagadas totalmente
                 .map(DetallesPago::getMesCorrespondiente)
                 .toList();
 

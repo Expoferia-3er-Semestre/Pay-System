@@ -19,7 +19,7 @@ public class CarritoPago {
         if (!yaExiste(concepto)) {
             conceptos.add(concepto);
             if (tablaModelo != null) {
-                tablaModelo.agregarFila(concepto, concepto.getMontoTotal());
+                tablaModelo.agregarFila(concepto, concepto.getMontoPagado());
             }
         }
     }

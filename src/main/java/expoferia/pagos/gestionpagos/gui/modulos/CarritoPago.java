@@ -82,6 +82,9 @@ public class CarritoPago {
 
     public void agregarAbono(Abono abono) {
         abonos.add(abono);
+        if (tablaModelo != null) {
+            tablaModelo.agregarFilaAbono(abono, abono.getMontoAbonado());
+        }
     }
 
     public List<Abono> getAbonos() {
@@ -94,6 +97,12 @@ public class CarritoPago {
 
     public void limpiarAbonos() {
         abonos.clear();
+    }
+
+    public void limpiarTodo() {
+        abonos.clear();
+        conceptos.clear();
+        if (tablaModelo != null) tablaModelo.limpiarTabla();
     }
 
 }

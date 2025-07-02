@@ -667,7 +667,7 @@ public class RegistroPago extends javax.swing.JPanel {
     }//GEN-LAST:event_comboEstudiantesActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-
+        limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -706,7 +706,6 @@ public class RegistroPago extends javax.swing.JPanel {
 
     private void comboTPagoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_comboTPagoActionPerformed
 
-        if (estudiante != null) {
             checkAbono.setState(false);
 
             if (!comboTPago.getSelectedItem().equals("Seleccione un tipo")) {
@@ -716,44 +715,47 @@ public class RegistroPago extends javax.swing.JPanel {
 
                 txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
-                if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra") || tipoPago.getCategoria().equals("Inscripción")) {
-                    txtConcepto.setText("Pago "+tipoPago.getCategoria());
-                } else txtMonto.setEnabled(false);
+                if (estudiante != null) {
 
-                if (tipoPago.getCategoria().equals("Mensualidad")) {
+                    if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra") || tipoPago.getCategoria().equals("Inscripción")) {
+                        txtConcepto.setText("Pago "+tipoPago.getCategoria());
+                        mesAPagar = new DetallesPago();
+                    } else txtMonto.setEnabled(false);
 
-                    checkAbono.setEnabled(true);
-                    mesAPagar = buscarPrimerMesPendiente();
-                    mesPendiente = mesAPagar.getMesCorrespondiente();
+                    if (tipoPago.getCategoria().equals("Mensualidad")) {
 
-                    if (mesAPagar.tieneSaldoPendiente()) {
+                        checkAbono.setEnabled(true);
+                        mesAPagar = buscarPrimerMesPendiente();
+                        mesPendiente = mesAPagar.getMesCorrespondiente();
 
-                        txtConcepto.setText("Abono " + mesPendiente);
-                        txtMonto.setText(String.valueOf(mesAPagar.getDiferencia()));
-                        System.out.println("Tiene un abono pendiente del mes "+mesPendiente+" de: "+mesAPagar.getDiferencia());
-                    }
-                    else if (tieneMoraParaMes(mesPendiente)) {
+                        if (mesAPagar.tieneSaldoPendiente()) {
 
-                        txtConcepto.setText("Mora "+mesPendiente);
+                            txtConcepto.setText("Abono " + mesPendiente);
+                            txtMonto.setText(String.valueOf(mesAPagar.getDiferencia()));
+                            System.out.println("Tiene un abono pendiente del mes "+mesPendiente+" de: "+mesAPagar.getDiferencia());
+                        }
+                        else if (tieneMoraParaMes(mesPendiente)) {
 
-                        txtMonto.setText(String.valueOf(tipoPago.getCosto()+5));
-                        aplicaMora = true;
-                        System.out.println("Tiene mora para el mes de: "+mesPendiente);
-                        tipoPago.setCosto(Double.parseDouble(txtMonto.getText()));
+                            txtConcepto.setText("Mora "+mesPendiente);
 
-                    } else {
-                        System.out.println("No tiene mora para el mes de: "+mesPendiente);
-                        txtConcepto.setText("Pago "+mesPendiente);
+                            txtMonto.setText(String.valueOf(tipoPago.getCosto()+5));
+                            aplicaMora = true;
+                            System.out.println("Tiene mora para el mes de: "+mesPendiente);
+                            tipoPago.setCosto(Double.parseDouble(txtMonto.getText()));
 
-                    }
+                        } else {
+                            System.out.println("No tiene mora para el mes de: "+mesPendiente);
+                            txtConcepto.setText("Pago "+mesPendiente);
 
+                        }
+
+                    } else checkAbono.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar los tipos de pago.");
+                    comboTPago.setSelectedIndex(0);
                 }
-                else checkAbono.setEnabled(false);
+
             } else checkAbono.setEnabled(false);
-        }  else {
-            JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar los tipos de pago.");
-            comboTPago.setSelectedIndex(0);
-        }
 
     }//GEN-LAST:event_comboTPagoActionPerformed
 
@@ -875,6 +877,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         comboEstudiantes.addItem(e.getNombre1()+" "+e.getApellido2());
 
                     }
+                    carritoPago.limpiarTodo();
 
                 } else JOptionPane.showMessageDialog(null, "No existe un representante con esta cédula.");
 
@@ -894,6 +897,7 @@ public class RegistroPago extends javax.swing.JPanel {
             estudiante = listE.get(index-1);
             datosEstu.setText(estudiante.getNombre1()+" "+estudiante.getApellido1());
             gradoEstu.setText(estudiante.getGrado());
+            carritoPago.limpiarTodo();
 
         } else {
             datosEstu.setText("               ");
@@ -1041,6 +1045,7 @@ public class RegistroPago extends javax.swing.JPanel {
         txtcedula.setText("");
         representante=null;
         estudiante=null;
+
         datosEstu.setText("               ");
         datosRepre.setText("               ");
         gradoEstu.setText("               ");
@@ -1048,8 +1053,7 @@ public class RegistroPago extends javax.swing.JPanel {
         resetCamposPago();
         comboEstudiantes.removeAll();
         comboEstudiantes.addItem("Seleccione un Estudiante");
-        carritoPago.limpiar();
-        carritoPago.limpiarAbonos();
+        carritoPago.limpiarTodo();
     }
 
     private List<String> busquedaMeses() {

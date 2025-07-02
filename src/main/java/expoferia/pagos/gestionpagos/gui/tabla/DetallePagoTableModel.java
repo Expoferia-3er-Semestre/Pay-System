@@ -1,6 +1,7 @@
 package expoferia.pagos.gestionpagos.gui.tabla;
 
 import expoferia.pagos.gestionpagos.dao.DetallesPagoDAO;
+import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
 
@@ -86,5 +87,22 @@ public class DetallePagoTableModel extends DefaultTableModel {
                 montoTotal
         });
     }
+
+    public void agregarFilaAbono(Abono abono, double montoPagado) {
+        montoTotal += montoPagado;
+
+        addRow(new Object[]{
+                abono.getDescripcion(),
+                1,
+                montoPagado,
+                montoTotal
+        });
+    }
+
+    public void limpiarTabla() {
+        setRowCount(0);
+        montoTotal = 0;
+    }
+
 
 }

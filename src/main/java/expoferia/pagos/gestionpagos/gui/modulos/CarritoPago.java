@@ -2,6 +2,7 @@ package expoferia.pagos.gestionpagos.gui.modulos;
 
 import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
+import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,21 @@ import java.util.stream.Collectors;
 
 public class CarritoPago {
 
+    private DetallePagoTableModel tablaModelo;
     private final List<Abono> abonos = new ArrayList<>();
     private final List<DetallesPago> conceptos = new ArrayList<>();
 
     public void agregarConcepto(DetallesPago concepto) {
         if (!yaExiste(concepto)) {
             conceptos.add(concepto);
+            if (tablaModelo != null) {
+                tablaModelo.agregarFila(concepto, concepto.getMontoTotal());
+            }
         }
+    }
+
+    public void setTablaModelo(DetallePagoTableModel modelo) {
+        this.tablaModelo = modelo;
     }
 
     public void eliminarConcepto(int index) {
@@ -86,7 +95,5 @@ public class CarritoPago {
     public void limpiarAbonos() {
         abonos.clear();
     }
-
-
 
 }

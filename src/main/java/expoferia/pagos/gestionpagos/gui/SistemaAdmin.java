@@ -230,21 +230,21 @@ public class SistemaAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoButtonActionPerformed
-        CardLayout card = (CardLayout) panelCambiante.getLayout();
-
-        // Verificar si el panel ya existe antes de crearlo
-        if (panelCambiante.getComponentCount() > 0) {
-            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
-            System.gc();
-        }
-
-        RegistroPago registroPago=new RegistroPago(); // Crear el panel solo cuando sea necesario
-        panelCambiante.add(registroPago, "RegistroPago"); // Agregar con nombre único
-        card.show(panelCambiante, "RegistroPago");
-
-        // Refrescar la interfaz para evitar glitches
-        panelCambiante.revalidate();
-        panelCambiante.repaint();
+//        CardLayout card = (CardLayout) panelCambiante.getLayout();
+//
+//        // Verificar si el panel ya existe antes de crearlo
+//        if (panelCambiante.getComponentCount() > 0) {
+//            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
+//            System.gc();
+//        }
+//
+//        RegistroPago registroPago=new RegistroPago(); // Crear el panel solo cuando sea necesario
+//        panelCambiante.add(registroPago, "RegistroPago"); // Agregar con nombre único
+//        card.show(panelCambiante, "RegistroPago");
+//
+//        // Refrescar la interfaz para evitar glitches
+//        panelCambiante.revalidate();
+//        panelCambiante.repaint();
     }//GEN-LAST:event_pagoButtonActionPerformed
 
     private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed

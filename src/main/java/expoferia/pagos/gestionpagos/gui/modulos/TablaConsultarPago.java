@@ -8,9 +8,11 @@ import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
 import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.Representante;
+import expoferia.pagos.gestionpagos.gui.SesionActual;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 /**
@@ -22,13 +24,13 @@ public class TablaConsultarPago extends javax.swing.JPanel {
     ArrayList<Estudiante> listE;
     Representante representante;
     Estudiante estudiante;
+    CarritoPago carritoPago;
     /**
      * Creates new form Registro
      */
-    public TablaConsultarPago() {
+    public TablaConsultarPago(DefaultTableModel tableModel) {
         initComponents();
-        DetallePagoTableModel detallePagoTableModel = new DetallePagoTableModel();
-        jTable1.setModel(detallePagoTableModel);
+        jTable1.setModel(SesionActual.getTableModel());
     }
 
     /**

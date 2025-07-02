@@ -2,11 +2,13 @@ package expoferia.pagos.gestionpagos.gui.tabla;
 
 import expoferia.pagos.gestionpagos.dao.DetallesPagoDAO;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
+import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public class DetallePagoTableModel extends DefaultTableModel {
+
     private static final String[] COLUMNAS = {
             "Descripción", "Cantidad", "Precio Unidad", "Total Bs"
     };
@@ -73,4 +75,16 @@ public class DetallePagoTableModel extends DefaultTableModel {
         }
         return total;
     }
+
+    public void agregarFila(DetallesPago dp, double montoPagado) {
+        montoTotal += montoPagado;
+
+        addRow(new Object[]{
+                dp.getDescripcion(),
+                1,
+                montoPagado,
+                montoTotal
+        });
+    }
+
 }

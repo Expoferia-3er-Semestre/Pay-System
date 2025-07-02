@@ -4,10 +4,12 @@
  */
 package expoferia.pagos.gestionpagos.gui;
 
+import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
 import expoferia.pagos.gestionpagos.gui.modulos.ConsultarPago;
 import java.awt.*;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 import expoferia.pagos.gestionpagos.gui.modulos.TablaConsultarPago;
+import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 
 /**
  *
@@ -21,14 +23,19 @@ public class SistemaCajero extends javax.swing.JFrame {
     public SistemaCajero() {
         initComponents();
         setLocationRelativeTo(null);
+
+        CarritoPago carritoPago = SesionActual.getCarritoPago();
+        DetallePagoTableModel tableModel = SesionActual.getTableModel();
+        carritoPago.setTablaModelo(tableModel);
+
         card = (CardLayout) panelRound1.getLayout();
         card2 = (CardLayout) panelRound2.getLayout();
         
-        RegistroPago registroPago = new RegistroPago();
+        RegistroPago registroPago = new RegistroPago(carritoPago);
         panelRound1.add(registroPago, "regPago");
         card.show(panelRound1, "regPago");
 
-        TablaConsultarPago consultarPago = new TablaConsultarPago();
+        TablaConsultarPago consultarPago = new TablaConsultarPago(tableModel);
         panelRound2.add(consultarPago, "conPago");
         card2.show(panelRound2, "conPago");
     }

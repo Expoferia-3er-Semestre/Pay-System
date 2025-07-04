@@ -40,7 +40,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelRound2.add(consultarPago, "conPago");
         card2.show(panelRound2, "conPago");
         setTitle("Registrar Pagos - Cajero");
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/IconGonzaga.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/IconGonzagaaaa.png")).getImage());
     }
     /**
      * This method is called from within the constructor to initialize the form.

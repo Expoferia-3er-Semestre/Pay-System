@@ -1,11 +1,13 @@
 package expoferia.pagos.gestionpagos.dao;
 
+import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.entidades.PagoRecibo;
 import static expoferia.pagos.gestionpagos.conexion.Conexion.*;
 
 import java.sql.*;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 public class PagoReciboDAO {
 
@@ -29,84 +31,104 @@ public class PagoReciboDAO {
                 return null; // En caso de error o que no exista
         }
 
-        public boolean registrarPago(PagoRecibo pago, List<DetallesPago> detalles) {
+        public boolean registrarPago(PagoRecibo recibo, List<DetallesPago> nuevosDetalles, List<Abono> abonos) {
                 String sqlRecibo = "INSERT INTO pago_recibo (id_estudiante, monto_total, monto_pagado, estado, fecha_pago) VALUES (?, ?, ?, ?, ?)";
-                String sqlDetalle = "INSERT INTO detalles_pago (id_pago_recibo, id_tipo_pago, metodo_pago, num_trans, id_ano_escolar, descripcion, mes_correspondiente, monto_total, monto_pagado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                String sqlAbono = "INSERT INTO abono (id_detalles_pagos, fecha_abono, monto_abonado, descripcion, metodo_pago, num_trans) VALUES (?, ?, ?, ?, ?, ?)";
+                String sqlDetalle = """
+        INSERT INTO detalles_pago 
+        (id_pago_recibo, id_tipo_pago, metodo_pago, num_trans, id_ano_escolar, descripcion, mes_correspondiente, monto_total, monto_pagado)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """;
+                String sqlAbono = """
+        INSERT INTO abono 
+        (id_detalles_pagos, fecha_abono, monto_abonado, descripcion, metodo_pago, num_trans)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """;
+                String sqlActualizarMonto = """
+        UPDATE detalles_pago dp
+        SET monto_pagado = (
+            SELECT COALESCE(SUM(a.monto_abonado), 0)
+            FROM abono a
+            WHERE a.id_detalles_pagos = dp.id
+        )
+        WHERE dp.id = ?
+    """;
 
-                try (Connection conn = getConexion();
-                     PreparedStatement stmtRecibo = conn.prepareStatement(sqlRecibo, Statement.RETURN_GENERATED_KEYS);
-                     PreparedStatement stmtDetalle = conn.prepareStatement(sqlDetalle, Statement.RETURN_GENERATED_KEYS);
-                     PreparedStatement stmtAbono = conn.prepareStatement(sqlAbono)) {
+                try (Connection con = getConexion();
+                     PreparedStatement psRecibo = con.prepareStatement(sqlRecibo, Statement.RETURN_GENERATED_KEYS);
+                     PreparedStatement psDetalle = con.prepareStatement(sqlDetalle, Statement.RETURN_GENERATED_KEYS);
+                     PreparedStatement psAbono = con.prepareStatement(sqlAbono);
+                     PreparedStatement psUpdateMonto = con.prepareStatement(sqlActualizarMonto)) {
 
-                        conn.setAutoCommit(false); // 🔄 Iniciar transacción
+                        con.setAutoCommit(false);
 
-                        // 1. Insertar pago_recibo
-                        stmtRecibo.setInt(1, pago.getIdEstudiante());
-                        stmtRecibo.setDouble(2, pago.getMontoTotal());
-                        stmtRecibo.setDouble(3, pago.getMontoPagado());
-                        stmtRecibo.setBoolean(4, pago.isEstado());
-                        stmtRecibo.setDate(5, new java.sql.Date(pago.getFechaPago().getTime()));
+                        // 🧾 Insertar el recibo
+                        psRecibo.setInt(1, recibo.getIdEstudiante());
+                        psRecibo.setDouble(2, recibo.getMontoTotal());
+                        psRecibo.setDouble(3, recibo.getMontoPagado());
+                        psRecibo.setBoolean(4, recibo.isEstado());
+                        psRecibo.setDate(5, new java.sql.Date(recibo.getFechaPago().getTime()));
+                        psRecibo.executeUpdate();
 
-                        int affectedRows = stmtRecibo.executeUpdate();
-                        if (affectedRows == 0) {
-                                conn.rollback();
-                                closeConnection();
-                                return false;
+                        ResultSet rsRecibo = psRecibo.getGeneratedKeys();
+                        if (!rsRecibo.next()) throw new SQLException("No se generó el ID del recibo.");
+                        int idRecibo = rsRecibo.getInt(1);
+
+                        // 🔗 Mapear IDs temporales
+                        Map<Integer, Integer> mapaTemporal = new HashMap<>();
+
+                        for (DetallesPago dp : nuevosDetalles) {
+                                psDetalle.setInt(1, idRecibo);
+                                psDetalle.setInt(2, dp.getIdTipoPago());
+                                psDetalle.setString(3, dp.getMetodoPago());
+                                psDetalle.setString(4, dp.getNumTrans());
+                                psDetalle.setInt(5, dp.getIdAnoEscolar());
+                                psDetalle.setString(6, dp.getDescripcion());
+                                psDetalle.setString(7, dp.getMesCorrespondiente());
+                                psDetalle.setDouble(8, dp.getMontoTotal());
+                                psDetalle.setDouble(9, dp.getMontoPagado());
+                                psDetalle.executeUpdate();
+
+                                ResultSet rsDetalle = psDetalle.getGeneratedKeys();
+                                if (!rsDetalle.next()) throw new SQLException("No se generó el ID del detalle.");
+                                int idReal = rsDetalle.getInt(1);
+                                mapaTemporal.put(dp.getId(), idReal);
                         }
 
-                        try (ResultSet generatedKeys = stmtRecibo.getGeneratedKeys()) {
-                                if (generatedKeys.next()) {
-                                        int idRecibo = generatedKeys.getInt(1);
+                        // 💵 Insertar abonos y recolectar IDs únicos afectados
+                        Set<Integer> idsAfectados = new HashSet<>();
 
-                                        for (DetallesPago detalle : detalles) {
-                                                // 2. Insertar detalle de pago
-                                                stmtDetalle.setInt(1, idRecibo);
-                                                stmtDetalle.setInt(2, detalle.getIdTipoPago());
-                                                stmtDetalle.setString(3, detalle.getMetodoPago());
-                                                stmtDetalle.setString(4, detalle.getNumTrans());
-                                                stmtDetalle.setInt(5, detalle.getIdAnoEscolar());
-                                                stmtDetalle.setString(6, detalle.getDescripcion());
-                                                stmtDetalle.setString(7, detalle.getMesCorrespondiente());
-                                                stmtDetalle.setDouble(8, detalle.getMontoTotal());
-                                                stmtDetalle.setDouble(9, detalle.getMontoPagado());
-
-                                                stmtDetalle.executeUpdate();
-
-                                                // 3. Obtener ID generado para el detalle
-                                                try (ResultSet detalleKeys = stmtDetalle.getGeneratedKeys()) {
-                                                        if (detalleKeys.next()) {
-                                                                int idDetalleGenerado = detalleKeys.getInt(1);
-
-                                                                // Si es un pago parcial, insertar abono
-                                                                if (detalle.getMontoPagado() < detalle.getMontoTotal()) {
-                                                                        stmtAbono.setInt(1, idDetalleGenerado);
-                                                                        stmtAbono.setDate(2, new java.sql.Date(pago.getFechaPago().getTime()));
-                                                                        stmtAbono.setDouble(3, detalle.getMontoPagado());
-                                                                        stmtAbono.setString(4, detalle.getDescripcion());
-                                                                        stmtAbono.setString(5, detalle.getMetodoPago());
-                                                                        stmtAbono.setString(6, detalle.getNumTrans());
-
-                                                                        stmtAbono.addBatch();
-                                                                }
-                                                        }
-                                                }
-                                        }
-
-                                        stmtAbono.executeBatch();
-                                        conn.commit();
-                                        closeConnection();
-                                        return true;
-                                } else {
-                                        conn.rollback();
-                                        closeConnection();
-                                        return false;
+                        for (Abono ab : abonos) {
+                                int idDetalle = ab.getIdDetallesPago();
+                                if (idDetalle < 0) {
+                                        if (!mapaTemporal.containsKey(idDetalle)) throw new SQLException("ID temporal no encontrado.");
+                                        idDetalle = mapaTemporal.get(idDetalle);
                                 }
+
+                                psAbono.setInt(1, idDetalle);
+                                psAbono.setDate(2, Date.valueOf(ab.getFechaAbono()));
+                                psAbono.setDouble(3, ab.getMontoAbonado());
+                                psAbono.setString(4, ab.getDescripcion());
+                                psAbono.setString(5, ab.getMetodoPago());
+                                psAbono.setString(6, ab.getNumTrans());
+                                psAbono.executeUpdate();
+
+                                idsAfectados.add(idDetalle);
                         }
 
-                } catch (Exception ex) {
-                        ex.printStackTrace();
-                        closeConnection();
+                        // 🔄 Sincronizar monto_pagado real con suma de abonos
+                        for (int idDetalle : idsAfectados) {
+                                psUpdateMonto.setInt(1, idDetalle);
+                                psUpdateMonto.executeUpdate();
+                        }
+
+                        con.commit();
+                        return true;
+
+                } catch (SQLException e) {
+                        System.out.println("Error en registrarPago: " + e.getMessage());
+                        try { getConexion().rollback(); } catch (SQLException ex) {
+                                System.out.println("Error en rollback: " + ex.getMessage());
+                        }
                         return false;
                 }
         }

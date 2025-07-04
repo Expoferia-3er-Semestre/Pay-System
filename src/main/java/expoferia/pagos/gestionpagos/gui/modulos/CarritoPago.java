@@ -4,9 +4,7 @@ import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CarritoPago {
@@ -14,6 +12,11 @@ public class CarritoPago {
     private DetallePagoTableModel tablaModelo;
     private final List<Abono> abonos = new ArrayList<>();
     private final List<DetallesPago> conceptos = new ArrayList<>();
+    private int contadorIdTemporal = 1;
+
+    public int generarIdTemporal() {
+        return contadorIdTemporal++;
+    }
 
     public void agregarConcepto(DetallesPago concepto) {
         if (!yaExiste(concepto)) {
@@ -38,8 +41,24 @@ public class CarritoPago {
         return conceptos;
     }
 
+    public boolean tieneMensualidadesAsignadas() {
+        return conceptos.stream()
+                .anyMatch(dp -> dp.getMesCorrespondiente() != null && !dp.getMesCorrespondiente().isBlank());
+    }
+
+    public boolean hayConceptosSinAbono() {
+        Set<Integer> idsConAbono = abonos.stream()
+                .map(Abono::getIdDetallesPago)
+                .collect(Collectors.toSet());
+
+        return conceptos.stream()
+                .anyMatch(dp -> !idsConAbono.contains(dp.getId()));
+    }
+
+
     public void limpiar() {
         conceptos.clear();
+
     }
 
     public double calcularTotal() {
@@ -61,7 +80,7 @@ public class CarritoPago {
         );
     }
 
-    public boolean estaVacio() {
+    public boolean estaVacioConceptos() {
         return conceptos.isEmpty();
     }
 
@@ -69,6 +88,37 @@ public class CarritoPago {
         return conceptos.stream()
                 .filter(DetallesPago::esMensualidad)
                 .count();
+    }
+
+    public void agregarAbonoAConcepto(DetallesPago concepto, Abono abono) {
+        if (!yaExiste(concepto)) {
+            conceptos.add(concepto);
+        }
+
+            abonos.add(abono);
+            abonarAConcepto(abono.getIdDetallesPago(), abono.getMontoAbonado());
+
+            // Actualizar tabla si corresponde
+            if (tablaModelo != null) {
+                tablaModelo.agregarFilaAbono(abono, abono.getMontoAbonado());
+            }
+
+    }
+
+    public void agregarConceptoConAbono(DetallesPago concepto, Abono abono) {
+        if (!yaExiste(concepto)) {
+            conceptos.add(concepto);
+
+            // Enlazar el abono al concepto
+            abono.setIdDetallesPago(concepto.getId());
+
+            abonos.add(abono);
+
+            // Actualizar tabla si corresponde
+            if (tablaModelo != null) {
+                tablaModelo.agregarFilaAbono(abono, abono.getMontoAbonado());
+            }
+        }
     }
 
     public List<DetallesPago> getDetallesConDiferencia() {
@@ -80,28 +130,80 @@ public class CarritoPago {
                 .collect(Collectors.toList());
     }
 
+    public List<Abono> getAbonos() {
+        return abonos;
+    }
+
+    public Abono getAbonoUnico() { return abonos.getFirst(); }
+
+    public boolean estaVacioAbonos() {
+        return abonos.isEmpty();
+    }
+
+    public void abonarAConcepto(int idDetallePago, double monto) {
+        for (DetallesPago dp : conceptos) {
+            if (dp.getId() == idDetallePago) {
+                dp.setMontoPagado(dp.getMontoPagado() + monto);
+                break;
+            }
+        }
+    }
+
     public void agregarAbono(Abono abono) {
         abonos.add(abono);
+        abonarAConcepto(abono.getIdDetallesPago(), abono.getMontoAbonado());
         if (tablaModelo != null) {
             tablaModelo.agregarFilaAbono(abono, abono.getMontoAbonado());
         }
     }
 
-    public List<Abono> getAbonos() {
-        return abonos;
-    }
+    public DetallesPago buscarMensualidadPendiente(List<DetallesPago> pagadosBD) {
+        for (DetallesPago dp : conceptos) {
+            if (!dp.esMensualidad()) continue;
 
-    public boolean estaVacioAbono() {
-        return abonos.isEmpty();
+            String mesCarrito = dp.getMesCorrespondiente();
+
+            // 🔍 Verificar si la misma mensualidad está pagada en el carrito
+            if (dp.getMontoPagado() >= dp.getMontoTotal()) {
+                continue; // ✅ Ya cubierta en el carrito, no importa si vino de BD
+            }
+
+            // 📚 Buscar en BD si ese mes ya fue cubierto allá también
+            boolean yaEstaPagadoEnBD = pagadosBD.stream()
+                    .filter(p -> p.esMensualidad())
+                    .filter(p -> mesCarrito.equals(p.getMesCorrespondiente()))
+                    .anyMatch(p -> p.getMontoPagado() >= p.getMontoTotal());
+
+            if (yaEstaPagadoEnBD) continue;
+
+            return dp; // Este mes aún tiene deuda pendiente
+        }
+
+        return null;
     }
 
     public void limpiarAbonos() {
         abonos.clear();
     }
 
+    public void aplicarAbonosATodos() {
+
+        Map<Integer, Double> totalAbonosPorDetalle = abonos.stream()
+                .collect(Collectors.groupingBy(
+                        Abono::getIdDetallesPago,
+                        Collectors.summingDouble(Abono::getMontoAbonado)
+                ));
+
+        for (DetallesPago dp : conceptos) {
+            double adicional = totalAbonosPorDetalle.getOrDefault(dp.getId(), 0.0);
+            dp.setMontoPagado(adicional);
+        }
+    }
+
     public void limpiarTodo() {
         abonos.clear();
         conceptos.clear();
+        contadorIdTemporal = 1;
         if (tablaModelo != null) tablaModelo.limpiarTabla();
     }
 

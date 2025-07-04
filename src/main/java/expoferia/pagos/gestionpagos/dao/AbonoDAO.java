@@ -10,8 +10,8 @@ import java.util.List;
 
 public class AbonoDAO {
 
-    public boolean agregarAbono(List<Abono> abonos) {
-        if (abonos == null || abonos.isEmpty()) return false;
+    public boolean agregarAbono(Abono abono) {
+        if (abono == null) return false;
 
         String sqlInsert = """
         INSERT INTO abono 
@@ -31,33 +31,29 @@ public class AbonoDAO {
 
             con.setAutoCommit(false); // 🔒 Inicia la transacción
 
-            for (Abono abono : abonos) {
-                // Insertar abono
-                psInsert.setInt(1, abono.getIdDetallesPago());
-                psInsert.setDate(2, Date.valueOf(abono.getFechaAbono()));
-                psInsert.setDouble(3, abono.getMontoAbonado());
-                psInsert.setString(4, abono.getDescripcion());
-                psInsert.setString(5, abono.getMetodoPago());
-                psInsert.setString(6, abono.getNumTrans());
-                psInsert.addBatch();
+            // Insertar el abono
+            psInsert.setInt(1, abono.getIdDetallesPago());
+            psInsert.setDate(2, Date.valueOf(abono.getFechaAbono()));
+            psInsert.setDouble(3, abono.getMontoAbonado());
+            psInsert.setString(4, abono.getDescripcion());
+            psInsert.setString(5, abono.getMetodoPago());
+            psInsert.setString(6, abono.getNumTrans());
+            psInsert.executeUpdate();
 
-                // Actualizar monto_pagado del detalle
-                psUpdate.setDouble(1, abono.getMontoAbonado());
-                psUpdate.setInt(2, abono.getIdDetallesPago());
-                psUpdate.addBatch();
-            }
+            // Actualizar el monto pagado del DetallesPago
+            psUpdate.setDouble(1, abono.getMontoAbonado());
+            psUpdate.setInt(2, abono.getIdDetallesPago());
+            psUpdate.executeUpdate();
 
-            psInsert.executeBatch();
-            psUpdate.executeBatch();
-            con.commit(); // ✅ Todo correcto, se guarda
+            con.commit(); // ✅ Todo exitoso
 
             closeConnection();
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error al insertar abonos y actualizar detalles: " + e);
+            System.out.println("Error al insertar abono y actualizar detalle: " + e);
             try {
-                getConexion().rollback(); // ❌ Algo falló, se revierte todo
+                getConexion().rollback(); // ❌ Deshacer cambios si falla
             } catch (SQLException rollbackEx) {
                 System.out.println("Error al hacer rollback: " + rollbackEx);
             }

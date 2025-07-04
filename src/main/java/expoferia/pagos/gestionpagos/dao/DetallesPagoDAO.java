@@ -78,6 +78,37 @@ public class DetallesPagoDAO {
         return lista;
     }
 
+    public DetallesPago buscarPorId(int id) {
+        DetallesPago detalle = null;
+        String sql = "SELECT * FROM detalles_pago WHERE id = ?";
+
+        try (Connection conn = getConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    detalle = new DetallesPago();
+                    detalle.setId(rs.getInt("id"));
+                    detalle.setIdPagoRecibo(rs.getInt("id_pago_recibo"));
+                    detalle.setIdTipoPago(rs.getInt("id_tipo_pago"));
+                    detalle.setMetodoPago(rs.getString("metodo_pago"));
+                    detalle.setNumTrans(rs.getString("num_trans"));
+                    detalle.setIdAnoEscolar(rs.getInt("id_ano_escolar"));
+                    detalle.setDescripcion(rs.getString("descripcion"));
+                    detalle.setMesCorrespondiente(rs.getString("mes_correspondiente"));
+                    detalle.setMontoTotal(rs.getDouble("monto_total"));
+                    detalle.setMontoPagado(rs.getDouble("monto_pagado"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar DetallesPago por ID: " + e.getMessage());
+        }
+        closeConnection();
+        return detalle;
+    }
+
     public List<DetallesPago> listarPorEstudiante(int idEstudiante, int idAnoEscolar) {
         List<DetallesPago> lista = new ArrayList<>();
 
@@ -124,7 +155,6 @@ public class DetallesPagoDAO {
 
         return lista;
     }
-
 
     public List<String> obtenerMesesPagados(int idEstudiante, int idAnoEscolar) {
 

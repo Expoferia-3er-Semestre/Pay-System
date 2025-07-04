@@ -10,6 +10,7 @@ import java.awt.*;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 import expoferia.pagos.gestionpagos.gui.modulos.TablaConsultarPago;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -38,6 +39,8 @@ public class SistemaCajero extends javax.swing.JFrame {
         TablaConsultarPago consultarPago = new TablaConsultarPago(tableModel);
         panelRound2.add(consultarPago, "conPago");
         card2.show(panelRound2, "conPago");
+        setTitle("Registrar Pagos - Cajero");
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/IconGonzaga.jpg")).getImage());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,8 +54,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JPanel();
         panelSuperior = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         panelCambiante = new expoferia.pagos.gestionpagos.gui.PanelRound();
         panelRound3 = new expoferia.pagos.gestionpagos.gui.PanelRound();
         panelRound1 = new expoferia.pagos.gestionpagos.gui.PanelRound();
@@ -68,34 +70,27 @@ public class SistemaCajero extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(10, 72, 162));
         jLabel3.setText("SISTEMA DE PAGOS COLEGIO GONZAGA");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bars.png"))); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoSuperiorCole.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
         panelSuperiorLayout.setHorizontalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(13, 13, 13))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(17, 17, 17))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
@@ -228,9 +223,8 @@ public class SistemaCajero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
     private expoferia.pagos.gestionpagos.gui.PanelRound panelCambiante;
     private javax.swing.JPanel panelPrincipal;
     private expoferia.pagos.gestionpagos.gui.PanelRound panelRound1;

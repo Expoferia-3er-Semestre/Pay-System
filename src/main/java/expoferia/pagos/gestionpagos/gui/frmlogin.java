@@ -21,6 +21,7 @@ public class frmlogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Iniciar Sesión");
     }
 
     /**

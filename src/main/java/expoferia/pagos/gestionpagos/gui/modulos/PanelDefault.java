@@ -40,80 +40,35 @@ public class PanelDefault extends JPanel {
     private Tabla tabla;
     public static String Titulo;
     private Integer id=null;
+    private DefaultTableModel modelo;
+    String nombresColumnas;
+
     /**
      * Creates new form PanelRepresentante
      */
 
-    public PanelDefault(String nombresColumnas,
+    public PanelDefault(String nombresColumna,
                         String nombreModulo) {
         Titulo=nombreModulo;
-
+        this.nombresColumnas = nombresColumna;
         initComponents();
         jLabel8.setText("Gestión de "+ Titulo);
-        List<String> listaColumnas = new ArrayList<>();
-        listaColumnas.addAll(Arrays.asList(nombresColumnas.split(" ")));
 
-        DefaultTableModel modelo= new DefaultTableModel();
+        modelo= new DefaultTableModel();
 
         if (nombreModulo.equals("Representantes")){
-
-            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
-            RepresentanteDAO rdao=new RepresentanteDAO();
-            List<Representante> listaRepresentantes=rdao.lista(null, null);
-            for (Representante rep : listaRepresentantes) {
-                modelo.addRow(new Object[] {
-                        rep.getId(),
-                        rep.getCedula(),
-                        rep.getNombre1()+" "+rep.getNombre2(),
-                        rep.getApellido1()+" "+rep.getApellido2()});
-            }
-
+            listarRepresentantes();
         }
-
         if (nombreModulo.equals("Empleados")) {
-
-            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
-            EmpleadoDAO edao=new EmpleadoDAO();
-            List<Empleado> listaEmpleados=edao.lista(null, null);
-            for (Empleado emp : listaEmpleados) {
-                modelo.addRow(new Object[] {
-                        emp.getId(),
-                        emp.getCedula(),
-                        emp.getNombre1()+" "+emp.getNombre2(),
-                        emp.getApellido1()+" "+emp.getApellido2(),
-                        emp.getRol() ? "Admin" : "Cajero"});
-            }
-
+           listarEmpleados();
         }
-
         if (nombreModulo.equals("Estudiantes")) {
-
-            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
-            EstudianteDAO esdao=new EstudianteDAO();
-            List<Estudiante> listaEstudiantes=esdao.lista(null, null);
-            for (Estudiante est : listaEstudiantes) {
-                modelo.addRow(new Object[] {
-                        est.getId(),
-                        est.getCedulaRep(),
-                        est.getNombre1()+" "+est.getNombre2(),
-                        est.getApellido1()+" "+est.getApellido2(),
-                });
-            }
-
+            listarEstudiantes();
         }
-
         if (nombreModulo.equals("Tipos de Pagos")) {
-            modelo.setColumnIdentifiers(nombresColumnas.split(" "));
-            TipoPagoDAO tpDao=new TipoPagoDAO();
-            List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
-            for (TipoPago tp : listaTiposPagos) {
-                modelo.addRow(new Object[] {
-                        tp.getId(),
-                        tp.getCategoria(),
-                        tp.getCosto()
-                });
-            }
+            listarTipoPago();
         }
+
         tabla=new Tabla();
         tabla.setModel(modelo);
         tabla.addMouseListener(new MouseAdapter() {
@@ -122,16 +77,47 @@ public class PanelDefault extends JPanel {
                 int fila = tabla.rowAtPoint(e.getPoint());
 
                 if (fila >= 0) {
-                    // Asumiendo que la columna 0 contiene el ID
                     id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
-                    System.out.println("ID seleccionado: " + id);
 
-                    // Puedes buscar por ID y cargar campos
-                    // Representante representante = dao.buscarPorId(id);
-                    // cargarDatosRepresentante(representante);
+                    // 🔄 Actualizar texto del botón según el estado
+                    String estadoTexto = tabla.getValueAt(fila, tabla.getColumnCount() - 1).toString();
+                    archivarButton.setText(estadoTexto.equalsIgnoreCase("Activo") ? "Archivar" : "Activar");
+
+                    // 🔁 Doble clic: abrir vista edición
+                    if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+                        switch (Titulo) {
+                            case "Representantes", "Estudiantes" -> {
+                                RegistroEstudianteRepresentante registro = new RegistroEstudianteRepresentante(Titulo);
+                                SistemaAdmin.panelCambiante.add(registro, "regEstRep");
+                                SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "regEstRep");
+                            }
+                            case "Empleados" -> {
+                                ActualizarEmpleados actualizar = new ActualizarEmpleados(id);
+                                SistemaAdmin.panelCambiante.add(actualizar, "actEmp");
+                                SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "actEmp");
+                            }
+                            case "Tipos de Pagos" -> {
+                                // lógica futura...
+                            }
+                            default -> {
+                                JOptionPane.showMessageDialog(null,
+                                        "No hay acción definida para doble clic en este módulo.");
+                            }
+                        }
+                        SistemaAdmin.panelCambiante.revalidate();
+                        SistemaAdmin.panelCambiante.repaint();
+                    }
+
+                } else {
+                    // 🧹 No se ha seleccionado nada → restaurar el botón
+                    archivarButton.setText("Archivar");
+                    id = null; // opcional: reinicia ID si lo usas como indicador
                 }
             }
         });
+
+
+
 
         panelTabla.setLayout(new BorderLayout());
         JScrollPane scrollPane=new JScrollPane(tabla);
@@ -282,7 +268,6 @@ public class PanelDefault extends JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
-        // TODO add your handling code here:
 
         if (Titulo.equals("Empleados")) {
             RegistroEmpleados registroEmpleados=new RegistroEmpleados();
@@ -330,7 +315,7 @@ public class PanelDefault extends JPanel {
                 SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "actEstRep");
 
             }
-
+            id = null;
             SistemaAdmin.panelCambiante.revalidate();
             SistemaAdmin.panelCambiante.repaint();
         } else {
@@ -344,35 +329,60 @@ public class PanelDefault extends JPanel {
         if (id != null) {
             if (Titulo.equals("Empleados")) {
                 EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-                boolean exito = empleadoDAO.desactivar(id);
+                Boolean exito = empleadoDAO.alternarEstadoYRetornar(id);
+
+                if (exito == null) {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cambiar el estado.");
+                    return;
+                }
 
                 if (exito) {
-                    JOptionPane.showMessageDialog(this, "Empleado archivado correctamente.");
+                    JOptionPane.showMessageDialog(this, "Empleado reactivado correctamente.");
+                    listarEmpleados();
+                    archivarButton.setText("Archivar");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al archivar el empleado.");
+                    JOptionPane.showMessageDialog(this, "Empleado archivado correctamente.");
+                    listarEmpleados();
                 }
 
             } else if (Titulo.equals("Estudiantes")) {
                 EstudianteDAO estudianteDAO = new EstudianteDAO();
-                boolean exito = estudianteDAO.desactivar(id);
+                Boolean exito = estudianteDAO.alternarEstadoEstudianteYRetornar(id);
+
+                if (exito == null) {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cambiar el estado.");
+                    return;
+                }
 
                 if (exito) {
-                    JOptionPane.showMessageDialog(this, "Estudiante archivado correctamente.");
+                    JOptionPane.showMessageDialog(this, "Estudiante reactivado correctamente.");
+                    listarEstudiantes();
+                    archivarButton.setText("Archivar");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al archivar el estudiante.");
+                    JOptionPane.showMessageDialog(this, "Estudiante archivado correctamente.");
+                    listarEstudiantes();
                 }
 
             } else if (Titulo.equals("Representantes")) {
                 RepresentanteDAO representanteDAO = new RepresentanteDAO();
-                boolean exito = representanteDAO.desactivar(id);
+                Boolean exito = representanteDAO.alternarEstadoRepresentanteYRetornar(id);
+
+                if (exito == null) {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cambiar el estado.");
+                    return;
+                }
 
                 if (exito) {
-                    JOptionPane.showMessageDialog(this, "Representante archivado correctamente.");
+                    JOptionPane.showMessageDialog(this, "Representante reactivado correctamente.");
+                    listarRepresentantes();
+                    archivarButton.setText("Archivar");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al archivar el representante.");
+                    JOptionPane.showMessageDialog(this, "Representante archivado correctamente.");
+                    listarRepresentantes();
                 }
             }
 
+            id = null;
             SistemaAdmin.panelCambiante.revalidate();
             SistemaAdmin.panelCambiante.repaint();
 
@@ -382,10 +392,71 @@ public class PanelDefault extends JPanel {
 
     }//GEN-LAST:event_archivarButtonActionPerformed
 
+    private void listarEstudiantes() {
+        modelo.setRowCount(0);
+        modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+        EstudianteDAO esdao=new EstudianteDAO();
+        List<Estudiante> listaEstudiantes=esdao.lista(null, null);
+        for (Estudiante est : listaEstudiantes) {
+            modelo.addRow(new Object[] {
+                    est.getId(),
+                    est.getCedulaRep(),
+                    est.getNombre1()+" "+est.getNombre2(),
+                    est.getApellido1()+" "+est.getApellido2(),
+                    (est.getEstado()) ? "Activo" : "Archivado"
+            });
+        }
+    }
 
+    private void listarRepresentantes() {
+        modelo.setRowCount(0);
+        modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+        RepresentanteDAO rdao=new RepresentanteDAO();
+        List<Representante> listaRepresentantes=rdao.lista(null, null);
+        for (Representante rep : listaRepresentantes) {
+            modelo.addRow(new Object[] {
+                    rep.getId(),
+                    rep.getCedula(),
+                    rep.getNombre1()+" "+rep.getNombre2(),
+                    rep.getApellido1()+" "+rep.getApellido2(),
+                    (rep.getEstado()) ? "Activo" : "Archivado"
+            });
+        }
 
+    }
 
+    private void listarEmpleados() {
+        modelo.setRowCount(0);
+        modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+        EmpleadoDAO edao=new EmpleadoDAO();
+        List<Empleado> listaEmpleados=edao.lista(null, null);
+        for (Empleado emp : listaEmpleados) {
+            modelo.addRow(new Object[] {
+                    emp.getId(),
+                    emp.getCedula(),
+                    emp.getNombre1()+" "+emp.getNombre2(),
+                    emp.getApellido1()+" "+emp.getApellido2(),
+                    emp.getRol() ? "Admin" : "Cajero",
+                    (emp.getEstado()) ? "Activo" : "Archivado"
+            });
+        }
 
+    }
+
+    private void listarTipoPago() {
+        modelo.setRowCount(0);
+        modelo.setColumnIdentifiers(nombresColumnas.split(" "));
+        TipoPagoDAO tpDao=new TipoPagoDAO();
+        List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
+        for (TipoPago tp : listaTiposPagos) {
+            modelo.addRow(new Object[] {
+                    tp.getId(),
+                    tp.getCategoria(),
+                    tp.getCosto()
+            });
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton actualizarButton;

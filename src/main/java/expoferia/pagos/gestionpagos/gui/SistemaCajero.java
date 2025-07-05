@@ -35,7 +35,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelRound1.add(registroPago, "regPago");
         card.show(panelRound1, "regPago");
 
-        TablaConsultarPago consultarPago = new TablaConsultarPago(tableModel);
+        TablaConsultarPago consultarPago = new TablaConsultarPago(tableModel, carritoPago);
         panelRound2.add(consultarPago, "conPago");
         card2.show(panelRound2, "conPago");
     }

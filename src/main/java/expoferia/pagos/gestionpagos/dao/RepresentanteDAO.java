@@ -21,7 +21,9 @@ public class RepresentanteDAO implements IRepresentanteDAO {
         if (nombre != null && !nombre.isEmpty()) {
             sql.append(" AND nombre1 = ?");
         }
-        sql.append(" ORDER BY nombre1 DESC, id");
+
+        // 🔽 Ordenar por id ascendente
+        sql.append(" ORDER BY id ASC");
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql.toString())) {
@@ -251,6 +253,37 @@ public class RepresentanteDAO implements IRepresentanteDAO {
             return false;
         }
     }
+
+    public Boolean alternarEstadoRepresentanteYRetornar(int id) {
+        String sqlUpdate = "UPDATE representante SET estado = NOT estado WHERE id = ?";
+        String sqlEstado = "SELECT estado FROM representante WHERE id = ?";
+
+        try (Connection con = getConexion();
+             PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+             PreparedStatement psEstado = con.prepareStatement(sqlEstado)) {
+
+            // 🔁 Alternar estado
+            psUpdate.setInt(1, id);
+            psUpdate.executeUpdate();
+
+            // 🔍 Consultar nuevo estado
+            psEstado.setInt(1, id);
+            try (ResultSet rs = psEstado.executeQuery()) {
+                if (rs.next()) {
+                    boolean nuevoEstado = rs.getBoolean("estado");
+                    closeConnection();
+                    return nuevoEstado;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al alternar estado del representante: " + e);
+            closeConnection();
+        }
+
+        return null; // ❌ Si algo falla
+    }
+
 
     @Override
     public boolean activar(int id) {

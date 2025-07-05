@@ -19,7 +19,9 @@ public class EstudianteDAO {
         if (nombre != null && !nombre.isEmpty()) {
             sql.append(" AND nombre1 = ?");
         }
-        sql.append(" ORDER BY nombre1 DESC, id");
+
+        // 🧮 Ordenar por ID de menor a mayor
+        sql.append(" ORDER BY id ASC");
 
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql.toString())) {
@@ -29,7 +31,7 @@ public class EstudianteDAO {
                 ps.setInt(index++, id);
             }
             if (nombre != null && !nombre.isEmpty()) {
-                ps.setString(index++, nombre);
+                ps.setString(index, nombre);
             }
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -272,6 +274,37 @@ public class EstudianteDAO {
             return false;
         }
     }
+
+    public Boolean alternarEstadoEstudianteYRetornar(int id) {
+        String sqlUpdate = "UPDATE estudiante SET estado = NOT estado WHERE id = ?";
+        String sqlEstado = "SELECT estado FROM estudiante WHERE id = ?";
+
+        try (Connection con = getConexion();
+             PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+             PreparedStatement psEstado = con.prepareStatement(sqlEstado)) {
+
+            // 🔁 Alternar estado
+            psUpdate.setInt(1, id);
+            psUpdate.executeUpdate();
+
+            // 🔍 Consultar estado actualizado
+            psEstado.setInt(1, id);
+            try (ResultSet rs = psEstado.executeQuery()) {
+                if (rs.next()) {
+                    boolean nuevoEstado = rs.getBoolean("estado");
+                    closeConnection();
+                    return nuevoEstado;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al alternar estado del estudiante: " + e);
+            closeConnection();
+        }
+
+        return null; // ❌ En caso de error
+    }
+
 
     public boolean activar(int id) {
         String sql = "UPDATE estudiante SET estado=true WHERE id=?";

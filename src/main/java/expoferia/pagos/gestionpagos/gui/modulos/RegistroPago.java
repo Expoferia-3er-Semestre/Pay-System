@@ -6,9 +6,11 @@ package expoferia.pagos.gestionpagos.gui.modulos;
 
 import expoferia.pagos.gestionpagos.dao.*;
 import expoferia.pagos.gestionpagos.entidades.*;
+import expoferia.pagos.gestionpagos.gui.FacturaPDFBuilder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
@@ -77,7 +79,7 @@ public class RegistroPago extends javax.swing.JPanel {
         datosFecha = new javax.swing.JLabel();
         datosNFactura = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        datosTasa = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
@@ -220,10 +222,9 @@ public class RegistroPago extends javax.swing.JPanel {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Tasa BCV");
 
-        datosTasa.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        datosTasa.setForeground(new java.awt.Color(0, 0, 0));
-        datosTasa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        datosTasa.setText("                     ");
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
+        jTextField1.setPreferredSize(new java.awt.Dimension(24, 13));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -237,13 +238,13 @@ public class RegistroPago extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(datosFecha))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel14))
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(datosTasa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -258,9 +259,9 @@ public class RegistroPago extends javax.swing.JPanel {
                     .addComponent(jLabel11)
                     .addComponent(datosNFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
-                    .addComponent(datosTasa))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -893,6 +894,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
                     }
                     carritoPago.limpiarTodo();
+                    resetCamposPago();
 
                 } else JOptionPane.showMessageDialog(null, "No existe un representante con esta cédula.");
 
@@ -919,6 +921,7 @@ public class RegistroPago extends javax.swing.JPanel {
             datosEstu.setText("               ");
             estudiante = null;
         }
+        resetCamposPago();
     }
 
     private void resetCamposPago() {
@@ -939,6 +942,7 @@ public class RegistroPago extends javax.swing.JPanel {
             if (mesAPagar.tieneSaldoPendiente()) {
 
                 Abono abono = new Abono();
+                abono.setIdAbono(carritoPago.generarIdTemporal());
                 abono.setIdDetallesPago(mesAPagar.getId());
                 abono.setFechaAbono(LocalDate.now());
                 abono.setMetodoPago(metodoPago);
@@ -954,7 +958,7 @@ public class RegistroPago extends javax.swing.JPanel {
             else {
 
                 DetallesPago detallePago = new DetallesPago();
-
+                detallePago.setId(carritoPago.generarIdTemporal());
                 detallePago.setIdTipoPago(tipoPago.getId());
                 detallePago.setMetodoPago(metodoPago);
                 if (txtTReferencia.isEnabled()) detallePago.setNumTrans(txtTReferencia.getText());
@@ -975,6 +979,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
                     detallePago.setId(-carritoPago.generarIdTemporal()); // Se le asigna un id temporal para poder enlazar sus abonos
                     Abono abono = new Abono();
+                    abono.setIdAbono(carritoPago.generarIdTemporal());
                     abono.setIdDetallesPago(detallePago.getId());
                     abono.setFechaAbono(LocalDate.now());
                     abono.setMetodoPago(metodoPago);
@@ -997,14 +1002,14 @@ public class RegistroPago extends javax.swing.JPanel {
 
     }
 
-    private boolean registrarPagoDesdeCarrito() {
+    private void registrarPagoDesdeCarrito() {
         if (carritoPago.estaVacioConceptos() && carritoPago.estaVacioAbonos()) {
             JOptionPane.showMessageDialog(null, "No hay conceptos ni abonos en el carrito.");
-            return false;
+            return;
         }
 
         int opcion = JOptionPane.showConfirmDialog(null, "Confirmar", "¿Desea imprimir el recibo?", JOptionPane.YES_NO_OPTION);
-        if (opcion != JOptionPane.YES_OPTION) return false;
+        if (opcion != JOptionPane.YES_OPTION) return;
 
         // 🧾 Construir el recibo
         PagoRecibo recibo = construirReciboDesdeCarrito();
@@ -1033,58 +1038,26 @@ public class RegistroPago extends javax.swing.JPanel {
         PagoReciboDAO dao = new PagoReciboDAO();
         boolean exito = dao.registrarPago(recibo, detallesNuevos, todosLosAbonos);
 
-        if (exito) limpiarCampos();
-        return exito;
-    }
-
-    private void mostrarResultado(boolean exito) {
         if (exito) {
             JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
             limpiarCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
+
+            String rutaPDF = "C:\\Users\\Suglin\\Desktop\\recibos_generados";
+
+            try {
+                FacturaPDFBuilder.generarFactura(
+                        recibo,
+                        carritoPago.getConceptos(),
+                        rutaPDF,
+                        "src/main/resources/imagenes/logoColegio.png"
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
         }
-    }
-
-    public boolean registrarPagoCompleto() {
-        PagoReciboDAO dao = new PagoReciboDAO();
-
-        // Crear el recibo
-        PagoRecibo recibo = construirReciboDesdeCarrito();
-
-        // Recolectar datos
-        List<DetallesPago> detalles = new ArrayList<>(carritoPago.getConceptos());
-        List<Abono> abonos = new ArrayList<>(carritoPago.getAbonos());
-
-        // Registrar todo en DAO
-        return dao.registrarPago(recibo, detalles, abonos);
-    }
-
-    public boolean registrarPagoMixto() {
-        PagoReciboDAO dao = new PagoReciboDAO();
-
-        PagoRecibo recibo = construirReciboDesdeCarrito();
-
-        List<DetallesPago> detalles = carritoPago.getConceptos();
-        List<Abono> abonos = carritoPago.getAbonos();
-
-        return dao.registrarPago(recibo, detalles, abonos);
-    }
-
-    private boolean registrarSoloDetalle() {
-
-        boolean exito = false;
-
-        int opcion = JOptionPane.showConfirmDialog(null, "Confirmar", "¿Desea imprimir el recibo?", JOptionPane.YES_NO_OPTION);
-
-        if (opcion == 0) {
-            PagoReciboDAO pagoReciboDAO = new PagoReciboDAO();
-
-            PagoRecibo recibo = construirReciboDesdeCarrito();
-
-            exito = pagoReciboDAO.registrarPago(recibo, carritoPago.getConceptos(), carritoPago.getAbonos());
-        }
-        return exito;
+        else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
     }
 
     private PagoRecibo construirReciboDesdeCarrito() {
@@ -1214,34 +1187,6 @@ public class RegistroPago extends javax.swing.JPanel {
         return null; // ✅ Todos los meses fueron cubiertos
     }
 
-    public List<String> obtenerMesesMorosos(int idEstudiante, int idAnoEscolar) {
-
-        List<String> pendientes = busquedaMeses();
-        LocalDate hoy = LocalDate.now();
-        List<String> morosos = new ArrayList<>();
-
-        List<String> mesesOrdenados = Arrays.asList(
-                "Septiembre", "Octubre", "Noviembre", "Diciembre",
-                "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
-        );
-
-        for (String mes : pendientes) {
-            int indexMes = mesesOrdenados.indexOf(mes);
-            if (indexMes == -1) continue;
-
-            int numeroMes = (indexMes + 9 > 12) ? (indexMes - 3) : (indexMes + 9);
-            int anio = (indexMes + 9 > 12) ? hoy.getYear() + 1 : hoy.getYear();
-
-            LocalDate fechaLimite = LocalDate.of(anio, numeroMes, 5);
-
-            if (hoy.isAfter(fechaLimite)) {
-                morosos.add(mes); // Solo se agrega si ya venció
-            }
-        }
-
-        return morosos;
-    }
-
     public boolean tieneMoraParaMes(String mesEscolar) {
         if (mesEscolar == null || anioEscolar == null) return false;
 
@@ -1282,7 +1227,6 @@ public class RegistroPago extends javax.swing.JPanel {
     private javax.swing.JLabel datosFecha;
     private javax.swing.JLabel datosNFactura;
     private javax.swing.JLabel datosRepre;
-    private javax.swing.JLabel datosTasa;
     private javax.swing.JLabel gradoEstu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1305,6 +1249,7 @@ public class RegistroPago extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.ButtonGroup metodoPagos;
     private javax.swing.JRadioButton radioDebito;
     private javax.swing.JRadioButton radioEfectivo;

@@ -275,7 +275,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelEstudiante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+        PanelDefault panelEstudiante= new PanelDefault("ID Cedula Nombres Apellidos, Estado",
                 "Estudiantes"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEstudiante, "Estudiantes"); // Agregar con nombre único
         card.show(panelCambiante, "Estudiantes");
@@ -294,7 +294,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelRepresentante= new PanelDefault("ID Cedula Nombres Apellidos Detalles Acciones",
+        PanelDefault panelRepresentante= new PanelDefault("ID Cedula Nombres Apellidos Estado",
                 "Representantes"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelRepresentante, "Representantes"); // Agregar con nombre único
 
@@ -312,7 +312,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelEmpleado= new PanelDefault("ID Cedula Nombres Apellidos Rol Detalles Acciones",
+        PanelDefault panelEmpleado= new PanelDefault("ID Cedula Nombres Apellidos Rol, Estado",
             "Empleados"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelEmpleado, "Empleados"); // Agregar con nombre único
         card.show(panelCambiante, "Empleados");

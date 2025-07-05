@@ -249,6 +249,36 @@ public class EmpleadoDAO implements IEmpleadoDAO{
 
     }
 
+    public Boolean alternarEstadoYRetornar(int id) {
+        String sqlUpdate = "UPDATE empleado SET estado = NOT estado WHERE id = ?";
+        String sqlEstado = "SELECT estado FROM empleado WHERE id = ?";
+
+        try (Connection con = getConexion();
+             PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+             PreparedStatement psEstado = con.prepareStatement(sqlEstado)) {
+
+            psUpdate.setInt(1, id);
+            psUpdate.executeUpdate(); // 🔁 Alterna el estado
+
+            // 🔍 Consulta el estado actualizado
+            psEstado.setInt(1, id);
+            try (ResultSet rs = psEstado.executeQuery()) {
+                if (rs.next()) {
+                    boolean nuevoEstado = rs.getBoolean("estado");
+                    closeConnection();
+                    return nuevoEstado;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al alternar estado: " + e);
+            closeConnection();
+        }
+
+        return null; // ❌ Falló algo
+    }
+
+
     @Override
     public boolean activar(int id) {
         String sql="UPDATE empleado SET estado=true WHERE id=?";

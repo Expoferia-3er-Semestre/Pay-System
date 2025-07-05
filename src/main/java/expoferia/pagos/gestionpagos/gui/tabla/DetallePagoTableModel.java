@@ -6,9 +6,13 @@ import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetallePagoTableModel extends DefaultTableModel {
+
+    CarritoPago carritoPago;
+    private final List<Object> elementosOriginales = new ArrayList<>();
 
     private static final String[] COLUMNAS = {
             "Descripción", "Cantidad", "Precio Unidad", "Total Bs"
@@ -84,6 +88,7 @@ public class DetallePagoTableModel extends DefaultTableModel {
                 montoPagado,
                 montoTotal
         });
+        elementosOriginales.add(dp);
     }
 
     public void agregarFilaAbono(Abono abono, double montoPagado) {
@@ -95,11 +100,39 @@ public class DetallePagoTableModel extends DefaultTableModel {
                 montoPagado,
                 montoTotal
         });
+        elementosOriginales.add(abono);
     }
 
     public void limpiarTabla() {
         setRowCount(0);
         montoTotal = 0;
+    }
+
+    public Object getElementoSeleccionado(int fila) {
+        if (fila >= 0 && fila < elementosOriginales.size()) {
+            return elementosOriginales.get(fila);
+        }
+        return null;
+    }
+
+    public boolean eliminarElementoPorIdTemporal(int idTemporal) {
+        for (int fila = 0; fila < elementosOriginales.size(); fila++) {
+            Object elemento = elementosOriginales.get(fila);
+
+            int idTemp = Integer.MIN_VALUE;
+            if (elemento instanceof DetallesPago dp) {
+                idTemp = dp.getId();
+            } else if (elemento instanceof Abono ab) {
+                idTemp = ab.getIdAbono();
+            }
+
+            if (idTemp == idTemporal) {
+                elementosOriginales.remove(fila);
+                removeRow(fila);
+                return true;
+            }
+        }
+        return false; // No encontrado
     }
 
 

@@ -20,8 +20,16 @@ public class Tabla extends JTable {
 
         // Aplicarlo al encabezado de la tabla
         getTableHeader().setDefaultRenderer(headerRenderer);
-        setAutoCreateRowSorter(true);
+        setAutoCreateRowSorter(false);
         setDefaultRenderer(Object.class, new DefaultTable());// Activar ordenamiento de columnas
+
+
     }
+
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false; // 🔒 Ninguna celda editable
+    }
+
 
 }

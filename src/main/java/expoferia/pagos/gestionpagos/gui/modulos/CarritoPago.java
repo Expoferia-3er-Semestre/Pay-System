@@ -13,6 +13,7 @@ public class CarritoPago {
     private final List<Abono> abonos = new ArrayList<>();
     private final List<DetallesPago> conceptos = new ArrayList<>();
     private int contadorIdTemporal = 1;
+    private double totalBS = 0;
 
     public int generarIdTemporal() {
         return contadorIdTemporal++;
@@ -205,6 +206,68 @@ public class CarritoPago {
         conceptos.clear();
         contadorIdTemporal = 1;
         if (tablaModelo != null) tablaModelo.limpiarTabla();
+    }
+
+    public boolean eliminarConceptoPorIdTemporal(int idTemp) {
+        Iterator<DetallesPago> it = conceptos.iterator();
+        while (it.hasNext()) {
+            DetallesPago dp = it.next();
+            if (dp.getId() == idTemp) {
+                it.remove();
+                tablaModelo.eliminarElementoPorIdTemporal(dp.getId());
+                return true;
+            }
+        }
+        return false; // No encontrado
+    }
+
+    public boolean eliminarAbonoPorIdTemporal(int idTemp) {
+        Iterator<Abono> it = abonos.iterator();
+        Abono abonoEliminado = null;
+
+        while (it.hasNext()) {
+            Abono ab = it.next();
+            if (ab.getIdAbono() == idTemp) {
+                abonoEliminado = ab;
+                it.remove();
+                tablaModelo.eliminarElementoPorIdTemporal(idTemp);
+                break;
+            }
+        }
+
+        if (abonoEliminado == null) return false;
+
+        // Buscar el DetallesPago enlazado por idTemporal
+        int idDetalleVinculado = abonoEliminado.getIdDetallesPago();
+
+        // Verificar si hay otros abonos que apuntan al mismo DetallesPago
+        boolean hayMasAbonos = abonos.stream()
+                .anyMatch(a -> a.getIdDetallesPago() == idDetalleVinculado);
+
+        if (hayMasAbonos) {
+            // Restar el monto del abono eliminado al DetallesPago
+            for (DetallesPago dp : conceptos) {
+                if (dp.getId() == idDetalleVinculado) {
+                    dp.setMontoPagado(dp.getMontoPagado() - abonoEliminado.getMontoAbonado());
+                    break;
+                }
+            }
+        } else {
+            // Ya no hay más abonos → eliminar el DetallesPago completo
+            eliminarConceptoPorIdTemporal(idDetalleVinculado);
+        }
+
+        return true;
+    }
+
+    public boolean eliminarPorIdTemporal(Object objeto) {
+        if (objeto instanceof DetallesPago dp) {
+            return eliminarConceptoPorIdTemporal(dp.getId());
+        }
+        if (objeto instanceof Abono ab) {
+            return eliminarAbonoPorIdTemporal(ab.getIdAbono());
+        }
+        return false;
     }
 
 }

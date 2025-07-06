@@ -1,7 +1,7 @@
 package expoferia.pagos.gestionpagos.dao;
 
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
-import expoferia.pagos.gestionpagos.entidades.Abono;
+
 import static expoferia.pagos.gestionpagos.conexion.Conexion.*;
 
 import java.sql.*;
@@ -109,7 +109,7 @@ public class DetallesPagoDAO {
         return detalle;
     }
 
-    public List<DetallesPago> listarPorEstudiante(int idEstudiante, int idAnoEscolar) {
+    public List<DetallesPago> listarPorEstudianteMensualidades(int idEstudiante, int idAnoEscolar) {
         List<DetallesPago> lista = new ArrayList<>();
 
         String sql = """
@@ -155,6 +155,53 @@ public class DetallesPagoDAO {
 
         return lista;
     }
+
+    public List<DetallesPago> listarPorEstudiante(int idEstudiante, int idAnoEscolar) {
+        List<DetallesPago> lista = new ArrayList<>();
+
+        String sql = """
+    SELECT dp.*
+    FROM detalles_pago dp
+    JOIN pago_recibo pr ON dp.id_pago_recibo = pr.id_pago_recibo
+    WHERE pr.id_estudiante = ?
+      AND dp.id_ano_escolar = ?
+    """;
+
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idEstudiante);
+            ps.setInt(2, idAnoEscolar);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DetallesPago dp = new DetallesPago();
+
+                    dp.setId(rs.getInt("id"));
+                    dp.setIdPagoRecibo(rs.getInt("id_pago_recibo"));
+                    dp.setIdTipoPago(rs.getInt("id_tipo_pago"));
+                    dp.setMetodoPago(rs.getString("metodo_pago"));
+                    dp.setNumTrans(rs.getString("num_trans"));
+                    dp.setIdAnoEscolar(rs.getInt("id_ano_escolar"));
+                    dp.setDescripcion(rs.getString("descripcion"));
+                    dp.setMesCorrespondiente(rs.getString("mes_correspondiente"));
+                    dp.setMontoTotal(rs.getDouble("monto_total"));
+                    dp.setMontoPagado(rs.getDouble("monto_pagado"));
+
+                    lista.add(dp);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al listar detalles por estudiante: " + e);
+        } finally {
+            closeConnection();
+        }
+
+        return lista;
+    }
+
 
     public List<String> obtenerMesesPagados(int idEstudiante, int idAnoEscolar) {
 

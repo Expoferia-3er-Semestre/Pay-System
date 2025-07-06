@@ -18,6 +18,8 @@ public class GestorPagosEstudiante {
 
     public GestorPagosEstudiante(int idEstudiante, int idAnoEscolar) {
         listaPagos = detallesPagoDAO.listarPorEstudiante(idEstudiante, idAnoEscolar);
+        System.out.println("Pagos: " + getTodosLosPagos().size());
+
     }
 
     public List<DetallesPago> filtrarPorTipo(String tipo) {

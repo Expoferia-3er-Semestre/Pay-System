@@ -701,7 +701,8 @@ public class RegistroPago extends javax.swing.JPanel {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
         if (estudiante != null) {
-            busquedaMeses();
+            GestorPagosEstudiante gestorPagosEstudiante = new GestorPagosEstudiante(estudiante.getId(), anioEscolar.getIdAnoEscolar());
+            TablaPagosConsultas tablaPagosConsultas = new TablaPagosConsultas(null, true, gestorPagosEstudiante);
         } else JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante para poder consultar sus pagos.");
 
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -1016,7 +1017,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
         // 🆕 Conceptos nuevos
         List<DetallesPago> detallesNuevos = carritoPago.getConceptos().stream()
-                .filter(dp -> dp.getId() < 0 || dp.getMesCorrespondiente() == null)
+                .filter(dp -> dp.getId() < 0 || dp.getMesCorrespondiente() == null || dp.getMesCorrespondiente() != null)
                 .toList();
 
         // 💵 Abonos sobre nuevos detalles
@@ -1041,20 +1042,6 @@ public class RegistroPago extends javax.swing.JPanel {
         if (exito) {
             JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
             limpiarCampos();
-
-            String rutaPDF = "C:\\Users\\Suglin\\Desktop\\recibos_generados";
-
-            try {
-                FacturaPDFBuilder.generarFactura(
-                        recibo,
-                        carritoPago.getConceptos(),
-                        rutaPDF,
-                        "src/main/resources/imagenes/logoColegio.png"
-                );
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
 
         }
         else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
@@ -1118,7 +1105,7 @@ public class RegistroPago extends javax.swing.JPanel {
         if (anioEscolar == null) return null;
 
         DetallesPagoDAO dPDao = new DetallesPagoDAO();
-        List<DetallesPago> pagadosBD = dPDao.listarPorEstudiante(estudiante.getId(), anioEscolar.getIdAnoEscolar());
+        List<DetallesPago> pagadosBD = dPDao.listarPorEstudianteMensualidades(estudiante.getId(), anioEscolar.getIdAnoEscolar());
 
         // 🔍 Detectar si en el carrito hay conceptos con saldo pendiente
         DetallesPago pendienteCarrito = carritoPago.buscarMensualidadPendiente(pagadosBD);

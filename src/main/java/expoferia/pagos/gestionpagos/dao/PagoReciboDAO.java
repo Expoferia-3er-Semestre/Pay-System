@@ -11,6 +11,39 @@ import java.util.*;
 
 public class PagoReciboDAO {
 
+        public List<PagoRecibo> listarPorFecha(Date fecha) {
+                List<PagoRecibo> lista = new ArrayList<>();
+                String sql = "SELECT * FROM pago_recibo WHERE fecha_pago = ? ORDER BY fecha_pago ASC";
+
+                try (Connection con = getConexion();
+                     PreparedStatement ps = con.prepareStatement(sql)) {
+
+                        ps.setDate(1, new java.sql.Date(fecha.getTime()));
+
+                        try (ResultSet rs = ps.executeQuery()) {
+                                while (rs.next()) {
+                                        PagoRecibo pago = new PagoRecibo(
+                                                rs.getInt("id_pago_recibo"),
+                                                rs.getInt("id_estudiante"),
+                                                rs.getDouble("monto_total"),
+                                                rs.getDouble("monto_pagado"),
+                                                rs.getBoolean("estado"),
+                                                rs.getDate("fecha_pago")
+                                        );
+                                        lista.add(pago);
+                                }
+                        }
+
+                } catch (Exception e) {
+                        System.out.println("Error al consultar pagos por fecha: " + e.getMessage());
+                } finally {
+                        closeConnection();
+                }
+
+                return lista;
+        }
+
+
         public Integer obtenerProximoIdPagoRecibo() {
                 String sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'gestion_pagos' AND TABLE_NAME = 'pago_recibo'";
 

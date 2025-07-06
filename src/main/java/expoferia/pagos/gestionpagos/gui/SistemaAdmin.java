@@ -5,6 +5,8 @@
 package expoferia.pagos.gestionpagos.gui;
 
 import java.awt.*;
+
+import expoferia.pagos.gestionpagos.gui.modulos.Dashboard;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
@@ -295,7 +297,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelDefault panelTipoPago= new PanelDefault("ID Categoría Costo Estado Acciones",
+        PanelDefault panelTipoPago= new PanelDefault("ID Categoría Costo Estado",
             "Tipos de Pagos"); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelTipoPago, "Tipos de Pagos"); // Agregar con nombre único
         card.show(panelCambiante, "Tipos de Pagos");
@@ -370,7 +372,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
             System.gc();
         }
 
-        PanelAdmin panelAdmin=new PanelAdmin(); // Crear el panel solo cuando sea necesario
+        Dashboard panelAdmin=new Dashboard(); // Crear el panel solo cuando sea necesario
         panelCambiante.add(panelAdmin, "Admin"); // Agregar con nombre único
         card.show(panelCambiante, "Admin");
 

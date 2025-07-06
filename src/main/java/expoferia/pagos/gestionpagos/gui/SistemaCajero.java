@@ -25,6 +25,7 @@ public class SistemaCajero extends javax.swing.JFrame {
     public SistemaCajero() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconGonzaga128.png")).getImage());
 
         CarritoPago carritoPago = SesionActual.getCarritoPago();
         DetallePagoTableModel tableModel = SesionActual.getTableModel();

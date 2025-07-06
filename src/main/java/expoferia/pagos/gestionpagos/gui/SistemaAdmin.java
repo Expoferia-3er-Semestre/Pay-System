@@ -10,6 +10,7 @@ import expoferia.pagos.gestionpagos.gui.modulos.Dashboard;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
+import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
 
@@ -27,6 +28,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         card= (CardLayout) panelCambiante.getLayout();
         setTitle("Gestiones - Administrador");
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconGonzaga128.png")).getImage());
 
         // Estilo visual del botón salir
         botonToggleSalir.setBorderPainted(false);

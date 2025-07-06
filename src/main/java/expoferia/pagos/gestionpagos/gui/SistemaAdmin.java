@@ -11,6 +11,9 @@ import expoferia.pagos.gestionpagos.gui.modulos.PanelAdmin;
 import expoferia.pagos.gestionpagos.gui.modulos.PanelDefault;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Suglin
@@ -24,6 +27,32 @@ public class SistemaAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         card= (CardLayout) panelCambiante.getLayout();
         setTitle("Gestiones - Administrador");
+
+        // Estilo visual del botón salir
+        botonToggleSalir.setBorderPainted(false);
+        botonToggleSalir.setContentAreaFilled(false);
+        botonToggleSalir.setFocusPainted(true);
+        botonToggleSalir.setOpaque(false);
+
+        //el cursor cambia a una mano 👆 cuando el usuario pase el mouse sobre el
+        botonToggleSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        //Efecto visual: al pasar el mouse sobre el botón, se sombrea con fondo
+        botonToggleSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonToggleSalir.setBackground(new Color(220, 220, 220)); // color gris claro
+                botonToggleSalir.setOpaque(true); // para que el fondo se dibuje
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonToggleSalir.setBackground(null); // vuelve a fondo transparente
+                botonToggleSalir.setOpaque(false);
+            }
+        });
+
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +67,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
         panelSuperior = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        botonToggleSalir = new javax.swing.JToggleButton();
         panelLateral = new expoferia.pagos.gestionpagos.gui.PanelRound();
         pagoButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -61,7 +90,13 @@ public class SistemaAdmin extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bars.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        botonToggleSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        botonToggleSalir.setBorderPainted(false);
+        botonToggleSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonToggleSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -73,8 +108,8 @@ public class SistemaAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(26, 26, 26))
+                .addComponent(botonToggleSalir)
+                .addGap(76, 76, 76))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,9 +117,11 @@ public class SistemaAdmin extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                    .addGroup(panelSuperiorLayout.createSequentialGroup()
+                        .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(botonToggleSalir))
+                        .addGap(5, 5, 5)))
                 .addGap(13, 13, 13))
         );
 
@@ -185,7 +222,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
                 .addComponent(estudianteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
@@ -342,6 +379,24 @@ public class SistemaAdmin extends javax.swing.JFrame {
         panelCambiante.repaint();
     }//GEN-LAST:event_administradorButtonActionPerformed
 
+    private void botonToggleSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonToggleSalirActionPerformed
+        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Deseas salir del sistema?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0); // Sale del sistema
+        } else {
+            botonToggleSalir.setSelected(false); // Si cancela, desactiva el botón
+        }
+
+    }//GEN-LAST:event_botonToggleSalirActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -385,10 +440,10 @@ public class SistemaAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton administradorButton;
+    private javax.swing.JToggleButton botonToggleSalir;
     private javax.swing.JButton empleadoButton;
     private javax.swing.JButton estudianteButton;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton pagoButton;

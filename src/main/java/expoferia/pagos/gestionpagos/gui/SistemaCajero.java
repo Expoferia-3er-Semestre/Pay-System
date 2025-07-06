@@ -10,7 +10,8 @@ import java.awt.*;
 import expoferia.pagos.gestionpagos.gui.modulos.RegistroPago;
 import expoferia.pagos.gestionpagos.gui.modulos.TablaConsultarPago;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
-import javax.swing.ImageIcon;
+
+import javax.swing.*;
 
 /**
  *
@@ -41,6 +42,31 @@ public class SistemaCajero extends javax.swing.JFrame {
         card2.show(panelRound2, "conPago");
         setTitle("Registrar Pagos - Cajero");
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/IconGonzagaaaa.png")).getImage());
+
+        // Estilo visual del botón salir
+        botonToggleSalirCajero.setBorderPainted(false);
+        botonToggleSalirCajero.setContentAreaFilled(false);
+        botonToggleSalirCajero.setFocusPainted(true);
+        botonToggleSalirCajero.setOpaque(false);
+
+        //el cursor cambia a una mano 👆 cuando el usuario pase el mouse sobre el
+        botonToggleSalirCajero.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        //Efecto visual: al pasar el mouse sobre el botón, se sombrea con fondo
+        botonToggleSalirCajero.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonToggleSalirCajero.setBackground(new Color(220, 220, 220)); // color gris claro
+                botonToggleSalirCajero.setOpaque(true); // para que el fondo se dibuje
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonToggleSalirCajero.setBackground(null); // vuelve a fondo transparente
+                botonToggleSalirCajero.setOpaque(false);
+            }
+        });
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +80,7 @@ public class SistemaCajero extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JPanel();
         panelSuperior = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        botonToggleSalirCajero = new javax.swing.JToggleButton();
         panelCambiante = new expoferia.pagos.gestionpagos.gui.PanelRound();
         panelRound3 = new expoferia.pagos.gestionpagos.gui.PanelRound();
         panelRound1 = new expoferia.pagos.gestionpagos.gui.PanelRound();
@@ -70,7 +96,12 @@ public class SistemaCajero extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(10, 72, 162));
         jLabel3.setText("SISTEMA DE PAGOS COLEGIO GONZAGA");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        botonToggleSalirCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        botonToggleSalirCajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonToggleSalirCajeroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -80,17 +111,17 @@ public class SistemaCajero extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31))
+                .addComponent(botonToggleSalirCajero)
+                .addGap(23, 23, 23))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addGap(17, 17, 17))
+                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonToggleSalirCajero)
+                    .addComponent(jLabel3))
+                .addGap(22, 22, 22))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
@@ -177,7 +208,25 @@ public class SistemaCajero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonToggleSalirCajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonToggleSalirCajeroActionPerformed
+        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Deseas salir del sistema?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
 
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0); // Cierra el sistema
+        } else {
+            botonToggleSalirCajero.setSelected(false); // Si cancela, desactiva el toggle
+        }
+
+    }//GEN-LAST:event_botonToggleSalirCajeroActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -223,7 +272,7 @@ public class SistemaCajero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton botonToggleSalirCajero;
     private javax.swing.JLabel jLabel3;
     private expoferia.pagos.gestionpagos.gui.PanelRound panelCambiante;
     private javax.swing.JPanel panelPrincipal;

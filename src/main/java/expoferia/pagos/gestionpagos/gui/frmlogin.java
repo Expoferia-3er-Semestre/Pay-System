@@ -7,6 +7,7 @@ package expoferia.pagos.gestionpagos.gui;
 import expoferia.pagos.gestionpagos.dao.EmpleadoDAO;
 import expoferia.pagos.gestionpagos.entidades.Empleado;
 import expoferia.pagos.gestionpagos.util.Password;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,7 @@ public class frmlogin extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Iniciar Sesión");
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/IconGonzaga305.png")).getImage());
     }
 
     /**

@@ -133,7 +133,6 @@ public class TipoPagoDAO implements ITipoPagoDAO {
         return null;
     }
 
-
     @Override
     public boolean agregar(TipoPago tipoPago) {
         String sql="INSERT INTO tipo_pago( categoria, costo) " +
@@ -217,6 +216,35 @@ public class TipoPagoDAO implements ITipoPagoDAO {
             return false;
         }
     }
+
+    public Boolean alternarEstadoTipoPagoYRetornar(int id) {
+        String sqlUpdate = "UPDATE tipo_pago SET estado = NOT estado WHERE id = ?";
+        String sqlEstado = "SELECT estado FROM tipo_pago WHERE id = ?";
+
+        try (Connection con = getConexion();
+             PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+             PreparedStatement psEstado = con.prepareStatement(sqlEstado)) {
+
+            psUpdate.setInt(1, id);
+            psUpdate.executeUpdate(); // 🔁 Alterna el estado
+
+            psEstado.setInt(1, id);
+            try (ResultSet rs = psEstado.executeQuery()) {
+                if (rs.next()) {
+                    boolean nuevoEstado = rs.getBoolean("estado");
+                    closeConnection();
+                    return nuevoEstado; // ✅ Retorna el nuevo estado
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al alternar estado TipoPago: " + e);
+            closeConnection();
+        }
+
+        return null; // ❌ Si algo falla
+    }
+
 
     @Override
     public boolean activar(int id) {

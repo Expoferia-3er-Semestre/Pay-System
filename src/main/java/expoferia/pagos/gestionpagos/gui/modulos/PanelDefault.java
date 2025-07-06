@@ -380,6 +380,23 @@ public class PanelDefault extends JPanel {
                     JOptionPane.showMessageDialog(this, "Representante archivado correctamente.");
                     listarRepresentantes();
                 }
+            } else if (Titulo.equals("Tipos de Pagos")) {
+                TipoPagoDAO tipoPagoDAO = new TipoPagoDAO();
+                Boolean exito = tipoPagoDAO.alternarEstadoTipoPagoYRetornar(id);
+
+                if (exito == null) {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cambiar el estado.");
+                    return;
+                }
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Tipo de pago reactivado correctamente.");
+                    listarTipoPago();
+                    archivarButton.setText("Archivar");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tipo de pago archivado correctamente.");
+                    listarTipoPago();
+                }
             }
 
             id = null;
@@ -452,7 +469,8 @@ public class PanelDefault extends JPanel {
             modelo.addRow(new Object[] {
                     tp.getId(),
                     tp.getCategoria(),
-                    tp.getCosto()
+                    tp.getCosto(),
+                    (tp.getEstado())  ? "Activo" : "Archivado"
             });
         }
 

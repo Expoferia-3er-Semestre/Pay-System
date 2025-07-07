@@ -36,8 +36,13 @@ public class SistemaAdmin extends javax.swing.JFrame {
         botonToggleSalir.setFocusPainted(true);
         botonToggleSalir.setOpaque(false);
 
-        //el cursor cambia a una mano 👆 cuando el usuario pase el mouse sobre el
+        //el cursor cambia a una mano cuando el usuario pase el mouse sobre el
         botonToggleSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        empleadoButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        estudianteButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        represanteButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        tipoPagoButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        consultarPagosButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Efecto visual: al pasar el mouse sobre el botón, se sombrea con fondo
         botonToggleSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,7 +172,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
 
         consultarPagosButton.setBackground(new java.awt.Color(231, 231, 231));
         consultarPagosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/recibo.png"))); // NOI18N
-        consultarPagosButton.setText("Consultar Pagos");
+        consultarPagosButton.setText("Consultas");
         consultarPagosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultarPagosButtonActionPerformed(evt);

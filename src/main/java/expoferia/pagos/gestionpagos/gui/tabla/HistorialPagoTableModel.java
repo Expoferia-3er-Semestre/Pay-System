@@ -4,8 +4,7 @@ import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.modulos.GestorPagosEstudiante;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class HistorialPagoTableModel extends DefaultTableModel {
 
@@ -14,6 +13,8 @@ public class HistorialPagoTableModel extends DefaultTableModel {
     };
 
     private final List<DetallesPago> pagosOriginales = new ArrayList<>();
+    List<DetallesPago> filtrados = new ArrayList<>();
+
 
     public HistorialPagoTableModel() {
         super(COLUMNAS, 0);
@@ -42,14 +43,70 @@ public class HistorialPagoTableModel extends DefaultTableModel {
         }
     }
 
+    public void agregarMensualidadRow(DetallesPago detallesPago, String mes) {
+
+        if (detallesPago != null) {
+
+            String tipo = detallesPago.getCategoria();
+            String estado;
+            if (detallesPago.tieneSaldoPendiente()) {
+                estado = (detallesPago.getDiferencia() > 0) ? "Abono" : "Pendiente";
+            } else {
+                estado = "Pagado";
+            }
+
+            addRow(new Object[] {
+                    mes,
+                    (detallesPago.getDescripcion() != null) ? detallesPago.getDescripcion() : "",
+                    tipo,
+                    detallesPago.getMontoPagado(),
+                    estado
+            });
+
+        } else {
+
+            addRow(new Object[] {
+                    mes,
+                    "",
+                    "",
+                    0,
+                    "Pendiente"
+            });
+
+        }
+
+
+    }
+
     public void cargarFiltrados(GestorPagosEstudiante gestor, String tipoFiltro) {
         setRowCount(0);
-        pagosOriginales.clear();
+        filtrados = gestor.filtrarPorTipo(tipoFiltro);
 
-        List<DetallesPago> filtrados = gestor.filtrarPorTipo(tipoFiltro);
-        for (DetallesPago pago : filtrados) {
-            agregarFila(pago);
+
+        if (tipoFiltro.equals("Mensualidad")) {
+
+            final List<String> MESES_ESCOLARES = Arrays.asList(
+                    "Septiembre", "Octubre", "Noviembre", "Diciembre",
+                    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto"
+            );
+
+            for (int i = 0; i < MESES_ESCOLARES.size(); i++) {
+                String mes = MESES_ESCOLARES.get(i);
+
+                DetallesPago pago;
+                if (i < filtrados.size()) {
+                    pago = filtrados.get(i);
+                } else pago = null;
+
+                agregarMensualidadRow(pago, mes);
+            }
+
+        } else {
+            for (DetallesPago pago : filtrados) {
+                agregarFila(pago);
+            }
         }
+
     }
 
     private void agregarFila(DetallesPago pago) {
@@ -57,7 +114,7 @@ public class HistorialPagoTableModel extends DefaultTableModel {
         String estado;
 
         if (pago.tieneSaldoPendiente()) {
-            estado = "Abono".equalsIgnoreCase(tipo) ? "Abono" : "Pendiente";
+            estado = (pago.getDiferencia() > 0) ? "Abono" : "Pendiente";
         } else {
             estado = "Pagado";
         }
@@ -70,7 +127,6 @@ public class HistorialPagoTableModel extends DefaultTableModel {
                 estado
         });
 
-        pagosOriginales.add(pago);
     }
 
     public DetallesPago getPagoSeleccionado(int fila) {

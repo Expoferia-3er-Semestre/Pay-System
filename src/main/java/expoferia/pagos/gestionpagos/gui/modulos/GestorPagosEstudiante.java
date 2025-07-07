@@ -10,13 +10,21 @@ public class GestorPagosEstudiante {
 
     private List<DetallesPago> listaPagos;
     private final DetallesPagoDAO detallesPagoDAO = new DetallesPagoDAO();
+    int idEst;
+    int idAnio;
 
     private static final List<String> MESES_ESCOLARES = Arrays.asList(
             "Septiembre", "Octubre", "Noviembre", "Diciembre",
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto"
     );
 
-    public GestorPagosEstudiante(int idEstudiante, int idAnoEscolar) {
+    public GestorPagosEstudiante() {
+
+    }
+
+    public void cargarPagos(int idEstudiante, int idAnoEscolar) {
+        idEst = idEstudiante;
+        idAnio = idAnoEscolar;
         listaPagos = detallesPagoDAO.listarPorEstudiante(idEstudiante, idAnoEscolar);
         System.out.println("Pagos: " + getTodosLosPagos().size());
 
@@ -24,7 +32,7 @@ public class GestorPagosEstudiante {
 
     public List<DetallesPago> filtrarPorTipo(String tipo) {
         return listaPagos.stream()
-                .filter(p -> tipo.equalsIgnoreCase(p.getCategoria()))
+                .filter(p -> tipo.equals(p.getCategoria()))
                 .collect(Collectors.toList());
     }
 

@@ -7,6 +7,7 @@ package expoferia.pagos.gestionpagos.gui.modulos;
 import expoferia.pagos.gestionpagos.dao.EstudianteDAO;
 import expoferia.pagos.gestionpagos.dao.PagoReciboDAO;
 import expoferia.pagos.gestionpagos.dao.RepresentanteDAO;
+import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.PagoRecibo;
 import com.toedter.calendar.JDateChooser;
@@ -357,7 +358,8 @@ public class Dashboard extends javax.swing.JPanel {
 
     public void mostrarDetallesPago() {
 
-
+        PagoReciboDAO pagoReciboDAO = new PagoReciboDAO();
+        List<DetallesPago> detallesPagos = pagoReciboDAO.listarDetallesYAbonosPorRecibo(pagoSelect.getIdPagoRecibo());
 
     }
 

@@ -166,4 +166,77 @@ public class PagoReciboDAO {
                 }
         }
 
+        public List<DetallesPago> listarDetallesYAbonosPorRecibo(int idPagoRecibo) {
+                List<DetallesPago> lista = new ArrayList<>();
+
+                String sqlDetalles = """
+        SELECT *
+        FROM detalles_pago
+        WHERE id_pago_recibo = ?
+    """;
+
+                String sqlAbonos = """
+        SELECT *
+        FROM abono
+        WHERE id_detalles_pagos = ?
+    """;
+
+                try (Connection con = getConexion();
+                     PreparedStatement psDetalles = con.prepareStatement(sqlDetalles)) {
+
+                        psDetalles.setInt(1, idPagoRecibo);
+
+                        try (ResultSet rsDetalles = psDetalles.executeQuery()) {
+                                while (rsDetalles.next()) {
+                                        DetallesPago dp = new DetallesPago();
+
+                                        dp.setId(rsDetalles.getInt("id"));
+                                        dp.setIdPagoRecibo(rsDetalles.getInt("id_pago_recibo"));
+                                        dp.setIdTipoPago(rsDetalles.getInt("id_tipo_pago"));
+                                        dp.setMetodoPago(rsDetalles.getString("metodo_pago"));
+                                        dp.setNumTrans(rsDetalles.getString("num_trans"));
+                                        dp.setIdAnoEscolar(rsDetalles.getInt("id_ano_escolar"));
+                                        dp.setDescripcion(rsDetalles.getString("descripcion"));
+                                        dp.setMesCorrespondiente(rsDetalles.getString("mes_correspondiente"));
+                                        dp.setMontoTotal(rsDetalles.getDouble("monto_total"));
+                                        dp.setMontoPagado(rsDetalles.getDouble("monto_pagado"));
+
+                                        // 🧲 Cargar abonos relacionados
+                                        try (PreparedStatement psAbonos = con.prepareStatement(sqlAbonos)) {
+                                                psAbonos.setInt(1, dp.getId());
+
+                                                try (ResultSet rsAbonos = psAbonos.executeQuery()) {
+                                                        List<Abono> abonos = new ArrayList<>();
+
+                                                        while (rsAbonos.next()) {
+                                                                Abono ab = new Abono();
+                                                                ab.setIdAbono(rsAbonos.getInt("id"));
+                                                                ab.setIdDetallesPago(rsAbonos.getInt("id_detalles_pagos"));
+                                                                ab.setFechaAbono(rsAbonos.getDate("fecha_abono").toLocalDate());
+                                                                ab.setMontoAbonado(rsAbonos.getDouble("monto_abonado"));
+                                                                ab.setDescripcion(rsAbonos.getString("descripcion"));
+                                                                ab.setMetodoPago(rsAbonos.getString("metodo_pago"));
+                                                                ab.setNumTrans(rsAbonos.getString("num_trans"));
+
+                                                                abonos.add(ab);
+                                                        }
+
+                                                        dp.setAbonos(abonos); // Método en DetallesPago que recibe List<Abono>
+                                                }
+                                        }
+
+                                        lista.add(dp);
+                                }
+                        }
+
+                } catch (SQLException e) {
+                        System.out.println("Error en listarDetallesYAbonosPorRecibo: " + e.getMessage());
+                } finally {
+                        closeConnection();
+                }
+
+                return lista;
+        }
+
+
 }

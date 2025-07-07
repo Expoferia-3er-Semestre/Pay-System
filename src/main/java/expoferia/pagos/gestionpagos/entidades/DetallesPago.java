@@ -2,6 +2,8 @@ package expoferia.pagos.gestionpagos.entidades;
 
 import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
 
+import java.util.List;
+
 public class DetallesPago {
     private int id;
     private int idPagoRecibo;
@@ -13,6 +15,7 @@ public class DetallesPago {
     private String mesCorrespondiente;
     private double montoTotal;
     private double montoPagado;
+    private List<Abono> abonos;
 
     public DetallesPago() {
     }
@@ -29,6 +32,11 @@ public class DetallesPago {
         this.montoTotal = montoTotal;
         this.montoPagado = montoPagado;
     }
+
+    public void setAbonos(List<Abono> abonos) {
+        this.abonos.addAll(abonos);
+    }
+    public List<Abono> getAbonos() { return abonos; }
 
     // Getters y setters
 

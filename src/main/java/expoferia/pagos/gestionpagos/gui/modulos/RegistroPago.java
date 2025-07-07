@@ -7,6 +7,7 @@ package expoferia.pagos.gestionpagos.gui.modulos;
 import expoferia.pagos.gestionpagos.dao.*;
 import expoferia.pagos.gestionpagos.entidades.*;
 import expoferia.pagos.gestionpagos.gui.FacturaPDFBuilder;
+import expoferia.pagos.gestionpagos.gui.SesionActual;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -701,8 +702,7 @@ public class RegistroPago extends javax.swing.JPanel {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
         if (estudiante != null) {
-            GestorPagosEstudiante gestorPagosEstudiante = new GestorPagosEstudiante(estudiante.getId(), anioEscolar.getIdAnoEscolar());
-            TablaPagosConsultas tablaPagosConsultas = new TablaPagosConsultas(null, true, gestorPagosEstudiante);
+            TablaPagosConsultas tablaPagosConsultas = new TablaPagosConsultas(null, true, estudiante.getId(), anioEscolar.getIdAnoEscolar());
         } else JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante para poder consultar sus pagos.");
 
     }//GEN-LAST:event_btnConsultarActionPerformed

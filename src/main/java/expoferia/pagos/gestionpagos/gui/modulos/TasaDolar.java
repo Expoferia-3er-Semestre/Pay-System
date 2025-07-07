@@ -4,6 +4,11 @@
  */
 package expoferia.pagos.gestionpagos.gui.modulos;
 
+import expoferia.pagos.gestionpagos.gui.SesionActual;
+import expoferia.pagos.gestionpagos.util.ConfigGeneral;
+
+import javax.swing.*;
+
 /**
  *
  * @author PC
@@ -17,8 +22,9 @@ public class TasaDolar extends javax.swing.JDialog {
      */
     public TasaDolar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
+        setUndecorated(true);
         setLocationRelativeTo(null);
+        initComponents();
         setTitle("Modificar Tasa del Dolar");
     }
 
@@ -40,6 +46,7 @@ public class TasaDolar extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(10, 72, 162));
@@ -54,10 +61,20 @@ public class TasaDolar extends javax.swing.JDialog {
         jButton1.setBackground(new java.awt.Color(3, 105, 173));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(204, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,42 +126,46 @@ public class TasaDolar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                TasaDolar dialog = new TasaDolar(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+        actualizarTasaDesdeCampo();
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        dispose();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void actualizarTasaDesdeCampo() {
+
+        String texto = jTextField1.getText().trim();
+
+        try {
+            double nuevaTasa = Double.parseDouble(texto);
+
+            if (nuevaTasa <= 0) {
+                JOptionPane.showMessageDialog(null,
+                        "La tasa debe ser mayor que 0.",
+                        "Valor inválido", JOptionPane.WARNING_MESSAGE);
+                return;
             }
-        });
+
+            ConfigGeneral config = SesionActual.getConfigGeneral();
+            config.set("tasa_dolar", String.valueOf(nuevaTasa));
+
+            JOptionPane.showMessageDialog(null,
+                    "Nueva tasa registrada exitosamente.",
+                    "Actualización completada", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Formato inválido. Introduce un número válido (ej. 38.75).",
+                    "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

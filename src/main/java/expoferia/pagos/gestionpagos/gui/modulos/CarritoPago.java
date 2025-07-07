@@ -3,6 +3,7 @@ package expoferia.pagos.gestionpagos.gui.modulos;
 import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
+import expoferia.pagos.gestionpagos.util.ConfigGeneral;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,8 +14,6 @@ public class CarritoPago {
     private final List<Abono> abonos = new ArrayList<>();
     private final List<DetallesPago> conceptos = new ArrayList<>();
     private int contadorIdTemporal = 1;
-    private double totalBS = 0;
-
     public int generarIdTemporal() {
         return contadorIdTemporal++;
     }
@@ -75,11 +74,18 @@ public class CarritoPago {
     }
 
     public boolean yaExiste(DetallesPago nuevo) {
-        return conceptos.stream().anyMatch(c ->
-                Objects.equals(c.getIdTipoPago(), nuevo.getIdTipoPago()) &&
-                        Objects.equals(c.getMesCorrespondiente(), nuevo.getMesCorrespondiente())
-        );
+        return conceptos.stream().anyMatch(c -> {
+            boolean mismoId = Objects.equals(c.getIdTipoPago(), nuevo.getIdTipoPago());
+
+            boolean ambosConMes = c.getMesCorrespondiente() != null && nuevo.getMesCorrespondiente() != null;
+            boolean mismoMes = ambosConMes && c.getMesCorrespondiente().equalsIgnoreCase(nuevo.getMesCorrespondiente());
+
+            // Solo si ambos tienen mes válido, se compara el mes
+            // Si no tienen mes, no se consideran duplicados por eso
+            return mismoId && (mismoMes || !ambosConMes);
+        });
     }
+
 
     public boolean estaVacioConceptos() {
         return conceptos.isEmpty();

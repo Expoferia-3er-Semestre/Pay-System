@@ -129,10 +129,26 @@ public class DetallePagoTableModel extends DefaultTableModel {
             if (idTemp == idTemporal) {
                 elementosOriginales.remove(fila);
                 removeRow(fila);
+                recalcularMontosTotales(); // ✅ Recalcular al volar
                 return true;
             }
         }
-        return false; // No encontrado
+        return false;
+    }
+
+    public void recalcularMontosTotales() {
+        double acumulado = 0;
+
+        for (int fila = 0; fila < getRowCount(); fila++) {
+            Object valorPrecio = getValueAt(fila, 2); // columna 2: Precio Unidad
+
+            if (valorPrecio instanceof Double precio) {
+                acumulado += precio;
+                setValueAt(acumulado, fila, 3); // columna 3: Total Bs
+            }
+        }
+
+        montoTotal = acumulado;
     }
 
 

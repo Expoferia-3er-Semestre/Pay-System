@@ -31,6 +31,8 @@ public class TablaPagosConsultas extends javax.swing.JDialog {
      */
     public TablaPagosConsultas(java.awt.Frame parent, boolean modal, int idEst, int idAnio) {
         super(parent, modal);
+
+        this.setLocationRelativeTo(null);
         gestorPagosEstudiante = SesionActual.getGestorPagos();
         modelo = SesionActual.getHistorialModelo();
         gestorPagosEstudiante.cargarPagos(idEst, idAnio);
@@ -44,7 +46,6 @@ public class TablaPagosConsultas extends javax.swing.JDialog {
         }
 
         setVisible(true);
-        setLocationRelativeTo(null);
         setTitle("Consultas de Pagos");
 
     }

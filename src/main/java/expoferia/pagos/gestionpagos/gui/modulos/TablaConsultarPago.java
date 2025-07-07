@@ -181,11 +181,10 @@ public class TablaConsultarPago extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
         carritoPago.eliminarPorIdTemporal(Eliminar);
 
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup abonoPago;

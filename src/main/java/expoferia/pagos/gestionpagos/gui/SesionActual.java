@@ -4,6 +4,7 @@ import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
 import expoferia.pagos.gestionpagos.gui.modulos.GestorPagosEstudiante;
 import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
 import expoferia.pagos.gestionpagos.gui.tabla.HistorialPagoTableModel;
+import expoferia.pagos.gestionpagos.util.ConfigGeneral;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -14,6 +15,8 @@ public class SesionActual {
 
     private static GestorPagosEstudiante gpe;
     private static HistorialPagoTableModel hpt;
+
+    private static ConfigGeneral config;
 
     public static CarritoPago getCarritoPago() {
         if (carritoPago == null) carritoPago = new CarritoPago();
@@ -33,6 +36,12 @@ public class SesionActual {
     public static HistorialPagoTableModel getHistorialModelo() {
         if (hpt == null) hpt = new HistorialPagoTableModel();
         return hpt;
+    }
+
+    public static ConfigGeneral getConfigGeneral() {
+        if (config == null) config = new ConfigGeneral();
+        config.cargar();
+        return config;
     }
 
 }

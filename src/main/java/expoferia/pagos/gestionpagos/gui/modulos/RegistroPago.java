@@ -8,9 +8,12 @@ import expoferia.pagos.gestionpagos.dao.*;
 import expoferia.pagos.gestionpagos.entidades.*;
 import expoferia.pagos.gestionpagos.gui.FacturaPDFBuilder;
 import expoferia.pagos.gestionpagos.gui.SesionActual;
+import expoferia.pagos.gestionpagos.util.ConfigGeneral;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -31,6 +34,7 @@ public class RegistroPago extends javax.swing.JPanel {
     String metodoPago;
     boolean aplicaMora=false;
     DetallesPago mesAPagar;
+    ConfigGeneral config = SesionActual.getConfigGeneral();
     private static final List<String> MESES_ESCOLARES = Arrays.asList(
             "Septiembre", "Octubre", "Noviembre", "Diciembre",
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto"
@@ -49,6 +53,7 @@ public class RegistroPago extends javax.swing.JPanel {
         PagoReciboDAO pRDao = new PagoReciboDAO();
         datosNFactura.setText(String.valueOf(pRDao.obtenerProximoIdPagoRecibo()));
         datosFecha.setText(String.valueOf(LocalDate.now()));
+        tasaDolar.setText(String.valueOf(config.getDouble("tasa_dolar")));
 
     }
 
@@ -80,7 +85,7 @@ public class RegistroPago extends javax.swing.JPanel {
         datosFecha = new javax.swing.JLabel();
         datosNFactura = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tasaDolar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
@@ -210,8 +215,14 @@ public class RegistroPago extends javax.swing.JPanel {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Tasa BCV");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(24, 13));
+        tasaDolar.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        tasaDolar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tasaDolar.setText("                ");
+        tasaDolar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tasaDolarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -225,14 +236,15 @@ public class RegistroPago extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(datosFecha))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))))
+                        .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tasaDolar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,12 +258,10 @@ public class RegistroPago extends javax.swing.JPanel {
                     .addComponent(jLabel11)
                     .addComponent(datosNFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(tasaDolar))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
@@ -684,36 +694,38 @@ public class RegistroPago extends javax.swing.JPanel {
 
                 TipoPagoDAO tDao = new TipoPagoDAO();
                 tipoPago = tDao.buscarPorCategoria(comboTPago.getSelectedItem().toString());
-
-                txtMonto.setText(String.valueOf(tipoPago.getCosto()));
+                tipoPago.setCosto(calcularTasa(tipoPago.getCosto()));
 
                 if (estudiante != null) {
                     //aca
-                    if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra") || tipoPago.getCategoria().equals("Inscripción")) {
+                    if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra")) {
                         txtConcepto.setText("Pago "+tipoPago.getCategoria());
                         mesAPagar = new DetallesPago();
 
-                        // Validación individual si es mes para Inscripción
-                        if (tipoPago.getCategoria().equals("Inscripción")) {
-                            Calendar cal = Calendar.getInstance();
-                            int mesActual = cal.get(Calendar.MONTH); // Julio = 7, Septiembre = 9
-
-                            boolean fechaValida = (mesActual == Calendar.JULY || mesActual == Calendar.SEPTEMBER);
-
-                            if (!fechaValida) {
-                                JOptionPane.showMessageDialog(null, "Las inscripciones sólo pueden pagarse en julio o septiembre.");
-                                comboTPago.setSelectedIndex(0);
-                                return;
-                            }
-
-                            // Si está en julio o septiembre, continúa normalmente
-                            txtConcepto.setText("Pago Inscripción");
-                        }
+                        txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
                     } else txtMonto.setEnabled(false);
 
-                    if (tipoPago.getCategoria().equals("Mensualidad")) {
+                    // Validación individual si es mes para Inscripción
+                    if (tipoPago.getCategoria().equals("Inscripción")) {
+                        Calendar cal = Calendar.getInstance();
+                        int mesActual = cal.get(Calendar.MONTH); // Julio = 7, Septiembre = 9
 
+                        boolean fechaValida = (mesActual == Calendar.JULY || mesActual == Calendar.SEPTEMBER);
+                        mesAPagar = new DetallesPago();
+
+                        if (!fechaValida) {
+                            JOptionPane.showMessageDialog(null, "Las inscripciones sólo pueden pagarse en julio o septiembre.");
+                            comboTPago.setSelectedIndex(0);
+                            return;
+                        }
+
+                        // Si está en julio o septiembre, continúa normalmente
+                        txtConcepto.setText("Pago Inscripción");
+                        txtMonto.setText(String.valueOf(tipoPago.getCosto()));
+                    }
+
+                    if (tipoPago.getCategoria().equals("Mensualidad")) {
 
                         mesAPagar = buscarPrimerMesPendiente();
                         // Si el el mes a pagar es null, entonces está solvente
@@ -738,7 +750,7 @@ public class RegistroPago extends javax.swing.JPanel {
 
                             txtConcepto.setText("Mora "+mesPendiente);
 
-                            txtMonto.setText(String.valueOf(tipoPago.getCosto()+5));
+                            txtMonto.setText(String.valueOf(tipoPago.getCosto()+calcularTasa(5)));
                             aplicaMora = true;
                             System.out.println("Tiene mora para el mes de: "+mesPendiente);
                             tipoPago.setCosto(Double.parseDouble(txtMonto.getText()));
@@ -800,6 +812,23 @@ public class RegistroPago extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_checkAbonoMouseClicked
+
+    private void tasaDolarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tasaDolarMouseClicked
+
+        if (evt.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(evt)) {
+            TasaDolar tasaDolarFrame = new TasaDolar(null, true);
+            tasaDolarFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    tasaDolar.setText(String.valueOf(config.getDouble("tasa_dolar")));
+                }
+            });
+            tasaDolarFrame.setVisible(true);
+
+        }
+
+
+    }//GEN-LAST:event_tasaDolarMouseClicked
 
     private boolean validarCampos() {
 
@@ -941,7 +970,8 @@ public class RegistroPago extends javax.swing.JPanel {
 
                 carritoPago.agregarAbonoAConcepto(mesAPagar, abono);
                 resetCamposPago();
-                JOptionPane.showMessageDialog(null, "Abono agregado al pago!");                mesAPagar = null;
+                JOptionPane.showMessageDialog(null, "Abono agregado al pago!");
+                mesAPagar = null;
             }
             else {
 
@@ -1029,6 +1059,10 @@ public class RegistroPago extends javax.swing.JPanel {
         if (exito) {
             JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
             limpiarCampos();
+
+            String index0 = comboEstudiantes.getItemAt(0);
+            comboEstudiantes.removeAllItems();
+            comboEstudiantes.addItem(index0);
 
         }
         else JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el pago.");
@@ -1186,7 +1220,11 @@ public class RegistroPago extends javax.swing.JPanel {
 
         return LocalDate.now().isAfter(fechaLimite);
     }
-    
+
+    public double calcularTasa(double montoDolar) {
+        return montoDolar * config.getDouble("tasa_dolar");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup abonoPago;
     private javax.swing.JLabel btnBuscar;
@@ -1223,11 +1261,11 @@ public class RegistroPago extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.ButtonGroup metodoPagos;
     private javax.swing.JRadioButton radioDebito;
     private javax.swing.JRadioButton radioEfectivo;
     private javax.swing.JRadioButton radioTransferencia;
+    private javax.swing.JLabel tasaDolar;
     private javax.swing.JTextField txtConcepto;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtTReferencia;

@@ -85,7 +85,7 @@ public class RegistroPago extends javax.swing.JPanel {
         btnLimpiar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnImprimir = new javax.swing.JButton();
+        btnRegistrarPagoImprimir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         txtConcepto = new javax.swing.JTextField();
@@ -107,14 +107,12 @@ public class RegistroPago extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        comboEstudiantes.setBackground(new java.awt.Color(255, 255, 255));
         comboEstudiantes.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        comboEstudiantes.setForeground(new java.awt.Color(0, 0, 0));
         comboEstudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Estudiante" }));
         comboEstudiantes.setToolTipText("");
         comboEstudiantes.setAutoscrolls(true);
         comboEstudiantes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
-        comboEstudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboEstudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         comboEstudiantes.setDoubleBuffered(true);
         comboEstudiantes.setPreferredSize(new java.awt.Dimension(195, 18));
         comboEstudiantes.addActionListener(new java.awt.event.ActionListener() {
@@ -140,27 +138,21 @@ public class RegistroPago extends javax.swing.JPanel {
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Datos del Representate:");
 
         datosRepre.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        datosRepre.setForeground(new java.awt.Color(0, 0, 0));
         datosRepre.setText("               ");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Datos del Estudiante:");
 
         datosEstu.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        datosEstu.setForeground(new java.awt.Color(0, 0, 0));
         datosEstu.setText("               ");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Datos Grado/Año:");
 
         gradoEstu.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        gradoEstu.setForeground(new java.awt.Color(0, 0, 0));
         gradoEstu.setText("            ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -200,29 +192,23 @@ public class RegistroPago extends javax.swing.JPanel {
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Fecha:");
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("N# Factura:");
 
         datosFecha.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        datosFecha.setForeground(new java.awt.Color(0, 0, 0));
         datosFecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datosFecha.setText("                       ");
 
         datosNFactura.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        datosNFactura.setForeground(new java.awt.Color(0, 0, 0));
         datosNFactura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datosNFactura.setText("                       ");
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Tasa BCV");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
         jTextField1.setPreferredSize(new java.awt.Dimension(24, 13));
 
@@ -238,13 +224,13 @@ public class RegistroPago extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(datosFecha))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(datosNFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -260,8 +246,10 @@ public class RegistroPago extends javax.swing.JPanel {
                     .addComponent(datosNFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -289,7 +277,7 @@ public class RegistroPago extends javax.swing.JPanel {
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("Limpiar");
-        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -297,23 +285,21 @@ public class RegistroPago extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Cédula de Representante");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Estudiantes del representante");
 
-        btnImprimir.setBackground(new java.awt.Color(3, 105, 173));
-        btnImprimir.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        btnImprimir.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimir.setText("Imprimir");
-        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarPagoImprimir.setBackground(new java.awt.Color(3, 105, 173));
+        btnRegistrarPagoImprimir.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnRegistrarPagoImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarPagoImprimir.setText("Registrar");
+        btnRegistrarPagoImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrarPagoImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
+                btnRegistrarPagoImprimirActionPerformed(evt);
             }
         });
 
@@ -322,14 +308,12 @@ public class RegistroPago extends javax.swing.JPanel {
 
         jLabel16.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         jLabel16.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Concepto de Pago");
         jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtConcepto.setEditable(false);
         txtConcepto.setBackground(new java.awt.Color(255, 255, 255));
         txtConcepto.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        txtConcepto.setForeground(new java.awt.Color(0, 0, 0));
         txtConcepto.setToolTipText("");
         txtConcepto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         txtConcepto.addActionListener(new java.awt.event.ActionListener() {
@@ -339,13 +323,10 @@ public class RegistroPago extends javax.swing.JPanel {
         });
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Monto");
 
-        txtMonto.setBackground(new java.awt.Color(255, 255, 255));
         txtMonto.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        txtMonto.setForeground(new java.awt.Color(0, 0, 0));
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMonto.setActionCommand("<Not Set>");
         txtMonto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
@@ -358,23 +339,20 @@ public class RegistroPago extends javax.swing.JPanel {
         });
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("Tipo de Pago");
 
-        comboTPago.setBackground(new java.awt.Color(255, 255, 255));
         comboTPago.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        comboTPago.setForeground(new java.awt.Color(0, 0, 0));
         comboTPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo", "Mensualidad", "Inscripción", "Curso", "Cuota Extra" }));
         comboTPago.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
-        comboTPago.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboTPago.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         comboTPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTPagoActionPerformed(evt);
             }
         });
 
-        checkAbono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        checkAbono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         checkAbono.setEnabled(false);
         checkAbono.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
         checkAbono.setLabel("Abono");
@@ -385,14 +363,13 @@ public class RegistroPago extends javax.swing.JPanel {
         });
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Metodo de Pago");
 
         btnGuardar.setBackground(new java.awt.Color(3, 105, 173));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Agregar");
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -401,9 +378,8 @@ public class RegistroPago extends javax.swing.JPanel {
 
         metodoPagos.add(radioTransferencia);
         radioTransferencia.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        radioTransferencia.setForeground(new java.awt.Color(0, 0, 0));
         radioTransferencia.setText("Transferencia");
-        radioTransferencia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        radioTransferencia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         radioTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioTransferenciaActionPerformed(evt);
@@ -412,9 +388,8 @@ public class RegistroPago extends javax.swing.JPanel {
 
         metodoPagos.add(radioDebito);
         radioDebito.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        radioDebito.setForeground(new java.awt.Color(0, 0, 0));
         radioDebito.setText("Debito");
-        radioDebito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        radioDebito.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         radioDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioDebitoActionPerformed(evt);
@@ -423,9 +398,8 @@ public class RegistroPago extends javax.swing.JPanel {
 
         metodoPagos.add(radioEfectivo);
         radioEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        radioEfectivo.setForeground(new java.awt.Color(0, 0, 0));
         radioEfectivo.setText("Efectivo");
-        radioEfectivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        radioEfectivo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         radioEfectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioEfectivoActionPerformed(evt);
@@ -433,12 +407,9 @@ public class RegistroPago extends javax.swing.JPanel {
         });
 
         jLabel20.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("N# Referencia");
 
-        txtTReferencia.setBackground(new java.awt.Color(255, 255, 255));
         txtTReferencia.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        txtTReferencia.setForeground(new java.awt.Color(0, 0, 0));
         txtTReferencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTReferencia.setActionCommand("<Not Set>");
         txtTReferencia.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
@@ -539,13 +510,11 @@ public class RegistroPago extends javax.swing.JPanel {
                 .addGap(50, 50, 50))
         );
 
-        txtcedula.setBackground(new java.awt.Color(255, 255, 255));
         txtcedula.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        txtcedula.setForeground(new java.awt.Color(0, 0, 0));
         txtcedula.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBuscarMouseClicked(evt);
@@ -556,7 +525,7 @@ public class RegistroPago extends javax.swing.JPanel {
         btnConsultar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultar.setText("Consultar");
-        btnConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
@@ -571,7 +540,7 @@ public class RegistroPago extends javax.swing.JPanel {
                 .addGap(78, 78, 78)
                 .addComponent(btnLimpiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnImprimir)
+                .addComponent(btnRegistrarPagoImprimir)
                 .addGap(100, 100, 100))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -611,7 +580,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(20, 20, 20)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -648,7 +617,7 @@ public class RegistroPago extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar)
-                    .addComponent(btnImprimir))
+                    .addComponent(btnRegistrarPagoImprimir))
                 .addGap(18, 18, 18))
         );
 
@@ -672,9 +641,9 @@ public class RegistroPago extends javax.swing.JPanel {
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+    private void btnRegistrarPagoImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPagoImprimirActionPerformed
         registrarPagoDesdeCarrito();
-    }//GEN-LAST:event_btnImprimirActionPerformed
+    }//GEN-LAST:event_btnRegistrarPagoImprimirActionPerformed
 
     private void txtConceptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConceptoActionPerformed
         // TODO add your handling code here:
@@ -706,7 +675,7 @@ public class RegistroPago extends javax.swing.JPanel {
         } else JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante para poder consultar sus pagos.");
 
     }//GEN-LAST:event_btnConsultarActionPerformed
-
+    //aca
     private void comboTPagoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_comboTPagoActionPerformed
 
             checkAbono.setState(false);
@@ -719,10 +688,28 @@ public class RegistroPago extends javax.swing.JPanel {
                 txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
                 if (estudiante != null) {
-
+                    //aca
                     if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra") || tipoPago.getCategoria().equals("Inscripción")) {
                         txtConcepto.setText("Pago "+tipoPago.getCategoria());
                         mesAPagar = new DetallesPago();
+
+                        // Validación individual si es mes para Inscripción
+                        if (tipoPago.getCategoria().equals("Inscripción")) {
+                            Calendar cal = Calendar.getInstance();
+                            int mesActual = cal.get(Calendar.MONTH); // Julio = 7, Septiembre = 9
+
+                            boolean fechaValida = (mesActual == Calendar.JULY || mesActual == Calendar.SEPTEMBER);
+
+                            if (!fechaValida) {
+                                JOptionPane.showMessageDialog(null, "Las inscripciones sólo pueden pagarse en julio o septiembre.");
+                                comboTPago.setSelectedIndex(0);
+                                return;
+                            }
+
+                            // Si está en julio o septiembre, continúa normalmente
+                            txtConcepto.setText("Pago Inscripción");
+                        }
+
                     } else txtMonto.setEnabled(false);
 
                     if (tipoPago.getCategoria().equals("Mensualidad")) {
@@ -867,12 +854,12 @@ public class RegistroPago extends javax.swing.JPanel {
 
         return true;
     }
-
+    //aca
     private void buscarR() {
 
         if (!txtcedula.getText().isBlank()) {
-
-            if (txtcedula.getText().matches("V"+"\\d+")) {
+            //aca
+            if (txtcedula.getText().matches("[Vv]\\d+")) {
 
                 RepresentanteDAO rDao = new RepresentanteDAO();
                 representante = rDao.buscarPorCedula(txtcedula.getText());
@@ -1205,8 +1192,8 @@ public class RegistroPago extends javax.swing.JPanel {
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnRegistrarPagoImprimir;
     private java.awt.Checkbox checkAbono;
     private javax.swing.JComboBox<String> comboEstudiantes;
     private javax.swing.JComboBox<String> comboTPago;

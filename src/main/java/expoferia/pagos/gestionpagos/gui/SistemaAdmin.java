@@ -71,13 +71,11 @@ public class SistemaAdmin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         botonToggleSalir = new javax.swing.JToggleButton();
         panelLateral = new expoferia.pagos.gestionpagos.gui.PanelRound();
-        pagoButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         tipoPagoButton = new javax.swing.JButton();
         estudianteButton = new javax.swing.JButton();
         represanteButton = new javax.swing.JButton();
         empleadoButton = new javax.swing.JButton();
-        administradorButton = new javax.swing.JButton();
+        consultarPagosButton = new javax.swing.JButton();
         panelCambiante = new expoferia.pagos.gestionpagos.gui.PanelRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,20 +129,6 @@ public class SistemaAdmin extends javax.swing.JFrame {
         panelLateral.setRoundBottomRight(30);
         panelLateral.setRoundTopRight(30);
 
-        pagoButton.setBackground(new java.awt.Color(107, 219, 141));
-        pagoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/dollar-symbol (1).png"))); // NOI18N
-        pagoButton.setText("Registrar Pagos");
-        pagoButton.setBorderPainted(false);
-        pagoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagoButtonActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(231, 231, 231));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/searchLupa.png"))); // NOI18N
-        jButton2.setText("Consultar Pagos");
-
         tipoPagoButton.setBackground(new java.awt.Color(231, 231, 231));
         tipoPagoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tag.png"))); // NOI18N
         tipoPagoButton.setText("Tipos de Pagos");
@@ -181,12 +165,12 @@ public class SistemaAdmin extends javax.swing.JFrame {
             }
         });
 
-        administradorButton.setBackground(new java.awt.Color(231, 231, 231));
-        administradorButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/admin.png"))); // NOI18N
-        administradorButton.setText("Administrador");
-        administradorButton.addActionListener(new java.awt.event.ActionListener() {
+        consultarPagosButton.setBackground(new java.awt.Color(231, 231, 231));
+        consultarPagosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/recibo.png"))); // NOI18N
+        consultarPagosButton.setText("Consultar Pagos");
+        consultarPagosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                administradorButtonActionPerformed(evt);
+                consultarPagosButtonActionPerformed(evt);
             }
         });
 
@@ -195,36 +179,31 @@ public class SistemaAdmin extends javax.swing.JFrame {
         panelLateralLayout.setHorizontalGroup(
             panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLateralLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(estudianteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(empleadoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tipoPagoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(consultarPagosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(estudianteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(empleadoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tipoPagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         panelLateralLayout.setVerticalGroup(
             panelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLateralLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(pagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tipoPagoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(34, 34, 34)
                 .addComponent(empleadoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(represanteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addComponent(estudianteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(administradorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(consultarPagosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         panelCambiante.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,24 +248,6 @@ public class SistemaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoButtonActionPerformed
-//        CardLayout card = (CardLayout) panelCambiante.getLayout();
-//
-//        // Verificar si el panel ya existe antes de crearlo
-//        if (panelCambiante.getComponentCount() > 0) {
-//            panelCambiante.remove(0); // Elimina solo el primer panel en lugar de todos
-//            System.gc();
-//        }
-//
-//        RegistroPago registroPago=new RegistroPago(); // Crear el panel solo cuando sea necesario
-//        panelCambiante.add(registroPago, "RegistroPago"); // Agregar con nombre único
-//        card.show(panelCambiante, "RegistroPago");
-//
-//        // Refrescar la interfaz para evitar glitches
-//        panelCambiante.revalidate();
-//        panelCambiante.repaint();
-    }//GEN-LAST:event_pagoButtonActionPerformed
 
     private void tipoPagoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoButtonActionPerformed
         CardLayout card = (CardLayout) panelCambiante.getLayout();
@@ -363,7 +324,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
         panelCambiante.repaint();
     }//GEN-LAST:event_empleadoButtonActionPerformed
 
-    private void administradorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administradorButtonActionPerformed
+    private void consultarPagosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPagosButtonActionPerformed
         CardLayout card = (CardLayout) panelCambiante.getLayout();
 
         // Verificar si el panel ya existe antes de crearlo
@@ -379,7 +340,7 @@ public class SistemaAdmin extends javax.swing.JFrame {
         // Refrescar la interfaz para evitar glitches
         panelCambiante.revalidate();
         panelCambiante.repaint();
-    }//GEN-LAST:event_administradorButtonActionPerformed
+    }//GEN-LAST:event_consultarPagosButtonActionPerformed
 
     private void botonToggleSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonToggleSalirActionPerformed
         // TODO add your handling code here:
@@ -441,14 +402,12 @@ public class SistemaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton administradorButton;
     private javax.swing.JToggleButton botonToggleSalir;
+    private javax.swing.JButton consultarPagosButton;
     private javax.swing.JButton empleadoButton;
     private javax.swing.JButton estudianteButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JButton pagoButton;
     public static expoferia.pagos.gestionpagos.gui.PanelRound panelCambiante;
     private expoferia.pagos.gestionpagos.gui.PanelRound panelLateral;
     private javax.swing.JPanel panelPrincipal;

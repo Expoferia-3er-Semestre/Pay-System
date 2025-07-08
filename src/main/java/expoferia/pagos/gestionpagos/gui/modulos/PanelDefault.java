@@ -19,20 +19,14 @@ import expoferia.pagos.gestionpagos.entidades.Representante;
 import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import expoferia.pagos.gestionpagos.gui.SistemaAdmin;
 import expoferia.pagos.gestionpagos.gui.PanelRound;
-import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEmpleados;
-import expoferia.pagos.gestionpagos.gui.formularios.ActualizarEstudianteRepresentante;
+import expoferia.pagos.gestionpagos.gui.formularios.*;
 //import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
-import expoferia.pagos.gestionpagos.gui.formularios.RegistroEmpleados;
-import expoferia.pagos.gestionpagos.gui.formularios.RegistroEstudianteRepresentante;
 import expoferia.pagos.gestionpagos.gui.tabla.Tabla;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
@@ -287,6 +281,16 @@ public class PanelDefault extends JPanel {
             SistemaAdmin.panelCambiante.add(registroEstudianteRepresentante, "regEstRep");
             SistemaAdmin.card.show(SistemaAdmin.panelCambiante, "regEstRep");
 
+        } else if (Titulo.equals("Tipos de Pagos")) {
+
+            RegistrarTipoPago registrarTipoPago = new RegistrarTipoPago(null, true);
+            registrarTipoPago.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    listarTipoPago();
+                }
+            });
+            registrarTipoPago.setVisible(true);
         }
         SistemaAdmin.panelCambiante.revalidate();
         SistemaAdmin.panelCambiante.repaint();

@@ -82,7 +82,6 @@ public class HistorialPagoTableModel extends DefaultTableModel {
         setRowCount(0);
         filtrados = gestor.filtrarPorTipo(tipoFiltro);
 
-
         if (tipoFiltro.equals("Mensualidad")) {
 
             final List<String> MESES_ESCOLARES = Arrays.asList(
@@ -96,6 +95,7 @@ public class HistorialPagoTableModel extends DefaultTableModel {
                 DetallesPago pago;
                 if (i < filtrados.size()) {
                     pago = filtrados.get(i);
+                    System.out.println(pago.getDescripcion());
                 } else pago = null;
 
                 agregarMensualidadRow(pago, mes);

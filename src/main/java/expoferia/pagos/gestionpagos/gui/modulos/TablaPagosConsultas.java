@@ -5,9 +5,11 @@
 package expoferia.pagos.gestionpagos.gui.modulos;
 
 import expoferia.pagos.gestionpagos.dao.DetallesPagoDAO;
+import expoferia.pagos.gestionpagos.dao.TipoPagoDAO;
 import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.entidades.Estudiante;
+import expoferia.pagos.gestionpagos.entidades.TipoPago;
 import expoferia.pagos.gestionpagos.gui.SesionActual;
 import expoferia.pagos.gestionpagos.gui.tabla.HistorialPagoCellRenderer;
 import expoferia.pagos.gestionpagos.gui.tabla.HistorialPagoTableModel;
@@ -38,6 +40,7 @@ public class TablaPagosConsultas extends javax.swing.JDialog {
         gestorPagosEstudiante.cargarPagos(idEst, idAnio);
         modelo.cargarDesdeGestor(gestorPagosEstudiante);
         initComponents();
+
         TableCellRenderer renderer = new HistorialPagoCellRenderer();
         String categoria = jComboBox1.getSelectedItem().toString();
         modelo.cargarFiltrados(gestorPagosEstudiante, categoria);
@@ -94,7 +97,7 @@ public class TablaPagosConsultas extends javax.swing.JDialog {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mensualidad", "Curso", "Inscripción", "Cuota Extra" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mensualidad", "Inscripción", "General" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

@@ -57,7 +57,16 @@ public class RegistroPago extends javax.swing.JPanel {
         datosFecha.setText(String.valueOf(LocalDate.now()));
         tasaDolar.setText(String.valueOf(config.getDouble("tasa_dolar")));
 
-        //el cursor cambia a una mano cuando el usuario pase el mouse sobre el
+        TipoPagoDAO tpDao=new TipoPagoDAO();
+        List<TipoPago> listaTiposPagos=tpDao.listar(null, null);
+
+        for (TipoPago tp : listaTiposPagos) {
+
+            comboTPago.addItem(tp.getCategoria());
+
+        }
+
+        //el cursor cambia a una mano cuando el usuario pase el mouse sobre todos estos
         radioTransferencia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         radioEfectivo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         radioDebito.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -370,7 +379,7 @@ public class RegistroPago extends javax.swing.JPanel {
         jLabel19.setText("Tipo de Pago");
 
         comboTPago.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        comboTPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo", "Mensualidad", "Inscripción", "Curso", "Cuota Extra" }));
+        comboTPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo" }));
         comboTPago.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         comboTPago.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         comboTPago.addActionListener(new java.awt.event.ActionListener() {
@@ -714,15 +723,8 @@ public class RegistroPago extends javax.swing.JPanel {
 
                 if (estudiante != null) {
                     //aca
-                    if (tipoPago.getCategoria().equals("Curso") || tipoPago.getCategoria().equals("Cuota Extra")) {
-                        txtConcepto.setText("Pago "+tipoPago.getCategoria());
-                        mesAPagar = new DetallesPago();
 
-                        txtMonto.setText(String.valueOf(tipoPago.getCosto()));
-
-                    } else txtMonto.setEnabled(false);
-
-                    // Validación individual si es mes para Inscripción
+                    // Validación individual si es para Inscripción
                     if (tipoPago.getCategoria().equals("Inscripción")) {
                         Calendar cal = Calendar.getInstance();
                         int mesActual = cal.get(Calendar.MONTH); // Julio = 7, Septiembre = 9
@@ -741,6 +743,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         txtMonto.setText(String.valueOf(tipoPago.getCosto()));
                     }
 
+                    // Validaciones para la mensualidad
                     if (tipoPago.getCategoria().equals("Mensualidad")) {
 
                         mesAPagar = buscarPrimerMesPendiente();
@@ -778,6 +781,16 @@ public class RegistroPago extends javax.swing.JPanel {
                         }
 
                     } else checkAbono.setEnabled(false);
+
+                    if (tipoPago.getCategoria() != null) {
+
+                            txtConcepto.setText("Pago "+tipoPago.getCategoria());
+                            mesAPagar = new DetallesPago();
+
+                            txtMonto.setText(String.valueOf(tipoPago.getCosto()));
+
+
+                    } else txtMonto.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar los tipos de pago.");
                     comboTPago.setSelectedIndex(0);

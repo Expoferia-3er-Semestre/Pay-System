@@ -31,9 +31,24 @@ public class GestorPagosEstudiante {
     }
 
     public List<DetallesPago> filtrarPorTipo(String tipo) {
-        return listaPagos.stream()
-                .filter(p -> tipo.equals(p.getCategoria()))
-                .collect(Collectors.toList());
+        if ("Mensualidad".equalsIgnoreCase(tipo) || "Inscripción".equalsIgnoreCase(tipo)) {
+            return listaPagos.stream()
+                    .filter(p -> {
+                        String categoria = p.getCategoria();
+                        return categoria != null && tipo.equalsIgnoreCase(categoria.trim());
+                    })
+                    .collect(Collectors.toList());
+        } else {
+            return listaPagos.stream()
+                    .filter(p -> {
+                        String categoria = p.getCategoria();
+                        if (categoria == null) return true;
+                        categoria = categoria.trim();
+                        return !("Mensualidad".equalsIgnoreCase(categoria) ||
+                                "Inscripción".equalsIgnoreCase(categoria));
+                    })
+                    .collect(Collectors.toList());
+        }
     }
 
     public List<DetallesPago> ordenarMensualidades() {

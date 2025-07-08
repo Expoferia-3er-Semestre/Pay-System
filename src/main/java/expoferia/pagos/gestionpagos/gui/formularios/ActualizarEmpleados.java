@@ -544,8 +544,9 @@ public class ActualizarEmpleados extends javax.swing.JPanel {
         if (comboBoxCargoaCumplirRE.getSelectedItem().equals("Administrador")) empleado.setRol(true);
         else empleado.setRol(false);
 
-        String contra=Arrays.toString(password.getPassword());
-        empleado.setContrasena(Password.hashContrasena(contra));
+        String contrasenaP = new String(password.getPassword());
+        System.out.println(contrasenaP);
+        empleado.setContrasena(Password.hashContrasena(contrasenaP));
 
     }
 

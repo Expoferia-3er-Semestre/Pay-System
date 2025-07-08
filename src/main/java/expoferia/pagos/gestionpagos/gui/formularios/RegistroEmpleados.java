@@ -537,7 +537,10 @@ public class RegistroEmpleados extends javax.swing.JPanel {
         empleado.setEstado(true);
         if (comboBoxCargoaCumplirRE.getSelectedItem().equals("Administrador")) empleado.setRol(true);
         else empleado.setRol(false);
-        empleado.setContrasena(Password.hashContrasena(new String(password.getPassword())));
+
+        String contrasenaP = new String(password.getPassword());
+        System.out.println(contrasenaP);
+        empleado.setContrasena(Password.hashContrasena(contrasenaP));
 
     }
 

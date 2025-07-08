@@ -726,6 +726,10 @@ public class RegistroPago extends javax.swing.JPanel {
 
                     // Validación individual si es para Inscripción
                     if (tipoPago.getCategoria().equals("Inscripción")) {
+
+                        txtMonto.setEnabled(false);
+                        checkAbono.setEnabled(false);
+
                         Calendar cal = Calendar.getInstance();
                         int mesActual = cal.get(Calendar.MONTH); // Julio = 7, Septiembre = 9
 
@@ -741,10 +745,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         // Si está en julio o septiembre, continúa normalmente
                         txtConcepto.setText("Pago Inscripción");
                         txtMonto.setText(String.valueOf(tipoPago.getCosto()));
-                    }
-
-                    // Validaciones para la mensualidad
-                    if (tipoPago.getCategoria().equals("Mensualidad")) {
+                    } else if (tipoPago.getCategoria().equals("Mensualidad")) {
 
                         mesAPagar = buscarPrimerMesPendiente();
                         // Si el el mes a pagar es null, entonces está solvente
@@ -762,10 +763,10 @@ public class RegistroPago extends javax.swing.JPanel {
                         if (mesAPagar.tieneSaldoPendiente()) {
 
                             txtConcepto.setText("Abono " + mesPendiente);
-                            txtMonto.setText(String.valueOf(mesAPagar.getDiferencia()));
-                            System.out.println("Tiene un abono pendiente del mes "+mesPendiente+" de: "+mesAPagar.getDiferencia());
-                        }
-                        else if (tieneMoraParaMes(mesPendiente)) {
+                            String monto = String.valueOf(mesAPagar.getDiferencia());
+                            txtMonto.setText(monto);
+                            System.out.println("Tiene un abono pendiente del mes "+mesPendiente+" de: "+monto);
+                        } else if (tieneMoraParaMes(mesPendiente)) {
 
                             txtConcepto.setText("Mora "+mesPendiente);
 
@@ -780,17 +781,20 @@ public class RegistroPago extends javax.swing.JPanel {
 
                         }
 
-                    } else checkAbono.setEnabled(false);
+                    } else if (tipoPago.getCategoria() != null) {
 
-                    if (tipoPago.getCategoria() != null) {
+                        txtMonto.setEnabled(false);
+                        checkAbono.setEnabled(false);
 
-                            txtConcepto.setText("Pago "+tipoPago.getCategoria());
-                            mesAPagar = new DetallesPago();
+                        txtConcepto.setText("Pago "+tipoPago.getCategoria());
+                        mesAPagar = new DetallesPago();
 
-                            txtMonto.setText(String.valueOf(tipoPago.getCosto()));
+                        txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
-
-                    } else txtMonto.setEnabled(false);
+                    } else {
+                        checkAbono.setEnabled(false);
+                        txtMonto.setEnabled(false);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe de seleccionar un estudiante antes de manejar los tipos de pago.");
                     comboTPago.setSelectedIndex(0);

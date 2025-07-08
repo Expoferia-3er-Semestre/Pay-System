@@ -11,6 +11,7 @@ import expoferia.pagos.gestionpagos.gui.SesionActual;
 import expoferia.pagos.gestionpagos.util.ConfigGeneral;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -54,6 +56,20 @@ public class RegistroPago extends javax.swing.JPanel {
         datosNFactura.setText(String.valueOf(pRDao.obtenerProximoIdPagoRecibo()));
         datosFecha.setText(String.valueOf(LocalDate.now()));
         tasaDolar.setText(String.valueOf(config.getDouble("tasa_dolar")));
+
+        //el cursor cambia a una mano cuando el usuario pase el mouse sobre el
+        radioTransferencia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        radioEfectivo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        radioDebito.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        comboEstudiantes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        checkAbono.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRegistrarPagoImprimir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        comboTPago.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        tasaDolar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
     }
 

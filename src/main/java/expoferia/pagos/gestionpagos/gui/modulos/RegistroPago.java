@@ -778,6 +778,7 @@ public class RegistroPago extends javax.swing.JPanel {
                         } else {
                             System.out.println("No tiene mora para el mes de: "+mesPendiente);
                             txtConcepto.setText("Pago "+mesPendiente);
+                            txtMonto.setText(String.valueOf(tipoPago.getCosto()));
 
                         }
 
@@ -924,7 +925,8 @@ public class RegistroPago extends javax.swing.JPanel {
             if (txtcedula.getText().matches("[Vv]\\d+")) {
 
                 RepresentanteDAO rDao = new RepresentanteDAO();
-                representante = rDao.buscarPorCedula(txtcedula.getText());
+                String cedula = txtcedula.getText().trim();
+                representante = rDao.buscarPorCedula(cedula);
                 if (representante != null) {
 
                     System.out.println("Representante encontrado: "+representante.getNombre1());
@@ -977,6 +979,7 @@ public class RegistroPago extends javax.swing.JPanel {
     private void resetCamposPago() {
 
         txtMonto.setText("");
+        txtMonto.setEnabled(false);
         comboTPago.setSelectedIndex(0);
         txtConcepto.setText("");
         txtTReferencia.setText("");
@@ -1087,11 +1090,13 @@ public class RegistroPago extends javax.swing.JPanel {
 
         // 💾 Registrar todo
         PagoReciboDAO dao = new PagoReciboDAO();
-        boolean exito = dao.registrarPago(recibo, detallesNuevos, todosLosAbonos);
+        int exito = dao.registrarPago(recibo, detallesNuevos, todosLosAbonos);
 
-        if (exito) {
+        if (exito != -1) {
             JOptionPane.showMessageDialog(null, "Pago registrado con éxito.");
+            FacturaPDFBuilder.generarFactura(SesionActual.getTableModel(), estudiante , carritoPago, exito);
             limpiarCampos();
+
 
             String index0 = comboEstudiantes.getItemAt(0);
             comboEstudiantes.removeAllItems();
@@ -1161,58 +1166,68 @@ public class RegistroPago extends javax.swing.JPanel {
         DetallesPagoDAO dPDao = new DetallesPagoDAO();
         List<DetallesPago> pagadosBD = dPDao.listarPorEstudianteMensualidades(estudiante.getId(), anioEscolar.getIdAnoEscolar());
 
-        // 🔍 Detectar si en el carrito hay conceptos con saldo pendiente
-        DetallesPago pendienteCarrito = carritoPago.buscarMensualidadPendiente(pagadosBD);
-        if (pendienteCarrito != null) return pendienteCarrito;
 
-        // 📦 Extraer los meses cubiertos completamente en el carrito
-        Set<String> mesesPagadosEnCarrito = carritoPago.getConceptos().stream()
-                .filter(dp -> dp.esMensualidad() && dp.getMontoPagado() >= dp.getMontoTotal())
-                .map(DetallesPago::getMesCorrespondiente)
-                .collect(Collectors.toSet());
+        Set<String> mesesPagadosEnCarrito = new HashSet<>();
+        Map<Integer, Double> abonosAgrupados = new LinkedHashMap<>();
 
-        // 💰 Sumar abonos en el carrito que aplican a mensualidades existentes
-        Map<Integer, Double> abonosAgrupados = carritoPago.getAbonos().stream()
-                .collect(Collectors.groupingBy(
-                        Abono::getIdDetallesPago,
-                        Collectors.summingDouble(Abono::getMontoAbonado)
-                ));
+        if (!carritoPago.estaVacioConceptos()) {
 
-        // 🔄 Revisar mensualidades de BD con posibles abonos en el recibo actual
-        for (DetallesPago dp : pagadosBD) {
-            if (!dp.esMensualidad()) continue;
+            // 🔍 Detectar si en el carrito hay conceptos con saldo pendiente
+            DetallesPago pendienteCarrito = carritoPago.buscarMensualidadPendiente(pagadosBD);
+            if (pendienteCarrito != null) return pendienteCarrito;
 
-            // 📌 Si ya está pagado completamente en el carrito, lo ignoramos
-            if (mesesPagadosEnCarrito.contains(dp.getMesCorrespondiente())) continue;
+            // 📦 Extraer los meses cubiertos completamente en el carrito
+            mesesPagadosEnCarrito = carritoPago.getConceptos().stream()
+                    .filter(dp -> dp.esMensualidad() && dp.getMontoPagado() >= dp.getMontoTotal())
+                    .map(DetallesPago::getMesCorrespondiente)
+                    .collect(Collectors.toSet());
 
-            double abonoExtra = abonosAgrupados.getOrDefault(dp.getId(), 0.0);
-            double totalPagado = dp.getMontoPagado() + abonoExtra;
+            // 💰 Sumar abonos en el carrito que aplican a mensualidades existentes
+            abonosAgrupados = carritoPago.getAbonos().stream()
+                    .collect(Collectors.groupingBy(
+                            Abono::getIdDetallesPago,
+                            Collectors.summingDouble(Abono::getMontoAbonado)
+                    ));
 
-            if (totalPagado < dp.getMontoTotal()) {
-                return dp; // ⏳ Este mes sigue teniendo saldo pendiente
+            // 🔄 Revisar mensualidades de BD con posibles abonos en el recibo actual
+            for (DetallesPago dp : pagadosBD) {
+                if (!dp.esMensualidad()) continue;
+
+                // 📌 Si ya está pagado completamente en el carrito, lo ignoramos
+                if (mesesPagadosEnCarrito.contains(dp.getMesCorrespondiente())) continue;
+
+                double abonoExtra = abonosAgrupados.getOrDefault(dp.getId(), 0.0);
+                double totalPagado = dp.getMontoPagado() + abonoExtra;
+
+                if (totalPagado < dp.getMontoTotal()) {
+                    return dp; // ⏳ Este mes sigue teniendo saldo pendiente
+                }
+
             }
+
+            // ➕ Incluir conceptos activos del carrito que no estén en BD
+            for (DetallesPago dp : carritoPago.getConceptos()) {
+                if (dp.esMensualidad()) {
+                    pagadosBD.add(dp);
+                }
+            }
+
         }
 
         // 🧾 Verificar conceptos en BD que aún tengan deuda (sin abono adicional)
         for (DetallesPago deuda : pagadosBD) {
             if (deuda.esMensualidad()
-                    && deuda.getMontoPagado() < deuda.getMontoTotal()
+                    && deuda.tieneSaldoPendiente()
                     && !mesesPagadosEnCarrito.contains(deuda.getMesCorrespondiente())) {
                 return deuda;
             }
         }
 
-        // ➕ Incluir conceptos activos del carrito que no estén en BD
-        for (DetallesPago dp : carritoPago.getConceptos()) {
-            if (dp.esMensualidad()) {
-                pagadosBD.add(dp);
-            }
-        }
 
         // 🧮 Calcular los meses totalmente cubiertos
         List<String> mesesCubiertos = pagadosBD.stream()
                 .filter(DetallesPago::esMensualidad)
-                .filter(dp -> dp.getMontoPagado() >= dp.getMontoTotal())
+                .filter(dp -> !dp.tieneSaldoPendiente())
                 .map(DetallesPago::getMesCorrespondiente)
                 .toList();
 

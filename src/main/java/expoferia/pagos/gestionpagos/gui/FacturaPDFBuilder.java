@@ -1,6 +1,11 @@
 package expoferia.pagos.gestionpagos.gui;
+import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
+import expoferia.pagos.gestionpagos.entidades.Estudiante;
 import expoferia.pagos.gestionpagos.entidades.PagoRecibo;
+import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
+import expoferia.pagos.gestionpagos.gui.tabla.DetallePagoTableModel;
+import expoferia.pagos.gestionpagos.util.ConfigGeneral;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -10,112 +15,147 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FacturaPDFBuilder {
 
-    public static void generarFactura(PagoRecibo recibo, List<DetallesPago> detalles, String rutaArchivoPDF, String rutaLogo) throws IOException {
-        PDDocument documento = new PDDocument();
-        PDPage pagina = new PDPage(PDRectangle.LETTER);
-        documento.addPage(pagina);
+    public static void generarFactura(DetallePagoTableModel modelo, Estudiante estudiante, CarritoPago carrito, int idFactura) {
+        try (PDDocument documento = new PDDocument()) {
+            PDPage pagina = new PDPage(PDRectangle.LETTER);
+            documento.addPage(pagina);
 
-        PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
+            PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
 
-        // 🖼️ Logo institucional
-        if (rutaLogo != null && !rutaLogo.isBlank()) {
-            try {
-                PDImageXObject logo = PDImageXObject.createFromFile(rutaLogo, documento);
-                contenido.drawImage(logo, 50, 700, 100, 100); // posición y tamaño
-            } catch (IOException e) {
-                System.out.println("No se pudo insertar el logo: " + e.getMessage());
-            }
-        }
-
-        // 🏫 Encabezado del recibo
-        contenido.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        contenido.beginText();
-        contenido.newLineAtOffset(200, 740);
-        contenido.showText("Colegio Gonzaga");
-        contenido.newLineAtOffset(0, -20);
-        contenido.setFont(PDType1Font.HELVETICA, 12);
-        contenido.showText("Recibo de Pago");
-        contenido.newLineAtOffset(0, -20);
-        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(recibo.getFechaPago());
-        contenido.showText("Fecha: " + fecha);
-        contenido.endText();
-
-        // 👨‍👧 Datos del estudiante
-        contenido.setFont(PDType1Font.HELVETICA, 11);
-        contenido.beginText();
-        contenido.newLineAtOffset(50, 660);
-        contenido.showText("Estudiante ID: " + recibo.getIdEstudiante());
-        contenido.newLineAtOffset(0, -15);
-        contenido.showText("Monto Total: " + recibo.getMontoTotal() + " Bs");
-        contenido.newLineAtOffset(0, -15);
-        contenido.showText("Monto Pagado: " + recibo.getMontoPagado() + " Bs");
-        contenido.endText();
-
-        // 📋 Tabla de conceptos
-        float yInicio = 600;
-        float margenIzq = 50;
-        float anchoCelda = 100;
-        float altoFila = 20;
-
-        contenido.setLineWidth(0.5f);
-        contenido.setFont(PDType1Font.HELVETICA_BOLD, 10);
-
-        // Encabezado
-        String[] columnas = { "Mes", "Descripción", "Método", "Transacción", "Total", "Abonado" };
-        for (int i = 0; i < columnas.length; i++) {
-            float x = margenIzq + i * anchoCelda;
+            // Encabezado
             contenido.beginText();
-            contenido.newLineAtOffset(x + 2, yInicio);
-            contenido.showText(columnas[i]);
+            contenido.setFont(PDType1Font.HELVETICA_BOLD, 14);
+            contenido.newLineAtOffset(50, 720);
+            contenido.showText("Instituto " + new ConfigGeneral().get("nombre_colegio"));
             contenido.endText();
-            contenido.addRect(x, yInicio - altoFila, anchoCelda, altoFila);
-        }
-        contenido.stroke();
 
-        // Filas de detalles
-        contenido.setFont(PDType1Font.HELVETICA, 9);
-        float yActual = yInicio - altoFila;
+            // Fecha, RIF y alumno
+            contenido.beginText();
+            contenido.setFont(PDType1Font.HELVETICA, 11);
+            contenido.newLineAtOffset(50, 700);
+            contenido.showText("Fecha: " + LocalDate.now());
+            contenido.newLineAtOffset(0, -15);
+            contenido.showText("RIF: " + new ConfigGeneral().get("rif"));
+            contenido.newLineAtOffset(0, -15);
+            contenido.showText("Alumno: " + estudiante.getNombre1() + " " + estudiante.getApellido1());
+            contenido.endText();
 
-        for (DetallesPago dp : detalles) {
-            String[] datos = {
-                    dp.getMesCorrespondiente() != null ? dp.getMesCorrespondiente() : "-",
-                    dp.getDescripcion(),
-                    dp.getMetodoPago(),
-                    dp.getNumTrans() != null ? dp.getNumTrans() : "-",
-                    String.format("%.2f", dp.getMontoTotal()),
-                    String.format("%.2f", dp.getMontoPagado())
-            };
-            for (int i = 0; i < datos.length; i++) {
-                float x = margenIzq + i * anchoCelda;
+            // Título sección detalle
+            float y = 645;
+            contenido.setFont(PDType1Font.HELVETICA, 10);
+            contenido.beginText();
+            contenido.newLineAtOffset(50, y);
+            contenido.showText("Detalle de pagos:");
+            contenido.endText();
+
+            // Filas de la tabla
+            float xDescripcion = 50;
+            float xCantidad    = 180;
+            float xPrecio      = 230;
+
+            y -= 20;
+
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                String descripcion = modelo.getValueAt(i, 0).toString();
+                int cantidad       = (Integer) modelo.getValueAt(i, 1);
+                double precio      = (Double) modelo.getValueAt(i, 2);
+
+                // Descripción
                 contenido.beginText();
-                contenido.newLineAtOffset(x + 2, yActual);
-                contenido.showText(datos[i]);
+                contenido.newLineAtOffset(xDescripcion, y);
+                contenido.showText(descripcion);
                 contenido.endText();
-                contenido.addRect(x, yActual - altoFila, anchoCelda, altoFila);
+
+                // Cantidad
+                contenido.beginText();
+                contenido.newLineAtOffset(xCantidad, y);
+                contenido.showText(String.valueOf(cantidad));
+                contenido.endText();
+
+                // Precio
+                contenido.beginText();
+                contenido.newLineAtOffset(xPrecio, y);
+                contenido.showText("Bs " + String.format("%.2f", precio));
+                contenido.endText();
+
+                y -= 15;
             }
-            contenido.stroke();
-            yActual -= altoFila;
+
+
+            // Totales por método de pago (solo si hay montos > 0)
+            Map<String, Double> resumen = obtenerMontosPorMetodoPago(carrito.getConceptos());
+
+            double total = 0;
+            for (Map.Entry<String, Double> entry : resumen.entrySet()) {
+                if (entry.getValue() > 0) {
+                    y -= 15;
+                    contenido.beginText();
+                    contenido.newLineAtOffset(50, y);
+                    contenido.setFont(PDType1Font.HELVETICA, 10);
+                    contenido.showText("Total " + entry.getKey() + ": Bs " + entry.getValue());
+                    total += entry.getValue();
+                    contenido.endText();
+                }
+            }
+
+            // Total general
+            y -= 20;
+            contenido.beginText();
+            contenido.newLineAtOffset(50, y);
+            contenido.setFont(PDType1Font.HELVETICA_BOLD, 11);
+            contenido.showText("Total: Bs " + total);
+            contenido.endText();
+
+            // Pie de factura
+            y -= 40;
+            contenido.beginText();
+            contenido.newLineAtOffset(50, y);
+            contenido.setFont(PDType1Font.HELVETICA_OBLIQUE, 9);
+            contenido.showText("Gracias por su pago.");
+            contenido.endText();
+
+            contenido.close();
+
+            // Guardar factura en carpeta Documents/Facturas
+            String rutaBase = System.getProperty("user.home") + "/Documents/Facturas";
+            new File(rutaBase).mkdirs(); // crea si no existe
+
+            String nombreArchivo = rutaBase + "/Factura_" + idFactura + "_" + estudiante.getId() + "_" + LocalDate.now() + ".pdf";
+            documento.save(nombreArchivo);
+
+            System.out.println("📄 Factura guardada como: " + nombreArchivo);
+
+        } catch (IOException e) {
+            System.out.println("Error al generar factura: " + e.getMessage());
+        }
+    }
+
+
+    public static Map<String, Double> obtenerMontosPorMetodoPago(List<DetallesPago> listaPagos) {
+        Map<String, Double> totales = new LinkedHashMap<>();
+
+        for (DetallesPago pago : listaPagos) {
+            String metodo = pago.getMetodoPago();
+            totales.merge(metodo, pago.getMontoPagado(), Double::sum);
+
+            List<Abono> abonos = pago.getAbonos();
+            if (abonos != null) {
+                for (Abono ab : abonos) {
+                    String metodoAbono = ab.getMetodoPago();
+                    totales.merge(metodoAbono, ab.getMontoAbonado(), Double::sum);
+                }
+            }
         }
 
-        // 🖋️ Firma
-        contenido.beginText();
-        contenido.newLineAtOffset(400, 100);
-        contenido.setFont(PDType1Font.HELVETICA_OBLIQUE, 10);
-        contenido.showText("Firma del Administrador:");
-        contenido.endText();
-
-        contenido.moveTo(400, 95);
-        contenido.lineTo(550, 95);
-        contenido.stroke();
-
-        contenido.close();
-        documento.save(rutaArchivoPDF);
-        documento.close();
-
-        System.out.println("Factura generada con éxito en: " + rutaArchivoPDF);
+        return totales;
     }
+
+
 }

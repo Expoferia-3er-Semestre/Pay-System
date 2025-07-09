@@ -1,6 +1,5 @@
 package expoferia.pagos.gestionpagos.gui.tabla;
 
-import expoferia.pagos.gestionpagos.dao.DetallesPagoDAO;
 import expoferia.pagos.gestionpagos.entidades.Abono;
 import expoferia.pagos.gestionpagos.entidades.DetallesPago;
 import expoferia.pagos.gestionpagos.gui.modulos.CarritoPago;
@@ -11,15 +10,12 @@ import java.util.List;
 
 public class DetallePagoTableModel extends DefaultTableModel {
 
-    CarritoPago carritoPago;
     private final List<Object> elementosOriginales = new ArrayList<>();
 
     private static final String[] COLUMNAS = {
             "Descripción", "Cantidad", "Precio Unidad", "Total Bs"
     };
     private double montoTotal;
-
-    private final DetallesPagoDAO detallesPagoDAO = new DetallesPagoDAO();
 
     public DetallePagoTableModel() {
         super(COLUMNAS, 0);
@@ -71,13 +67,15 @@ public class DetallePagoTableModel extends DefaultTableModel {
     public double getTotalGeneral() {
         double total = 0;
         for (int i = 0; i < getRowCount(); i++) {
-            Object valor = getValueAt(i, 3);
+            Object valor = getValueAt(i, 2);
             if (valor instanceof Double d) {
                 total += d;
             }
         }
         return total;
     }
+
+
 
     public void agregarFila(DetallesPago dp, double montoPagado) {
         montoTotal += montoPagado;
@@ -150,6 +148,5 @@ public class DetallePagoTableModel extends DefaultTableModel {
 
         montoTotal = acumulado;
     }
-
 
 }

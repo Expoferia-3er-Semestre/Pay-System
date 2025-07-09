@@ -31,11 +31,27 @@ public class CarritoPago {
         this.tablaModelo = modelo;
     }
 
-    public void eliminarConcepto(int index) {
-        if (index >= 0 && index < conceptos.size()) {
-            conceptos.remove(index);
+    public static Map<String, Double> obtenerMontosPorMetodoPago(List<DetallesPago> listaPagos) {
+        Map<String, Double> totales = new HashMap<>();
+
+        for (DetallesPago pago : listaPagos) {
+            // Método principal del pago
+            String metodoPrincipal = pago.getMetodoPago();
+            totales.merge(metodoPrincipal, pago.getMontoPagado(), Double::sum);
+
+            // Abonos asociados
+            List<Abono> abonos = pago.getAbonos();
+            if (abonos != null) {
+                for (Abono ab : abonos) {
+                    String metodoAbono = ab.getMetodoPago();
+                    totales.merge(metodoAbono, ab.getMontoAbonado(), Double::sum);
+                }
+            }
         }
+
+        return totales;
     }
+
 
     public List<DetallesPago> getConceptos() {
         return conceptos;

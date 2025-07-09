@@ -64,7 +64,7 @@ public class PagoReciboDAO {
                 return null; // En caso de error o que no exista
         }
 
-        public boolean registrarPago(PagoRecibo recibo, List<DetallesPago> nuevosDetalles, List<Abono> abonos) {
+        public int registrarPago(PagoRecibo recibo, List<DetallesPago> nuevosDetalles, List<Abono> abonos) {
                 String sqlRecibo = "INSERT INTO pago_recibo (id_estudiante, monto_total, monto_pagado, estado, fecha_pago) VALUES (?, ?, ?, ?, ?)";
                 String sqlDetalle = """
         INSERT INTO detalles_pago 
@@ -148,21 +148,21 @@ public class PagoReciboDAO {
                                 idsAfectados.add(idDetalle);
                         }
 
-                        // 🔄 Sincronizar monto_pagado real con suma de abonos
+                        // 🔄 Actualizar montos por abonos
                         for (int idDetalle : idsAfectados) {
                                 psUpdateMonto.setInt(1, idDetalle);
                                 psUpdateMonto.executeUpdate();
                         }
 
                         con.commit();
-                        return true;
+                        return idRecibo; // 🎯 éxito, devolvemos el ID
 
                 } catch (SQLException e) {
                         System.out.println("Error en registrarPago: " + e.getMessage());
                         try { getConexion().rollback(); } catch (SQLException ex) {
                                 System.out.println("Error en rollback: " + ex.getMessage());
                         }
-                        return false;
+                        return -1; // ❌ error, valor negativo como bandera
                 }
         }
 
